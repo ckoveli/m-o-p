@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Greška u serveru | Mesec Od Papira</title>
+	<script type="text/javascript" src="js/fontawesome.js"></script>
+	<link rel="shortcut icon" type="image/png" href="favicon/favicon.png">
+    <style type="text/css">
+		*{
+    		margin: 0;
+    		padding: 0;
+    		box-sizing: border-box;
+    		font-family: sans-serif;
+		}
+		html, body{
+			position: relative;
+			height: 100%;
+		    background: #fafafa;
+		}
+        .container{
+			display: block;
+			position: relative;
+			padding-bottom: 250px;
+			min-height: 100vh;
+			overflow: hidden;
+		}
+		a{
+            cursor: pointer;
+            text-decoration: none;
+			font-size: inherit;
+            color: inherit;
+        }
+        a:hover{
+            color: #161616;
+            transition: 0.25s;
+        }
+		.logo{
+		    display: block;
+		    min-height: 10px;
+		    text-align: center;
+		    letter-spacing: 5px;
+		    font-family: Chalkduster, fantasy;
+		    font-size: 20px;
+		    background: rgb(22, 22, 22);
+		    color: white;
+		    animation: navLoad 0.5s ease-in;
+		}
+		.logo img{
+		    cursor: pointer;
+		    margin-top: 5px;
+		    width: 100px;
+		    height: 100px;
+		    animation: navLoad 1s ease-in;
+		}
+        .logo h4{
+            cursor: pointer;
+        }
+		nav{
+		    display: flex;
+			position: relative;
+		    height: 50px;
+		    justify-content: space-around;
+		    align-items: center;
+		    font-family: Optima, sans-serif;
+		    border-bottom: 1px solid #dcdcdc;
+		    background: #ffffff;
+		    animation: navLoad 0.5s ease-in;
+		}
+		.sticky{
+			position: fixed;
+			z-index: 10;
+			top: 0;
+			width: 100%;
+		}
+		.search{
+		    position: absolute;
+			top: 12px;
+		    left: 70px;
+		}
+		.input{
+		    cursor: pointer;
+		    position: absolute;
+		    width: 25px;
+		    height: 25px;
+		    padding-left: 25px;
+		    font-size: 15px;
+		    letter-spacing: 1px;
+		    border: 1px solid #161616;
+		    border-radius: 50%;
+		    outline: none;
+		    background: #fafafa;
+		    transition: 0.5s;
+		}
+		.inputClicked{
+		    cursor: text;
+		    width: 20vw;
+		    padding-left: 5px;
+		    border-radius: 0;
+		    transition-delay: 0.25s;
+		    transition: 0.5s;
+		}
+        .searchBtn{
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 10px;
+            border: none;
+            outline: none;
+            background: none;
+        }
+        .searchBtn::before{
+            position: absolute;
+            top: 24px;
+            right: -29px;
+            width: 8px;
+            height: 2px;
+            content: "";
+            background: #161616;
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+        .close::before, .close::after{
+            position: absolute;
+            top: 12px;
+            left: 20vw;
+            width: 15px;
+            height: 2px;
+            content: "";
+            background: #161616;
+            transition: 0.5s;
+        }
+        .close::before{
+            transform: rotate(-45deg);
+        }
+        .close::after{
+            transform: rotate(45deg);
+        }
+		.links{
+		    display: flex;
+		    width: 500px;
+		    text-transform: uppercase;
+		    justify-content: space-around;
+		}
+		.links li{
+		    cursor: default;
+		    list-style-type: none;
+		    letter-spacing: 2px;
+		    line-height: 48px;
+		    font-size: 13px;
+		    font-weight: bold;
+		    color: #161616;
+		}
+		.links a{
+		    display: block;
+		    text-decoration: none;
+		    letter-spacing: 3px;
+		    line-height: 48px;
+		    font-size: 13px;
+		    font-weight: bold;
+		    border-bottom: 1px solid transparent;
+		    color: #161616;
+		}
+		.links a:hover{
+		    border-bottom: 1px solid #161616;
+		}
+		.mobile{
+		    display: none;
+		    position: relative;
+		    left: 26%;
+		    cursor: pointer;
+		}
+		.mobile div{
+		    margin: 5px;
+		    width: 25px;
+		    height: 2px;
+		    background: #161616;
+		    transition: all 0.5s ease;
+		}
+		.input::placeholder{
+		    opacity: 0;
+		}
+		.input:focus::placeholder{
+		    opacity: 1;
+		}
+		.wrapper{
+			position: relative;
+			min-height: 100%;
+		}
+        .card{
+            position: relative;
+            top: 50%;
+    		left: 50%;
+    		padding: 20px;
+    		width: 450px;
+    		transform: translate(-50%, 50%);
+    		justify-content: center;
+    		text-align: center;
+    		line-height: 20px;
+    		border: 1px solid #dcdcdc;
+    		border-radius: 10px;
+    		background: #ffffff;
+    		color: #161616;
+    		animation: articleLoad 0.5s ease-in 0.5s;
+    		animation-fill-mode: forwards;
+    		opacity: 0;
+    		transition: 0.5s;
+        }
+        .card h1{
+            margin-top: 60px;
+            margin-bottom: 60px;
+            text-align: center;
+            font-family: Optima, sans-serif;
+            font-size: 52px;
+            color: #161616;
+            animation: headerLoad 0.5s ease-in 0.5s;
+            animation-fill-mode: forwards;
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        .card p{
+            margin-top: 60px;
+            margin-bottom: 30px;
+            font-size: 16px;
+            color: #505050;
+        }
+        .card button{
+            cursor: pointer;
+		    position: relative;
+		    width: 175px;
+		    height: 30px;
+            border: none;
+            font-size: 14px;
+		    background: #007bf6;
+		    color: white;
+		    transition: 0.25s;
+        }
+		.footer{
+            position: absolute;
+            bottom: 0;
+            padding-top: 20px;
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            border-top: 1px solid #dcdcdc;
+            background: #ffffff;
+            color: #505050;
+        }
+        .footer-left{
+            position: absolute;
+            left: 15%;
+        }
+        .footer-right{
+			display: flex;
+            position: absolute;
+            right: 15%;
+        }
+		.footer i{
+			width: 20px;
+			height: 100%;
+			font-size: 20px;
+		}
+        @keyframes navLoad{
+            0%{
+                transform: translateY(-200%);
+            }
+            100%{
+                transform: translateY(0);
+            }
+        }
+        @keyframes headerLoad{
+            0%{
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            100%{
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes articleLoad{
+            0%{
+                transform: translate(-50%, 45%);
+                opacity: 0;
+            }
+            100%{
+                transform: translate(-50%, 50%);
+                opacity: 1;
+            }
+        }
+        @media screen and (max-width: 1024px){
+            .search{
+                left: 19%;
+            }
+		    .inputClicked{
+		        width: 60vw;
+				z-index: 10;
+		        transition-delay: 0.25s;
+		        transition: 0.5s;
+		    }
+		    .close::before, .close::after{
+		        left: 60vw;
+				z-index: 10;
+		    }
+		    .links{
+		        display: flex;
+		        position: absolute;
+		        z-index: 10;
+		        flex-direction: column;
+				top: 49px;
+		        right: 0px;
+		        width: 50vw;
+		        height: 500px;
+		        align-items: center;
+		        border: 1px solid #dcdcdc;
+		        background: #ffffff;
+		        transform: translateX(100%);
+		        transition: transform 0.5s ease-in;
+		    }
+            .links li{
+                opacity: 0;
+            }
+            .links a{
+                line-height: 0;
+            }
+            .links a:hover{
+                border: none;
+            }
+            .mobile{
+                display: block;
+            }
+            .linksActive{
+                transform: translateX(0%);
+            }
+            .footer{
+                height: 75px;
+            }
+    		.footer-left{
+    		    left: 0;
+				right: 0;
+				margin-left: auto;
+				margin-right: auto;
+				width: 400px;
+    		}
+    		.footer-right{
+                position: relative;
+				top: 25px;
+ 				left: 0; 
+ 				right: 0; 
+ 				margin-left: auto; 
+ 				margin-right: auto; 
+ 				width: 400px;
+    		}
+        }
+        @keyframes navLinkFade{
+            from{
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to{
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+        .toggle .line1{
+            transform: rotate(-45deg) translate(-5px,6px);
+        }
+        .toggle .line2{
+            opacity: 0;
+        }
+        .toggle .line3{
+            transform: rotate(45deg) translate(-5px,-6px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+	    <div class="logo">
+	    <img src="logo/mop.png" onclick="window.location.href = '/'">
+	    	<h4 onclick="window.location.href = '/'">Mesec Od Papira</h4>
+	    </div>
+		<nav>
+			<div class="search">
+				<form class="searchBox" action="/pretraga" method="GET">
+					<input class="input" type="text" placeholder="Pretraži..." name="q">
+					<button class="searchBtn" type="button"></button>
+				</form>
+			</div><% if(token == true){ %> 
+			<%- include('../admin/partials/_nav') %> 
+			<% }else{ %> 
+				<ul class="links">
+					<li><a href="/">Početna</a></li>
+					<li><a href="/poezija">Poezija</a></li>
+					<li><a href="/o-meni">O meni</a></li>
+				</ul>
+<%}%><div class="mobile">
+				<div class="line1"></div>
+				<div class="line2"></div>
+				<div class="line3"></div>
+			</div>
+		</nav>
+        <div class="wrapper">
+            <div class="card">
+                <h1>500</h1>
+                <p>Žao nam je, došlo je do greške u serveru.<br><br> Pokušajte osvežiti stranicu ili kontaktirajte administratora ako se greška nastavi.<br>
+                </p>
+                <a href="/"><button>Nazad na početnu</button></a>
+            </div>
+        </div>
+		<div class="footer">
+			<div class="footer-left">
+				Copyright &copy;<script type="text/javascript">document.write(`&nbsp${new Date().getFullYear()}&nbsp`)</script><a href="/">Mesec Od Papira</a>
+			</div>
+			<div class="footer-right">
+				Designed, developed and distributed by&nbsp;<a href="https://www.instagram.com/velickovicdj/" style="display: inherit;"><i class="fa fa-instagram"></i>velickovicdj</a>
+			</div>
+		</div>
+    </div>
+    <script type="text/javascript">
+        const searchBtn = document.querySelector('.searchBtn'),
+        input = document.querySelector('.input'),
+        mobile = document.querySelector('.mobile'),
+        links = document.querySelector('.links'),
+        navLinks = document.querySelectorAll('.links li');
+
+        window.onscroll = function() {stickyNav()};
+
+        const nav = document.querySelector('nav'),
+        sticky = nav.offsetTop;
+
+        function stickyNav() {
+          if (window.pageYOffset >= sticky) {
+            nav.classList.add('sticky')
+          } else {
+            nav.classList.remove('sticky');
+          }
+        }
+
+		window.addEventListener('mouseup', (event)=>{
+		    if(event.target != input){
+		        input.blur();
+		        document.querySelector('.close').click();
+		    }
+		});
+		const navSlide = ()=>{
+		    mobile.addEventListener('click', ()=>{
+		        links.classList.toggle('linksActive');
+		        navLinks.forEach((link, index)=>{
+		            if(link.style.animation){
+		                link.style.animation = '';
+		            }else{
+		                link.style.animation = `navLinkFade 0.5s ease forwards ${index/5 + 0.5}s`;
+		            }
+		        });
+		        mobile.classList.toggle('toggle');
+		    });
+		}
+		searchBtn.addEventListener('click', ()=>{
+		    input.classList.toggle('inputClicked');
+		    searchBtn.classList.toggle('close');
+		});
+		input.addEventListener('focus', ()=>{
+		    searchBtn.click()
+		});
+		navSlide();
+    </script>
+</body>
+</html>

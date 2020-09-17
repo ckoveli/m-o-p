@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uredi | Mesec Od Papira</title>
+    <script type="text/javascript" src="js/fontawesome.js"></script>
+    <link rel="shortcut icon" type="image/png" href="favicon/favicon.png">
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+		html, body{
+			position: relative;
+			height: 100%;
+		    background: #fafafa;
+		}
+		.container{
+			display: block;
+			position: relative;
+			padding-bottom: 250px;
+			min-height: 100vh;
+			overflow: hidden;
+		}
+        a{
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        a:hover{
+            color: #161616;
+            transition: 0.25s;
+        }
+		.logo{
+		    display: block;
+		    min-height: 10px;
+		    text-align: center;
+		    letter-spacing: 5px;
+		    font-family: Chalkduster, fantasy;
+		    font-size: 20px;
+		    background: rgb(22, 22, 22);
+		    color: white;
+		    animation: navLoad 0.5s ease-in;
+		}
+		.logo img{
+		    cursor: pointer;
+		    margin-top: 5px;
+		    width: 100px;
+		    height: 100px;
+		    animation: navLoad 1s ease-in;
+		}
+		.logo h4{
+		    cursor: pointer;
+		}
+		nav{
+		    display: flex;
+			position: relative;
+		    height: 50px;
+		    justify-content: space-around;
+		    align-items: center;
+		    font-family: Optima, sans-serif;
+		    border-bottom: 1px solid #dcdcdc;
+		    background: #ffffff;
+		    animation: navLoad 0.5s ease-in;
+		}
+		.sticky{
+			position: fixed;
+			z-index: 10;
+			top: 0;
+			width: 100%;
+		}
+		.wrapper{
+			position: relative;
+			min-height: 100%;
+		}
+        .card{
+		    position: relative;
+            top: -200px;
+		    left: 50%;
+		    padding: 20px;
+		    width: 69%;
+		    transform: translate(-50%, -200px);
+		    justify-content: center;
+		    text-align: center;
+		    line-height: 20px;
+		    border: 1px solid #dcdcdc;
+		    border-radius: 10px;
+		    background: #ffffff;
+		    color: #161616;
+			box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+		    animation: articleLoad 0.5s ease-in 0.5s;
+		    animation-fill-mode: forwards;
+		    opacity: 0;
+		    transition: 0.5s;
+        }
+        .title{
+            color: #161616;
+            font-family: Optima, sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .subtitle{
+            color: black;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin: 15px 0;
+        }
+        .body{
+            padding: 10px;
+            width: 100%;
+            height: 250px;
+            overflow: auto;
+            font-size: 16px;
+            color: #505050;
+        }
+        .avatar{
+            position: relative;
+            top: -150px;
+            left: 50%;
+            width: 250px;
+            height: 250px;
+            overflow: hidden;
+            transform: translateX(-50%);
+            text-align: center;
+            border: 2px solid #dcdcdc;
+            border-radius: 50%;
+            transition: 0.5s;
+        }
+        .avatar:hover{
+            cursor: pointer;
+            border: 2px solid #007bf6;
+            transition: 0.25s;
+        }
+        .picture{
+            position: relative;
+            width: 250px;
+            height: 250px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            transition: 0.5s;
+        }
+        .wrapper input,
+        .body{
+            position: relative;
+            text-align: center;
+            border: 1px solid #dcdcdc;
+            background: #fafafa;
+            transition: 0.25s;
+        }
+        .wrapper input:hover,
+        .body:hover{
+            background: #dcdcdc;
+            transition: 0.25s;
+        }
+        .cancel:hover{
+            background: #dcdcdc;
+            transition: 0.25s;
+        }
+        .wrapper input:focus,
+        .body:focus{
+            background: #fafafa;
+            border: 1px solid #007bf6;
+            transition: 0.25s;
+        }
+        .tool-list{
+            display: flex;
+            list-style: none;
+            margin-top: 20px;
+            padding: 0;
+            overflow: hidden;
+        }	
+        .tool--btn{
+            display: block;
+            border: none;
+            padding: .5rem;
+            font-size: 20px;
+            background: #ffffff;
+            color: #161616;
+        }
+        .tool--btn:hover{
+            cursor: pointer;
+            background: #dcdcdc;
+            transition: 0.25s;
+        }
+        .submit{
+            cursor: pointer;
+            position: relative;
+            width: 175px;
+            height: 30px;
+            border: none;
+            font-size: 15px;
+            background: #007bf6;
+            color: white;
+            transition: 0.25s;
+        }
+        .cancel{
+            cursor: pointer;
+            position: relative;
+            margin-right: 50px;
+            width: 175px;
+            height: 30px;
+            border: 1px solid transparent;
+            font-size: 15px;
+            background: #fafafa;
+            color: #161616;
+            transition: 0.25s;
+        }
+		.footer{
+            position: absolute;
+            bottom: 0;
+            padding-top: 20px;
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            border-top: 1px solid #dcdcdc;
+            background: #ffffff;
+            color: #505050;
+        }
+        .footer-left{
+            position: absolute;
+            left: 15%;
+        }
+        .footer-right{
+			display: flex;
+            position: absolute;
+            right: 15%;
+        }
+		.footer i{
+			width: 20px;
+			height: 100%;
+			font-size: 20px;
+		}
+
+@keyframes navLoad{
+    0%{
+        transform: translateY(-200%);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+@keyframes headerLoad{
+    0%{
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes articleLoad{
+    0%{
+        transform: translate(-50%, 45%);
+        opacity: 0;
+    }
+    100%{
+        transform: translate(-50%, 50%);
+        opacity: 1;
+    }
+}
+@media screen and (max-width: 1024px){
+    .card{
+        width: 90%;
+        transition: 0.5s;
+    }
+    .card h3{
+        margin-top: -75px;
+    }
+    .avatar{
+        top: -100px;
+        left: 50%;
+        width: 150px;
+        height: 150px;
+        transition: 0.5s;
+    }
+    .picture{
+        width: 150px;
+        height: 150px;
+        transition: 0.5s;
+    }
+    .toolbar{
+        left: 35%;
+    }
+    .footer{
+        height: 75px;
+    }
+    .footer-left{
+        left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+		width: 400px;
+    }
+    .footer-right{
+        position: relative;
+		top: 25px;
+ 		left: 0; 
+ 		right: 0; 
+ 		margin-left: auto; 
+ 		margin-right: auto; 
+ 		width: 400px;
+    }
+}
+@keyframes navLinkFade{
+    from{
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="logo/mop.png" onclick="window.location.href = '/'">
+            <h4 onclick="window.location.href = '/'">Mesec Od Papira</h4>
+        </div>
+        <nav>
+            <h3>UREDI</h3>
+        </nav>
+        <div class="wrapper">
+            <div class="card">
+	    		<div class="avatar" onclick="uploadTitleImage();">
+	    			<img class="picture" src="<%= data.picture %> ">
+	    			<input id="inputTitleImage" type="file" accept="image/*" onchange="viewTitleImage(event);" style="display: none;">
+	    		</div>
+	    		<input type="text" class="title" value="<%= data.title %> "><br>
+	    		<input type="text" class="subtitle" value="<%= data.subtitle %>"><br>
+	    		<div class="toolbar">
+	    			<ul class="tool-list">
+	    				<li class="tool">
+	    					<button 
+	    						type="button" 
+	    						data-command="bold" 
+	    						class="tool--btn">
+	    						<i class=' fas fa-bold'></i>
+	    					</button>
+	    				</li>
+	    				<li class="tool">
+	    					<button 
+	    						type="button" 
+	    						data-command="italic"
+	    						class="tool--btn">
+	    						<i class=' fas fa-italic'></i>
+	    					</button>
+	    				</li>
+	    				<li class="tool">
+	    					<button 
+	    						type="button" 
+	    						data-command="underline"
+	    						class="tool--btn">
+	    						<i class=' fas fa-underline'></i>
+	    					</button>
+	    				</li>
+	    				<li class="tool">
+	    					<button 
+	    						type="button" 
+	    						data-command="insertOrderedList"
+	    						class="tool--btn">
+	    						<i class=' fas fa-list-ol'></i>
+	    					</button>
+	    				</li>
+	    				<li class="tool">
+	    					<button 
+	    						type="button" 
+	    						data-command="insertUnorderedList"
+	    						class="tool--btn">
+	    						<i class=' fas fa-list-ul'></i>
+	    					</button>
+	    				</li>
+	    				<li class="tool">
+	    					<button 
+	    						type="button" 
+	    						data-command='justifyLeft'
+	    						class="tool--btn">
+	    						<i class=' fas fa-align-left'></i>
+	    					</button>
+	    				</li>
+	    				<li class="tool">
+	    					<button 
+	    						type="button" 
+	    						data-command='justifyCenter' 
+	    						class="tool--btn">
+	    						<i class=' fas fa-align-center'></i>
+	    					</button>
+	    				</li>
+	    				<li class="tool">
+	    					<button 
+	    						type="button" 
+	    						data-command='justifyRight'
+	    						class="tool--btn">
+	    						<i class=' fas fa-align-right'></i>
+	    					</button>
+	    				</li>
+	    				<li class="tool">
+	    					<button 
+	    						type="button" 
+	    						data-command="createlink" 
+	    						class="tool--btn">
+	    						<i class=' fas fa-link'></i>
+	    					</button>
+                        </li>
+	    			</ul>
+	    		</div>
+	    		<div class="body" contenteditable="true"><%- data.body %> </div><br><br>
+	    		<button class="cancel" onclick="window.location.href='/o-meni'">OTKAŽI</button>
+	    		<button class="submit" onclick="save()">SAČUVAJ</button>
+	    	</div>
+        </div>
+		<div class="footer">
+			<div class="footer-left">
+				Copyright &copy;<script type="text/javascript">document.write(`&nbsp${new Date().getFullYear()}&nbsp`)</script><a href="/">Mesec Od Papira</a>
+			</div>
+			<div class="footer-right">
+				Designed, developed and distributed by&nbsp;<a href="https://www.instagram.com/velickovicdj/" style="display: inherit;"><i class="fa fa-instagram"></i>velickovicdj</a>
+			</div>
+		</div>
+    </div>
+    <script type="text/javascript">
+		window.onscroll = function() {stickyNav()};
+
+        const nav = document.querySelector('nav'),
+        sticky = nav.offsetTop;
+
+        function stickyNav() {
+          if (window.pageYOffset >= sticky) {
+            nav.classList.add('sticky')
+          } else {
+            nav.classList.remove('sticky');
+          }
+        }
+        let body = document.querySelector('.body');
+        let buttons = document.getElementsByClassName('tool--btn');
+        for(let btn of buttons){
+            btn.addEventListener('click', ()=>{
+                let cmd = btn.dataset['command'];
+                if(cmd === 'createlink'){
+                    let url = prompt("Link: ", "http:\/\/");
+                    document.execCommand(cmd, false, url);
+                }else{
+                    document.execCommand(cmd, false, null);
+                }
+            })
+        }
+
+        let picture = document.querySelector('.picture').src;
+
+        function uploadTitleImage(){
+            document.getElementById('inputTitleImage').click();
+        }
+        function viewTitleImage(event){
+            let reader = new FileReader();
+            reader.onload = ()=>{
+                document.querySelector('.picture').src = reader.result;
+		        picture = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+        function save(){
+            const title = document.querySelector('.title').value,
+            subtitle = document.querySelector('.subtitle').value,
+            body = document.querySelector('.body').innerHTML;
+            
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    newTitle: title, 
+                    newSubtitle: subtitle, 
+                    newBody: body, 
+                    newPicture: picture})
+            }
+        
+            fetch('/admin/uredi/about?_method=PUT', options).then((res)=>{
+                if(res.status == 200){
+                    window.location.href = '/o-meni';
+                }
+            });
+        }
+    </script>    
+</body>
+</html>
