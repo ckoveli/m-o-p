@@ -13,11 +13,14 @@
             box-sizing: border-box;
             font-family: sans-serif;
         }
-		html, body{
-			position: relative;
-			height: 100%;
-		    background: #fafafa;
-		}
+        html, body{
+            overflow-x: hidden;
+        }
+        body{
+            position: relative;
+            font-family: Arial;
+            background: #fafafa;
+        }
 		.container{
 			display: block;
 			position: relative;
@@ -476,7 +479,7 @@
 		        left: 19%;
 		    }
 		    .inputClicked{
-		        width: 60vw;
+		        width: 61vw;
 				z-index: 10;
 		        transition-delay: 0.25s;
 		        transition: 0.5s;
@@ -539,11 +542,28 @@
     		    height: 150px;
     		    transition: 0.5s;
 			}
+			label[for=title]{
+				margin-left: -230px;
+			}
+			.title{
+				width: 100%;
+			}
+			.tool--btn{
+				font-size: 18px;
+			}
 			label[for=body]{
-				top: 435px;
-				left: 92%;
+				opacity: 0;
+			}
+			label[for=commentsEnabled]{
+				left: -80px;
+				font-size: 14px;
+			}
+			.submit{
+				width: 100px;
+				height: 50px;
 			}
             .footer{
+                font-size: 12px;
                 height: 75px;
             }
     		.footer-left{
@@ -551,8 +571,11 @@
 				right: 0;
 				margin-left: auto;
 				margin-right: auto;
-				width: 400px;
-    		}
+				width: 200px;
+            }
+            .footer i{
+                font-size: 15px;
+            }
     		.footer-right{
                 position: relative;
 				top: 25px;
@@ -560,7 +583,7 @@
  				right: 0; 
  				margin-left: auto; 
  				margin-right: auto; 
- 				width: 400px;
+ 				width: 300px;
     		}
 		}
 		@keyframes navLinkFade{

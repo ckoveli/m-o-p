@@ -13,9 +13,13 @@
             box-sizing: border-box;
             font-family: sans-serif;
         }
+        html, body{
+            overflow-x: hidden;
+        }
         body{
-          font-family: Arial;
-          background: #fafafa;
+            position: relative;
+            font-family: Arial;
+            background: #fafafa;
         }
         p{
             font-size: 15px;
@@ -323,7 +327,7 @@
                 left: 19%;
             }
             .inputClicked{
-                width: 60vw;
+                width: 61vw;
                 z-index: 10;
                 transition-delay: 0.25s;
                 transition: 0.5s;
@@ -339,9 +343,8 @@
                 flex-direction: column;
                 top: 49px;
                 right: 0px;
-                width: 50%;
+                left: 50%;
                 height: 500px;
-                align-items: center;
                 border: 1px solid #dcdcdc;
                 background: #ffffff;
                 transform: translateX(100%);
@@ -349,6 +352,7 @@
             }
             .links li{
                 opacity: 0;
+                margin-left: 60px;
             }
             .links a{
                 line-height: 0;
@@ -369,13 +373,13 @@
 			.avatar{
 		        top: -110px;
 		        left: 50%;
-		        width: 200px;
-		        height: 200px;
+		        width: 175px;
+		        height: 175px;
 		        transition: 0.5s;
 		    }
 		    .picture{
-		        width: 200px;
-		        height: 200px;
+		        width: 175px;
+		        height: 175px;
 		        transition: 0.5s;
 		    }
             .title{
@@ -383,15 +387,19 @@
                 transition: 0.5s;
             }
             .footer{
+                font-size: 12px;
                 height: 75px;
             }
     		.footer-left{
-    		    left: 115px;
+    		    left: 0;
 				right: 0;
 				margin-left: auto;
 				margin-right: auto;
-				width: 400px;
-    		}
+				width: 200px;
+            }
+            .footer i{
+                font-size: 15px;
+            }
     		.footer-right{
                 position: relative;
 				top: 25px;
@@ -399,7 +407,7 @@
  				right: 0; 
  				margin-left: auto; 
  				margin-right: auto; 
- 				width: 400px;
+ 				width: 300px;
     		}
         }
         @keyframes navLinkFade{

@@ -13,11 +13,14 @@
             box-sizing: border-box;
             font-family: sans-serif;
         }
-		html, body{
-			position: relative;
-			height: 100%;
-		    background: #fafafa;
-		}
+        html, body{
+            overflow-x: hidden;
+        }
+        body{
+            position: relative;
+            font-family: Arial;
+            background: #fafafa;
+        }
 		.container{
 			display: block;
 			position: relative;
@@ -155,10 +158,6 @@
             background: #dcdcdc;
             transition: 0.25s;
         }
-        .cancel:hover{
-            background: #dcdcdc;
-            transition: 0.25s;
-        }
         .wrapper input:focus,
         .body:focus{
             background: #fafafa;
@@ -204,7 +203,7 @@
             height: 30px;
             border: 1px solid transparent;
             font-size: 15px;
-            background: #fafafa;
+            background: #dcdcdc;
             color: #161616;
             transition: 0.25s;
         }
@@ -234,87 +233,105 @@
 			font-size: 20px;
 		}
 
-@keyframes navLoad{
-    0%{
-        transform: translateY(-200%);
-    }
-    100%{
-        transform: translateY(0);
-    }
-}
-@keyframes headerLoad{
-    0%{
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-    100%{
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-@keyframes articleLoad{
-    0%{
-        transform: translate(-50%, 45%);
-        opacity: 0;
-    }
-    100%{
-        transform: translate(-50%, 50%);
-        opacity: 1;
-    }
-}
-@media screen and (max-width: 1024px){
-    .card{
-        width: 90%;
-        transition: 0.5s;
-    }
-    .card h3{
-        margin-top: -75px;
-    }
-    .avatar{
-        top: -100px;
-        left: 50%;
-        width: 150px;
-        height: 150px;
-        transition: 0.5s;
-    }
-    .picture{
-        width: 150px;
-        height: 150px;
-        transition: 0.5s;
-    }
-    .toolbar{
-        left: 35%;
-    }
-    .footer{
-        height: 75px;
-    }
-    .footer-left{
-        left: 0;
-		right: 0;
-		margin-left: auto;
-		margin-right: auto;
-		width: 400px;
-    }
-    .footer-right{
-        position: relative;
-		top: 25px;
- 		left: 0; 
- 		right: 0; 
- 		margin-left: auto; 
- 		margin-right: auto; 
- 		width: 400px;
-    }
-}
-@keyframes navLinkFade{
-    from{
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to{
-        opacity: 1;
-        transform: translateX(0px);
-    }
-}
+        @keyframes navLoad{
+            0%{
+                transform: translateY(-200%);
+            }
+            100%{
+                transform: translateY(0);
+            }
+        }
+        @keyframes headerLoad{
+            0%{
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            100%{
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes articleLoad{
+            0%{
+                transform: translate(-50%, 45%);
+                opacity: 0;
+            }
+            100%{
+                transform: translate(-50%, 50%);
+                opacity: 1;
+            }
+        }
+        @media screen and (max-width: 1024px){
+            .card{
+                width: 90%;
+                transition: 0.5s;
+            }
+            .card h3{
+                margin-top: -75px;
+            }
+            .avatar{
+                top: -100px;
+                left: 50%;
+                width: 150px;
+                height: 150px;
+                transition: 0.5s;
+            }
+            .picture{
+                width: 150px;
+                height: 150px;
+                transition: 0.5s;
+            }
+        	.title{
+        		width: 100%;
+        	}
+            .toolbar{
+                left: 35%;
+            }
+            .tool--btn{
+        		font-size: 18px;
+        	}
+            .submit{
+        		width: 100px;
+        		height: 50px;
+        	}
+        	.cancel{
+        		width: 100px;
+        		height: 50px;
+        	}
+            .footer{
+                font-size: 12px;
+                height: 75px;
+            }
+            .footer-left{
+                left: 0;
+        		right: 0;
+        		margin-left: auto;
+        		margin-right: auto;
+        		width: 200px;
+            }
+            .footer i{
+                font-size: 15px;
+            }
+            .footer-right{
+                position: relative;
+        		top: 25px;
+         		left: 0; 
+         		right: 0; 
+         		margin-left: auto; 
+         		margin-right: auto; 
+         		width: 300px;
+            }
+        }
+        @keyframes navLinkFade{
+            from{
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to{
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
     </style>
 </head>
 <body>

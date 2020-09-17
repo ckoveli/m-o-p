@@ -1,8 +1,8 @@
 {
   "name": "mesec-od-papira",
   "version": "1.0.0",
-  "description": "All rights reserved to Mesec Od Papira.\nDesigned, developed and distributed by Velickovic Djordje",
-  "main": "srvr.js",
+  "description": "Copyright © 2020 Mesec Od Papira.\nDesigned, developed and distributed by Velickovic Djordje",
+  "main": "server.js",
   "scripts": {
     "devStart": "nodemon server.js",
     "start": "node server.js"

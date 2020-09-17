@@ -13,9 +13,13 @@
             box-sizing: border-box;
             font-family: sans-serif;
         }
+        html, body{
+            overflow-x: hidden;
+        }
         body{
-          font-family: Arial;
-          background: #fafafa;
+            position: relative;
+            font-family: Arial;
+            background: #fafafa;
         }
         p{
             font-size: 15px;
@@ -163,6 +167,10 @@
 		    background-repeat: no-repeat;
 		    transition: 0.5s;
 		}
+		#comment{
+			max-width: 500px;
+			word-wrap: break-word;
+		}
 		.wrapper input,
 		.body{
 			position: relative;
@@ -177,10 +185,6 @@
 		    background: #dcdcdc;
 		    transition: 0.25s;
 		}
-		.cancel:hover{
-            background: #dcdcdc;
-            transition: 0.25s;
-        }
 		.wrapper input:focus,
 		.body:focus{
 			background: #fafafa;
@@ -226,7 +230,7 @@
             height: 30px;
             border: 1px solid transparent;
             font-size: 15px;
-            background: #fafafa;
+            background: #dcdcdc;
             color: #161616;
             transition: 0.25s;
 		}
@@ -268,6 +272,8 @@
 			transition: 0.25s;
 		}
         table{
+			position: relative;
+			margin-bottom: 50px;
             width: 100%;
             border-collapse: collapse;
             border-top: 1px solid #dcdcdc;
@@ -349,6 +355,9 @@
     		    width: 90%;
     		    transition: 0.5s;
     		}
+			thead th{
+				padding-right: 0;
+			}
     		.card h3{
     		    margin-top: -75px;
     		}
@@ -361,37 +370,65 @@
 				top: 30%;
 				transform: translate(-50%, 30%);
 			}
+			label[for=title]{
+				margin-left: -230px;
+			}
+			.title{
+				width: 100%;
+			}
     		.picture{
     		    width: 150px;
     		    height: 150px;
     		    transition: 0.5s;
 			}
+			.tool--btn{
+				font-size: 18px;
+			}
 			label[for=body]{
-				top: 365px;
-				left: 92%;
+				opacity: 0;
+			}
+			#commentDate{
+                width: 75px;
+                text-align: center;
+                font-size: 11px;
+            }
+			#comment{
+				max-width: 150px; 
 			}
 			#delete-btn{
-                width: 75px;
-                height: 40px;
+                width: 70px;
+                height: 35px;
             }
-			.footer{
-        		height: 75px;
-    		}
+			.submit{
+				width: 100px;
+				height: 50px;
+			}
+			.cancel{
+				width: 100px;
+				height: 50px;
+			}
+            .footer{
+                font-size: 12px;
+                height: 75px;
+            }
     		.footer-left{
     		    left: 0;
 				right: 0;
 				margin-left: auto;
 				margin-right: auto;
-				width: 400px;
-    		}
+				width: 200px;
+            }
+            .footer i{
+                font-size: 15px;
+            }
     		.footer-right{
-    		    position: relative;
+                position: relative;
 				top: 25px;
  				left: 0; 
  				right: 0; 
  				margin-left: auto; 
  				margin-right: auto; 
- 				width: 400px;
+ 				width: 300px;
     		}
         }
         @keyframes navLinkFade{
@@ -540,12 +577,12 @@
 										<% }else{ %>
 											<%= comment.username %>
 										<% } %>   
-										</th><td align="right"><p style="width: 300px;"><%= comment.date %></p><br><form action="/admin/komentar/<%= [data.id, comment.id] %>?_method=DELETE" method="POST"><button id="delete-btn" type="submit">Izbriši</button></form></td>
+										</th><td align="right"><p id="commentDate"><%= comment.date %></p><br><form action="/admin/komentar/<%= [data.id, comment.id] %>?_method=DELETE" method="POST"><button id="delete-btn" type="submit">Izbriši</button></form></td>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td><p><%= comment.comment %></p></td>
+										<td><p id="comment"><%= comment.comment %></p></td>
 									</tr>
 								</tbody>
 							<% }); %> 

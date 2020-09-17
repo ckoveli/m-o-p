@@ -13,7 +13,11 @@
             box-sizing: border-box;
             font-family: sans-serif;
         }
+        html, body{
+            overflow-x: hidden;
+        }
         body{
+            position: relative;
             font-family: Arial;
             background: #fafafa;
         }
@@ -176,20 +180,27 @@
                 width: 90%;
                 transition: 0.5s;
             }
+            table td{
+                padding-right: 0;
+            }
             tbody button{
-                width: 75px;
-                height: 40px;
+                width: 70px;
+                height: 35px;
             }
             .footer{
+                font-size: 12px;
                 height: 75px;
             }
     		.footer-left{
-    		    left: 115px;
+    		    left: 0;
 				right: 0;
 				margin-left: auto;
 				margin-right: auto;
-				width: 400px;
-    		}
+				width: 200px;
+            }
+            .footer i{
+                font-size: 15px;
+            }
     		.footer-right{
                 position: relative;
 				top: 25px;
@@ -197,7 +208,7 @@
  				right: 0; 
  				margin-left: auto; 
  				margin-right: auto; 
- 				width: 400px;
+ 				width: 300px;
     		}
         }
         @keyframes navLinkFade{

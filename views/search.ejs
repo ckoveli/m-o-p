@@ -13,11 +13,14 @@
     		box-sizing: border-box;
     		font-family: sans-serif;
 		}
-		html, body{
-			position: relative;
-			height: 100%;
-		    background: #fafafa;
-		}
+        html, body{
+            overflow-x: hidden;
+        }
+        body{
+            position: relative;
+            font-family: Arial;
+            background: #fafafa;
+        }
 		.container{
 			display: block;
 			position: relative;
@@ -388,8 +391,11 @@
             .search{
                 left: 19%;
             }
+			.search-card{
+				width: 325px;
+			}
 		    .inputClicked{
-		        width: 60vw;
+		        width: 61vw;
 				z-index: 10;
 		        transition-delay: 0.25s;
 		        transition: 0.5s;
@@ -403,11 +409,10 @@
                 position: absolute;
                 z-index: 10;
                 flex-direction: column;
-				top: 49px;
-		        right: 0px;
-		        width: 50%;
-		        height: 500px;
-                align-items: center;
+                top: 49px;
+                right: 0px;
+                left: 50%;
+                height: 500px;
                 border: 1px solid #dcdcdc;
                 background: #ffffff;
                 transform: translateX(100%);
@@ -415,6 +420,7 @@
             }
             .links li{
                 opacity: 0;
+                margin-left: 60px;
             }
             .links a{
                 line-height: 0;
@@ -428,24 +434,36 @@
             .linksActive{
                 transform: translateX(0%);
             }
-			.footer{
-        		height: 75px;
-    		}
+			.card{
+				flex-direction: column;
+				left: 250px;
+				transform: translateX(-50%);
+				width: 325px;
+		        transition: 0.5s;
+		    }
+            .footer{
+                font-size: 12px;
+                height: 75px;
+            }
     		.footer-left{
-    		    left: 115px;
+    		    left: 0;
 				right: 0;
 				margin-left: auto;
 				margin-right: auto;
-				width: 400px;
-    		}
+				width: 200px;
+            }
+            .footer i{
+                font-size: 15px;
+            }
     		.footer-right{
-				top: 45px;
+                position: relative;
+				top: 25px;
  				left: 0; 
  				right: 0; 
  				margin-left: auto; 
  				margin-right: auto; 
- 				width: 400px;
-    		}	
+ 				width: 300px;
+    		}
         }
         @keyframes navLinkFade{
             from{

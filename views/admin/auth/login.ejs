@@ -13,11 +13,14 @@
     		box-sizing: border-box;
     		font-family: sans-serif;
 		}
-		html, body{
-			position: relative;
-			height: 100%;
-		    background: #fafafa;
-		}
+        html, body{
+            overflow-x: hidden;
+        }
+        body{
+            position: relative;
+            font-family: Arial;
+            background: #fafafa;
+        }
 		.container{
 			display: block;
 			position: relative;
@@ -179,7 +182,12 @@
 		    }
 		}
 		@media screen and (max-width: 1024px){
+			.card{
+				width: 325px;
+				transition: 0.5s;
+			}
             .footer{
+                font-size: 12px;
                 height: 75px;
             }
     		.footer-left{
@@ -187,8 +195,11 @@
 				right: 0;
 				margin-left: auto;
 				margin-right: auto;
-				width: 400px;
-    		}
+				width: 200px;
+            }
+            .footer i{
+                font-size: 15px;
+            }
     		.footer-right{
                 position: relative;
 				top: 25px;
@@ -196,7 +207,7 @@
  				right: 0; 
  				margin-left: auto; 
  				margin-right: auto; 
- 				width: 400px;
+ 				width: 300px;
     		}
 		}
 		@keyframes navLinkFade{
