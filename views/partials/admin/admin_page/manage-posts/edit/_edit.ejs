@@ -1,0 +1,186 @@
+
+	<div class="post-partial">
+		<label for="avatar">Naslovna slika</label>
+		<div class="avatar" onclick="uploadTitleImage();">
+			<p>Izaberi sliku</p>
+			<img class="picture" src="<%= data.picture %>">
+			<input id="inputTitleImage" type="file" accept="image/*" onchange="viewTitleImage(event);" style="display: none;">
+		</div>
+		<label for="title">Naslov</label>
+		<input type="text" class="title" value="<%= data.title %>"><br>
+		<label for="subtitle">Podnaslov</label>
+		<input type="text" class="subtitle" value="<%= data.subtitle %>"><br>
+		<div class="toolbar">
+			<ul class="tool-list">
+				<li class="tool">
+					<button 
+						onclick="executeCommand(this)"
+						type="button" 
+						data-command="bold" 
+						class="tool--btn">
+						<i class=' fas fa-bold'></i>
+					</button>
+				</li>
+				<li class="tool">
+					<button 
+						onclick="executeCommand(this)"
+						type="button" 
+						data-command="italic"
+						class="tool--btn">
+						<i class=' fas fa-italic'></i>
+					</button>
+				</li>
+				<li class="tool">
+					<button 
+						onclick="executeCommand(this)"
+						type="button" 
+						data-command="underline"
+						class="tool--btn">
+						<i class=' fas fa-underline'></i>
+					</button>
+				</li>
+				<li class="tool">
+					<button 
+						onclick="executeCommand(this)"
+						type="button" 
+						data-command="insertOrderedList"
+						class="tool--btn">
+						<i class=' fas fa-list-ol'></i>
+					</button>
+				</li>
+				<li class="tool">
+					<button 
+						onclick="executeCommand(this)"
+						type="button" 
+						data-command="insertUnorderedList"
+						class="tool--btn">
+						<i class=' fas fa-list-ul'></i>
+					</button>
+				</li>
+				<li class="tool">
+					<button 
+						onclick="executeCommand(this)"
+						type="button" 
+						data-command='justifyLeft'
+						class="tool--btn">
+						<i class=' fas fa-align-left'></i>
+					</button>
+				</li>
+				<li class="tool">
+					<button 
+						onclick="executeCommand(this)"
+						type="button" 
+						data-command='justifyCenter' 
+						class="tool--btn">
+						<i class=' fas fa-align-center'></i>
+					</button>
+				</li>
+				<li class="tool">
+					<button 
+						onclick="executeCommand(this)"
+						type="button" 
+						data-command='justifyRight'
+						class="tool--btn">
+						<i class=' fas fa-align-right'></i>
+					</button>
+				</li>
+				<li class="tool">
+					<button 
+						onclick="executeCommand(this)"
+						type="button" 
+						data-command="createlink" 
+						class="tool--btn">
+						<i class=' fas fa-link'></i>
+					</button>
+				</li>
+			</ul>
+		</div>
+		<label for="body">Telo</label>
+		<div class="body" contenteditable="true"><%- data.body %></div>
+		<div class="comments-div">
+			<label for="commentsEnabled">Dozvoli komentare</label>
+			<input type="checkbox" class="commentsEnabled" <% if(data.commentsEnabled == true){ %> checked="checked" <% } %> onclick="commentsStyle(this)" >
+		</div><br><br>
+	</div>
+        <% if(data.commentsEnabled == true){ %>
+                <h4 class="comments-title">
+                    <% if(data.comments.length>0){ %>
+                        <% if(data.comments.length + repliesCount() !== 11 && (((data.comments.length + repliesCount()) % 10).toString()).includes("1")){ %>
+                            <%= data.comments.length + repliesCount() %> Komentar 
+                        <% }else{ %>
+                            <%= data.comments.length + repliesCount() %> Komentara
+                        <% } %>   
+                    <% }else{ %>
+                        Nema komentara
+                    <% } %>
+                </h4>
+                <% if(data.comments !== undefined || array.length>0){ %>
+                    <table id="comments-partial">
+                        <% for(let i=0; i<data.comments.length; i++){ %>
+                            <thead>
+                                <tr><th id="commentName" align="left">
+                                    <% if(data.comments[i].type == 'admin'){ %>
+                                        <img src="logo/img.png" style="position: absolute; margin-top: -1px; margin-left: -30px; width: 20px; height: 20px;">Kristina Kljajić
+                                    <% }else{ %> 
+                                        <% if(data.comments[i].username == ''){ %>
+                                            Anoniman 
+                                        <% }else{ %>
+                                            <%= data.comments[i].username %>
+                                        <% } %>  
+                                    <% } %> 
+									</th><td align="right"><p id="commentDate"><%= data.comments[i].date %></p><br>
+										<form onsubmit="return deleteComment(event, '<%= [data.id, data.comments[i].id] %>')" action="" method=""><button id="delete-btn" type="submit">Izbriši</button></form>
+									</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><p id="comment"><%= data.comments[i].comment %></p><br>
+                                        <div class="replies-title id<%= i %>">
+                                        <% if(data.comments[i].replies !== undefined && data.comments[i].replies.length>0){ %>
+                                            <% if(data.comments[i].replies.length>1){ %>
+                                                <% if(data.comments[i].replies.length !== 11 && ((data.comments[i].replies.length % 10).toString()).includes("1")){ %> 
+                                                    <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')">Prikaži <%= data.comments[i].replies.length %> odgovor <span class="show-hide-icon">&#9660;</span></h3>
+                                                <% }else{ %> 
+                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')">Prikaži <%= data.comments[i].replies.length %> odgovora <span class="show-hide-icon">&#9660;</span></h3>
+                                                <% } %> 
+                                            <% } else{ %>
+                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')">Prikaži odgovor <span class="show-hide-icon">&#9660;</span></h3>
+                                            <% } %>  
+                                            </div>
+                                            <tbody class="replies-partial id<%= i %>" style="display: none; float: right; margin: 0 auto; width: 90%;">
+                                                <% for(let j=0; j<data.comments[i].replies.length; j++){ %>
+                                                    <tr id="reply_<%= i %>_<%= j %>" style="font-size: 15px;"><th align="left">
+                                                        <% if(data.comments[i].replies[j].type == 'admin'){ %>
+                                                            <img src="logo/img.png" style="position: absolute; margin-top: -1px; margin-left: -30px; width: 20px; height: 20px;">Kristina Kljajić
+                                                        <% }else{ %> 
+                                                            <% if(data.comments[i].replies[j].username == ''){ %>
+                                                                Anoniman 
+                                                            <% }else{ %>
+                                                                <%= data.comments[i].replies[j].username %>
+                                                            <% } %>  
+                                                        <% } %>  
+														</th><td align="right" style="width: 150px;"><p id="commentDate"><%= data.comments[i].replies[j].date %></p><br>
+															<form onsubmit="return deleteReply(event, '<%= [data.id, data.comments[i].id, data.comments[i].replies[j].id, i] %>')" action="" method=""><button id="delete-btn" type="submit">Izbriši</button></form>
+														</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left"><p id="reply"><%= data.comments[i].replies[j].reply %></p></td>
+                                                    </tr> 
+                                                <% } %>
+                                            </tbody>
+                                            <% }else{ %>
+                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')"></h3>
+                            
+                                                <tbody class="replies-partial id<%= i %>" style="display: none; float: right; margin: 0 auto; width: 90%;">
+                                                </tbody>
+                                            <% } %>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        <% } %>
+                    </table>
+                <% } %>  
+        <% } %>  
+		<button class="cancel" onclick="load('manage-posts/_manage', 'js/partials/admin/admin_page/manage-posts/_manage.js');">OTKAŽI</button>
+		<button class="submit" onclick="save('<%= data.id %>')">SAČUVAJ</button>

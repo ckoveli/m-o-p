@@ -1,0 +1,11 @@
+<p style="color: #505050;"><%= securityQuestionQuestion %>?</p>
+<input type="text" name="answer" autofocus>
+<br><br><br><br>
+<button type="submit">POTVRDI</button>
+<script type="text/javascript">
+	function proceedTwoStep(e, form){
+        e.preventDefault();
+        
+		window.location.href = '<%= target %>'+document.querySelector('.input-data').getElementsByTagName('input')[0].value;
+	}
+</script>

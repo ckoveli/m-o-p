@@ -395,7 +395,7 @@
 					<button class="searchBtn" type="button"></button>
 				</form>
 			</div><% if(token == true){ %> 
-			<%- include('../admin/partials/_nav') %> 
+			<%- include('../partials/admin/_nav') %> 
 			<% }else{ %> 
 				<ul class="links">
 					<li><a href="/">Početna</a></li>
@@ -446,10 +446,17 @@
         }
 
 		window.addEventListener('mouseup', (event)=>{
-		    if(event.target != input){
+			if(event.target == document.querySelector('.close')){
+				input.value = '';
+				input.focus();
+				return;
+			}
+		    if(event.target !== input && event.target !== document.querySelector('.close')){
 		        input.blur();
-		        document.querySelector('.close').click();
-		    }
+                if(!!document.querySelector('.close')){
+                    document.querySelector('.close').click();
+				}		    
+			}
 		});
 		const navSlide = ()=>{
 		    mobile.addEventListener('click', ()=>{

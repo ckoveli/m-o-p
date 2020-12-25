@@ -1,0 +1,61 @@
+<input onkeyup="autotab(this, 1)" id="0" type="text" name="code" maxlength="1" autofocus oninvalid="this.setCustomValidity('Popunite ovo polje.')">
+<input onkeyup="autotab(this, 2)" id="1" type="text" name="code" maxlength="1" oninvalid="this.setCustomValidity('Popunite ovo polje.')">
+<input onkeyup="autotab(this, 3)" id="2" type="text" name="code" maxlength="1" oninvalid="this.setCustomValidity('Popunite ovo polje.')">
+<input onkeyup="autotab(this, 4);" id="3" type="text" name="code" maxlength="1" oninvalid="this.setCustomValidity('Popunite ovo polje.')">
+<br><br><br>
+<button type="submit">POTVRDI</button>
+<script type="text/javascript">
+    let seconds='<%= time %>';
+	let timer;
+	function countDown(){
+		if(seconds<60){
+		  	document.getElementById("timer").innerText = seconds;
+		}
+		if(seconds>0){
+			seconds--;
+			document.cookie = `timer=${seconds}`;
+		}else{
+			clearInterval(timer);
+			document.getElementById('timer').style.color = 'red';
+			document.querySelector('.title').getElementsByTagName('p')[0].innerText = 'Vreme je isteklo! Pokušajte ponovo slanjem novog verifikacionog koda ili se prijavite.';
+			for(let i=0; i<=3; i++){
+				document.getElementById(i).style.pointerEvents = 'none';
+			}
+			document.querySelector('.input-data').getElementsByTagName('button')[0].innerText = 'POŠALJI KOD';
+		}
+	}
+	if(!timer){
+		timer = window.setInterval(()=>{ 
+		countDown();
+	  	}, 1000);
+	}
+	document.getElementById("timer").innerText='<%= time %>';
+
+	function autotab(field, id){
+		if(field.value.length >= field.maxLength){
+			document.getElementById(id).focus();
+		}
+	}
+	function proceedTwoStep(e, form){
+		e.preventDefault();
+
+		if(parseInt(seconds)<1){
+			fetch('/admin/two-step', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({name: '<%= name %>', mail: '<%= mail %>'})
+			}).then(res => res.json()).then((res)=>{
+				window.location.href = '/admin/two-step/';
+			});
+		}else{
+			let code;
+
+			for(let i=0; i<=3; i++){
+				code += document.getElementById(i).value;
+			}
+			window.location.href = '<%= target %>'+code.split('undefined')[1];
+		}
+	}
+</script>

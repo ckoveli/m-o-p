@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Nedostupno | Mesec Od Papira</title>
-	<script type="text/javascript" src="js/fontawesome.js"></script>
-	<link rel="shortcut icon" type="image/png" href="favicon/favicon.png">
+	<script type="text/javascript" src="../js/fontawesome.js"></script>
+	<link rel="shortcut icon" type="image/png" href="../favicon/favicon.png">
     <style type="text/css">
 		*{
     		margin: 0;
@@ -385,7 +385,7 @@
 <body>
     <div class="container">
 	    <div class="logo">
-	    <img src="logo/mop.png" onclick="window.location.href = '/'">
+	    <img src="../logo/mop.png" onclick="window.location.href = '/'">
 	    	<h4 onclick="window.location.href = '/'">Mesec Od Papira</h4>
 	    </div>
 		<nav>
@@ -395,7 +395,7 @@
 					<button class="searchBtn" type="button"></button>
 				</form>
 			</div><% if(token == true){ %> 
-			<%- include('../admin/partials/_nav') %> 
+			<%- include('../partials/admin/_nav') %> 
 			<% }else{ %> 
 				<ul class="links">
 					<li><a href="/">Početna</a></li>
@@ -446,10 +446,17 @@
         }
 
 		window.addEventListener('mouseup', (event)=>{
-		    if(event.target != input){
+			if(event.target == document.querySelector('.close')){
+				input.value = '';
+				input.focus();
+				return;
+			}
+		    if(event.target !== input && event.target !== document.querySelector('.close')){
 		        input.blur();
-		        document.querySelector('.close').click();
-		    }
+                if(!!document.querySelector('.close')){
+                    document.querySelector('.close').click();
+				}		    
+			}
 		});
 		const navSlide = ()=>{
 		    mobile.addEventListener('click', ()=>{

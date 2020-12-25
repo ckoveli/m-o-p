@@ -1,0 +1,19 @@
+<div class="title">
+    <p>PRIJAVA</p>
+</div>
+<div class="input-data">
+    <form action="/admin/prijava" method="POST">
+        <div class="name">
+            <input onkeyup="inputFilled(this, document.getElementById('label-name'))" type="text" name="name" required>
+            <label id="label-name" for="name">Ime</label>
+        </div>
+        <br><br><br>
+        <div class="pass">
+            <input onkeyup="inputFilled(this, document.getElementById('label-pass'));" type="password" name="pass" required>
+            <label id="label-pass" for="pass">Lozinka</label>
+        </div>
+        <br><br><br>
+        <button type="submit">OK</button>
+    </form>
+<p onclick="forgotPassword()" id="forgot-password">Zaboravljena lozinka?</p>
+</div>

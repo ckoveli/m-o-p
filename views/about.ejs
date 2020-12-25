@@ -3,10 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O meni | Mesec Od Papira</title><% if(token == true){ %> <%- include('admin/partials/_about_links') %> <% } %>
-    <script type="text/javascript" src="js/fontawesome.js"></script>
+    <title>O meni | Mesec Od Papira</title>
+    <script type="text/javascript" src="js/fontawesome.js"></script><% if(token == true){ %> 
+    <style type="text/css">
+        .gear{
+            position: absolute;
+            top: 10px;
+            left: 60%;
+            width: 69%;
+            height: 100px;
+        }
+        .gear img{
+            cursor: pointer;
+            position: relative;
+            width: 35px;
+            height: 35px;
+        }
+        .settings{
+            display: none;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            z-index: 10;
+            width: 200px;
+            height: 50px;
+            text-align: center;
+            color: #161616;
+        }
+        .settings button{
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            width: 175px;
+            height: 30px;
+            background: #ffffff;
+            border: #dcdcdc;
+            border-radius: 10px;
+            font-size: 20px;
+            color: #161616;
+            transition: 0.25s;
+        }
+        .settings button:hover{
+            background: #dcdcdc;
+            transition: 0.25s;
+        }
+        .blur{
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            border-radius: 10px;
+            background: rgba(22, 22, 22, 0.8);
+        }
+    </style>
+    <link id="css-partial" rel="stylesheet" href=""></link><% } %>
     <link rel="shortcut icon" type="image/png" href="favicon/favicon.png">
-    <style>
+    <style type="text/css">
         *{
             margin: 0;
             padding: 0;
@@ -443,7 +502,7 @@
                 <button class="searchBtn" type="button"></button>
             </form>
         </div><% if(token == true){ %> 
-        <%- include('admin/partials/_nav') %> 
+        <%- include('partials/admin/_nav') %> 
         <% }else{ %> 
             <ul class="links">
                 <li><a href="/">Početna</a></li>
@@ -460,10 +519,10 @@
         <div class="card">
             <div class="avatar">
                 <img class="picture" src="<%= data.picture %>">
-            </div><% if(token == true){ %> <%- include('admin/partials/_gear') %>  <% } %> 
+            </div><% if(token == true){ %> <%- include('partials/admin/_gear') %>  <% } %> 
             <h3 class="title"><%= data.title %></h3>
             <p class="subtitle"><%= data.subtitle %></p>
-            <div class="body"><%- data.body %> </div><% if(token == true){ %> <%- include('admin/partials/_settings') %>  <% } %> 
+            <div class="body"><%- data.body %> </div><% if(token == true){ %> <%- include('partials/admin/_settings') %>  <% } %> 
             <div class="social-media">
                 <a href="https://www.facebook.com/profile.php?id=100019338011818" target="blank"><i class="fa fa-facebook"></i></a>
                 <a href="https://www.instagram.com/mesec_od_papiraa/" target="blank"><i class="fa fa-instagram"></i></a>
@@ -486,9 +545,6 @@
         links = document.querySelector('.links'),
         navLinks = document.querySelectorAll('.links li');
 
-        const title = document.querySelector('.title'),
-        picture = document.querySelector('.picture').src;
-
         window.onscroll = function() {stickyNav()};
 
             const nav = document.querySelector('nav'),
@@ -503,10 +559,17 @@
         }
 
         window.addEventListener('mouseup', (event)=>{
-            if(event.target != input){
-                input.blur();
-                document.querySelector('.close').click();
-            }
+			if(event.target == document.querySelector('.close')){
+				input.value = '';
+				input.focus();
+				return;
+			}
+		    if(event.target !== input && event.target !== document.querySelector('.close')){
+		        input.blur();
+                if(!!document.querySelector('.close')){
+                    document.querySelector('.close').click();
+				}		    
+			}
         });
         const navSlide = ()=>{
             mobile.addEventListener('click', ()=>{
@@ -537,7 +600,84 @@
             }
         }
         navSlide();
-    </script>
+    </script><% if(token == true){ %> 
+    <script type="text/javascript">
+        const gear = document.querySelector('.gear img'),
+        settings = document.querySelector('.settings'),
+        blur = document.querySelector('.blur');
+        gear.addEventListener('click', ()=>{
+            settings.style.display = 'block';
+            blur.style.display = 'block';
+        });
+        window.addEventListener('mouseup', (event)=>{
+            if(settings.style.display == 'block' && event.target !== settings){
+                settings.style.display = 'none';
+                blur.style.display = 'none';
+            }
+        });
+        async function aboutEdit(e){
+            e.preventDefault();
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({partial: 'manage-posts/edit/_about'})
+            }
+        
+            await fetch('/admin', options).then(res => res.json()).then((res)=>{
+                document.querySelector('.card').innerHTML = res.html;
+                document.getElementById('css-partial').href = res.css;
+            })
+        }
+        let body = document.querySelector('.body');
+        function executeCommand(btn){
+            let cmd = btn.dataset['command'];
+            if(cmd === 'createlink'){
+                let url = prompt("Link: ", "http:\/\/");
+                document.execCommand(cmd, false, url);
+            }else{
+                document.execCommand(cmd, false, null);
+            }
+        }
+        
+        let picture = document.querySelector('.picture').src;
+        
+        function uploadTitleImage(){
+            document.getElementById('inputTitleImage').click();
+        }
+        function viewTitleImage(event){
+            let reader = new FileReader();
+            reader.onload = ()=>{
+                document.querySelector('.picture').src = reader.result;
+                picture = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+        async function save(){
+            const title = document.querySelector('.title').value,
+            subtitle = document.querySelector('.subtitle').value,
+            body = document.querySelector('.body').innerHTML;
+            
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    newTitle: title, 
+                    newSubtitle: subtitle, 
+                    newBody: body, 
+                    newPicture: picture})
+            }
+        
+            await fetch('/admin/uredi/about', options).then(res => res.json()).then((res)=>{
+                document.querySelector('.card').innerHTML = res.html;
+                document.getElementById('css-partial').href = '';
+            });
+        }
+    </script><% } %> 
 </body>
 </html>
 

@@ -1,0 +1,140 @@
+    <h1>BEZBEDNOST</h1>
+    <% if(twoStepVerification == false){ %>
+        <p><input id="2step" type="checkbox" style="display: none;">
+            Verifikacija u 2 koraka
+            <i onclick="updateSlider('2step', '-on', '-off');" id="2step-off" class="fas fa-toggle-off"></i>
+            <i onclick="updateSlider('2step', '-on', '-off');" id="2step-on" class="fas fa-toggle-on" style="display: none;"></i>
+        </p>
+        <div class="accept-2step">
+            <% if(securityQuestion == true){ %>
+                <p style="color: #dcdcdc;"><input id="securityCode" type="checkbox" style="display: none;">Verifikacioni kod 
+                    <i onclick="updateSlider('securityCode', '-on', '-off');" id="securityCode-off" class="fas fa-toggle-off"></i>
+                    <i onclick="updateSlider('securityCode', '-on', '-off');" id="securityCode-on" class="fas fa-toggle-on" style="display: none;"></i>
+                </p><br> 
+                <p style="color: #dcdcdc;"><input id="securityQuestion" type="checkbox" checked="checked" style="display: none;">Bezbednosno pitanje 
+                    <i onclick="updateSlider('securityQuestion', '-on', '-off');" id="securityQuestion-off" class="fas fa-toggle-off" style="display: none;"></i>
+                    <i onclick="updateSlider('securityQuestion', '-on', '-off');" id="securityQuestion-on" class="fas fa-toggle-on"></i>
+                </p><br>
+                <i onclick="updateSecurity(); this.style.display = 'none';" id="securityQuestionAnswerCheck" class="fas fa-check-square" style="display: none;"></i>
+                <div class="input-data">
+                    <div class="question">
+                        <input id="securityQuestionQuestion" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="question" value="<%= securityQuestionQuestion %>">
+                        <label onclick="document.querySelector('.question').getElementsByTagName('input')[0].focus();" id="label-question" for="question">Pitanje</label>
+                    </div>
+                    <div class="answer">
+                        <input id="securityQuestionAnswer" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="answer" value="<%= securityQuestionAnswer %>">
+                        <label onclick="document.querySelector('.answer').getElementsByTagName('input')[0].focus();" id="label-answer" for="answer">Odgovor</label>
+                    </div>
+                </div><br>
+            <% }else if(securityCode == true){ %>
+                    <p style="color: #dcdcdc;"><input id="securityCode" type="checkbox" checked="checked" style="display: none;">Verifikacioni kod 
+                        <i onclick="updateSlider('securityCode', '-on', '-off');" id="securityCode-off" class="fas fa-toggle-off" style="display: none;"></i>
+                        <i onclick="updateSlider('securityCode', '-on', '-off');" id="securityCode-on" class="fas fa-toggle-on"></i>
+                    </p><br> 
+                    <p style="color: #dcdcdc;"><input id="securityQuestion" type="checkbox" style="display: none;">Bezbednosno pitanje 
+                        <i onclick="updateSlider('securityQuestion', '-on', '-off');" id="securityQuestion-off" class="fas fa-toggle-off"></i>
+                        <i onclick="updateSlider('securityQuestion', '-on', '-off');" id="securityQuestion-on" class="fas fa-toggle-on" style="display: none;"></i>
+                    </p><br>
+                    <i onclick="updateSecurity(); this.style.display = 'none';" id="securityQuestionAnswerCheck" class="fas fa-check-square" style="display: none;"></i>
+                    <div class="input-data" style="display: none;">
+                        <div class="question">
+                            <input id="securityQuestionQuestion" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="question" value="<%= securityQuestionQuestion %>">
+                            <label onclick="document.querySelector('.question').getElementsByTagName('input')[0].focus();" id="label-question" for="question">Pitanje</label>
+                        </div>
+                        <div class="answer">
+                            <input id="securityQuestionAnswer" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="answer" value="<%= securityQuestionAnswer %>">
+                            <label onclick="document.querySelector('.answer').getElementsByTagName('input')[0].focus();" id="label-answer" for="answer">Odgovor</label>
+                        </div>
+                    </div><br>
+            <% }else{ %>
+                <p style="color: #dcdcdc;"><input id="securityCode" type="checkbox" style="display: none;">Verifikacioni kod 
+                    <i onclick="updateSlider('securityCode', '-on', '-off');" id="securityCode-off" class="fas fa-toggle-off"></i>
+                    <i onclick="updateSlider('securityCode', '-on', '-off');" id="securityCode-on" class="fas fa-toggle-on" style="display: none;"></i>
+                </p><br> 
+                <p style="color: #dcdcdc;"><input id="securityQuestion" type="checkbox" style="display: none;">Bezbednosno pitanje 
+                    <i onclick="updateSlider('securityQuestion', '-on', '-off');" id="securityQuestion-off" class="fas fa-toggle-off"></i>
+                    <i onclick="updateSlider('securityQuestion', '-on', '-off');" id="securityQuestion-on" class="fas fa-toggle-on" style="display: none;"></i>
+                </p><br>
+                <div class="input-data">
+                    <div class="question">
+                        <input id="securityQuestionQuestion" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="question" value="<%= securityQuestionQuestion %>">
+                        <label onclick="document.querySelector('.question').getElementsByTagName('input')[0].focus();" id="label-question" for="question">Pitanje</label>
+                    </div>
+                    <div class="answer">
+                        <input id="securityQuestionAnswer" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="answer" value="<%= securityQuestionAnswer %>">
+                        <label onclick="document.querySelector('.answer').getElementsByTagName('input')[0].focus();" id="label-answer" for="answer">Odgovor</label>
+                    </div>
+                </div><br>
+            <% } %>  
+        </div>
+    <% }else{ %>
+        <p><input id="2step" type="checkbox" checked="checked" style="display: none;">
+            Verifikacija u 2 koraka
+            <i onclick="updateSlider('2step', '-on', '-off');" id="2step-off" class="fas fa-toggle-off" style="display: none;"></i>
+            <i onclick="updateSlider('2step', '-on', '-off');" id="2step-on" class="fas fa-toggle-on"></i>
+        </p>
+        <div class="accept-2step">
+            <% if(securityQuestion == true){ %>
+                <p><input id="securityCode" type="checkbox" style="display: none;">Verifikacioni kod 
+                    <i onclick="updateSlider('securityCode', '-on', '-off');" id="securityCode-off" class="fas fa-toggle-off"></i>
+                    <i onclick="updateSlider('securityCode', '-on', '-off');" id="securityCode-on" class="fas fa-toggle-on" style="display: none;"></i>
+                </p><br> 
+                <p><input id="securityQuestion" type="checkbox" checked="checked" style="display: none;">Bezbednosno pitanje 
+                    <i onclick="updateSlider('securityQuestion', '-on', '-off');" id="securityQuestion-off" class="fas fa-toggle-off" style="display: none;"></i>
+                    <i onclick="updateSlider('securityQuestion', '-on', '-off');" id="securityQuestion-on" class="fas fa-toggle-on"></i>
+                </p><br>
+                <i onclick="updateSecurity(); this.style.display = 'none';" id="securityQuestionAnswerCheck" class="fas fa-check-square" style="display: none;"></i>
+                <div class="input-data">
+                    <div class="question">
+                        <input id="securityQuestionQuestion" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="question" value="<%= securityQuestionQuestion %>">
+                        <label onclick="document.querySelector('.question').getElementsByTagName('input')[0].focus();" id="label-question" for="question">Pitanje</label>
+                    </div>
+                    <div class="answer">
+                        <input id="securityQuestionAnswer" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="answer" value="<%= securityQuestionAnswer %>">
+                        <label onclick="document.querySelector('.answer').getElementsByTagName('input')[0].focus();" id="label-answer" for="answer">Odgovor</label>
+                    </div>
+                </div><br>
+            <% }else if(securityCode == true){ %>
+                    <p><input id="securityCode" type="checkbox" checked="checked" style="display: none;">Verifikacioni kod 
+                        <i onclick="updateSlider('securityCode', '-on', '-off');" id="securityCode-off" class="fas fa-toggle-off" style="display: none;"></i>
+                        <i onclick="updateSlider('securityCode', '-on', '-off');" id="securityCode-on" class="fas fa-toggle-on"></i>
+                    </p><br> 
+                    <p><input id="securityQuestion" type="checkbox" style="display: none;">Bezbednosno pitanje 
+                        <i onclick="updateSlider('securityQuestion', '-on', '-off');" id="securityQuestion-off" class="fas fa-toggle-off"></i>
+                        <i onclick="updateSlider('securityQuestion', '-on', '-off');" id="securityQuestion-on" class="fas fa-toggle-on" style="display: none;"></i>
+                    </p><br>
+                    <i onclick="updateSecurity(); this.style.display = 'none';" id="securityQuestionAnswerCheck" class="fas fa-check-square" style="display: none;"></i>
+                    <div class="input-data" style="display: none;">
+                        <div class="question">
+                            <input id="securityQuestionQuestion" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="question" value="<%= securityQuestionQuestion %>">
+                            <label onclick="document.querySelector('.question').getElementsByTagName('input')[0].focus();" id="label-question" for="question">Pitanje</label>
+                        </div>
+                        <div class="answer">
+                            <input id="securityQuestionAnswer" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="answer" value="<%= securityQuestionAnswer %>">
+                            <label onclick="document.querySelector('.answer').getElementsByTagName('input')[0].focus();" id="label-answer" for="answer">Odgovor</label>
+                        </div>
+                    </div><br>
+            <% }else{ %>
+                <p><input id="securityCode" type="checkbox" style="display: none;">Verifikacioni kod 
+                    <i onclick="updateSlider('securityCode', '-on', '-off');" id="securityCode-off" class="fas fa-toggle-off"></i>
+                    <i onclick="updateSlider('securityCode', '-on', '-off');" id="securityCode-on" class="fas fa-toggle-on" style="display: none;"></i>
+                </p><br> 
+                <p><input id="securityQuestion" type="checkbox" style="display: none;">Bezbednosno pitanje 
+                    <i onclick="updateSlider('securityQuestion', '-on', '-off');" id="securityQuestion-off" class="fas fa-toggle-off"></i>
+                    <i onclick="updateSlider('securityQuestion', '-on', '-off');" id="securityQuestion-on" class="fas fa-toggle-on" style="display: none;"></i>
+                </p><br>
+                <i onclick="updateSecurity(); this.style.display = 'none';" id="securityQuestionAnswerCheck" class="fas fa-check-square" style="display: none;"></i>
+                <div class="input-data" style="display: none;">
+                    <div class="question">
+                        <input id="securityQuestionQuestion" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="question" value="<%= securityQuestionQuestion %>">
+                        <label onclick="document.querySelector('.question').getElementsByTagName('input')[0].focus();" id="label-question" for="question">Pitanje</label>
+                    </div>
+                    <div class="answer">
+                        <input id="securityQuestionAnswer" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="answer" value="<%= securityQuestionAnswer %>">
+                        <label onclick="document.querySelector('.answer').getElementsByTagName('input')[0].focus();" id="label-answer" for="answer">Odgovor</label>
+                    </div>
+                </div><br>
+            <% } %>  
+        </div>
+    <% } %>   
+    <p id="changePass" onclick="load('settings/security/_change-pass', 'js/partials/admin/admin_page/settings/security/_change-pass.js');">Promeni lozinku</p>

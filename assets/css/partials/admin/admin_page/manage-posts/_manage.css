@@ -1,0 +1,86 @@
+.card{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    width: 800px;
+    line-height: 20px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #161616;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    animation: articleLoad 0.5s ease-in 0.5s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    transition: 0.5s;
+}
+.card table{
+    position: relative;
+    width: 100%;
+    overflow-y: scroll;
+    border-collapse: collapse;
+}
+.card tr{
+    width: 100%;
+}
+.card thead th{
+    padding: 20px;
+    width: 50%;
+    text-align: center;
+    font-size: 20px;
+    color: #505050;
+}
+.card thead tr:hover{
+    cursor: default;
+    background: inherit;
+}
+.card tbody tr:hover{
+    background: #dcdcdc;
+}
+.card tbody td{
+    position: relative;
+    padding: 20px;
+    width: 25%;
+    border-top: 1px solid #dcdcdc;
+}
+.card tbody button{
+    cursor: pointer;
+    position: relative;
+    width: 75px;
+    height: 25px;
+    border: none;
+    font-size: 12px;
+    background: #007bf6;
+    color: white;
+    transition: 0.25s;
+}
+.card #delete-btn{
+    background: #ff2000;
+}
+.card .picture{
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100%;
+}
+@media screen and (max-width: 1024px){
+    .card{
+        width: 90%;
+        transition: 0.5s;
+    }
+    .card .picture{
+        position: relative;
+        width: 50px;
+        height: 50px;
+    }
+    .card table td{
+        padding-right: 0;
+    }
+    .card tbody button{
+        width: 70px;
+        height: 35px;
+    }
+}

@@ -1,0 +1,9 @@
+<% if(commentCount>0){ %>
+    <% if(commentCount + repliesCount() !== 11 && (((commentCount + repliesCount()) % 10).toString()).includes("1")){ %>
+        <%= commentCount + repliesCount() %> Komentar 
+    <% }else{ %>
+        <%= commentCount + repliesCount() %> Komentara
+    <% } %>   
+<% }else{ %>
+    Nema komentara
+<% } %>

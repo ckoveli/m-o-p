@@ -1,0 +1,94 @@
+<div class="avatar" onclick="uploadTitleImage();">
+    <img class="picture" src="<%= data.picture %> ">
+    <input id="inputTitleImage" type="file" accept="image/*" onchange="viewTitleImage(event);" style="display: none;">
+</div>
+<input type="text" class="title" value="<%= data.title %>"><br>
+<input type="text" class="subtitle" value="<%= data.subtitle %>"><br>
+<div class="toolbar">
+    <ul class="tool-list">
+        <li class="tool">
+            <button 
+                onclick="executeCommand(this)"
+                type="button" 
+                data-command="bold" 
+                class="tool--btn">
+                <i class=' fas fa-bold'></i>
+            </button>
+        </li>
+        <li class="tool">
+            <button 
+                onclick="executeCommand(this)"
+                type="button" 
+                data-command="italic"
+                class="tool--btn">
+                <i class=' fas fa-italic'></i>
+            </button>
+        </li>
+        <li class="tool">
+            <button 
+                onclick="executeCommand(this)"
+                type="button" 
+                data-command="underline"
+                class="tool--btn">
+                <i class=' fas fa-underline'></i>
+            </button>
+        </li>
+        <li class="tool">
+            <button 
+                onclick="executeCommand(this)"
+                type="button" 
+                data-command="insertOrderedList"
+                class="tool--btn">
+                <i class=' fas fa-list-ol'></i>
+            </button>
+        </li>
+        <li class="tool">
+            <button 
+                onclick="executeCommand(this)"
+                type="button" 
+                data-command="insertUnorderedList"
+                class="tool--btn">
+                <i class=' fas fa-list-ul'></i>
+            </button>
+        </li>
+        <li class="tool">
+            <button 
+                onclick="executeCommand(this)"
+                type="button" 
+                data-command='justifyLeft'
+                class="tool--btn">
+                <i class=' fas fa-align-left'></i>
+            </button>
+        </li>
+        <li class="tool">
+            <button 
+                onclick="executeCommand(this)"
+                type="button" 
+                data-command='justifyCenter' 
+                class="tool--btn">
+                <i class=' fas fa-align-center'></i>
+            </button>
+        </li>
+        <li class="tool">
+            <button 
+                onclick="executeCommand(this)"
+                type="button" 
+                data-command='justifyRight'
+                class="tool--btn">
+                <i class=' fas fa-align-right'></i>
+            </button>
+        </li>
+        <li class="tool">
+            <button 
+                onclick="executeCommand(this)"
+                type="button" 
+                data-command="createlink" 
+                class="tool--btn">
+                <i class=' fas fa-link'></i>
+            </button>
+        </li>
+    </ul>
+</div>
+<div class="body" contenteditable="true"><%- data.body %></div><br><br>
+<button class="cancel" onclick="window.location.href = 'o-meni';">OTKAŽI</button>
+<button class="submit" onclick="save();">SAČUVAJ</button>

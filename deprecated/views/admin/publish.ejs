@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Objavi | Mesec Od Papira</title>
+	<script type="text/javascript" src="js/fontawesome.js"></script>
+	<link rel="shortcut icon" type="image/png" href="favicon/favicon.png">
+	<style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        html, body{
+            overflow-x: hidden;
+        }
+        body{
+            position: relative;
+            font-family: Arial;
+            background: #fafafa;
+        }
+		.container{
+			display: block;
+			position: relative;
+			padding-bottom: 250px;
+			min-height: 100vh;
+			overflow: hidden;
+		}
+        a{
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        a:hover{
+            color: #161616;
+            transition: 0.25s;
+        }
+		.logo{
+		    display: block;
+		    min-height: 10px;
+		    text-align: center;
+		    letter-spacing: 5px;
+		    font-family: Chalkduster, fantasy;
+		    font-size: 20px;
+		    background: rgb(22, 22, 22);
+		    color: white;
+		    animation: navLoad 0.5s ease-in;
+		}
+		.logo img{
+		    cursor: pointer;
+		    margin-top: 5px;
+		    width: 100px;
+		    height: 100px;
+		    animation: navLoad 1s ease-in;
+		}
+		.logo h4{
+		    cursor: pointer;
+		}
+		nav{
+		    display: flex;
+			position: relative;
+		    height: 50px;
+		    justify-content: space-around;
+		    align-items: center;
+		    font-family: Optima, sans-serif;
+		    border-bottom: 1px solid #dcdcdc;
+		    background: #ffffff;
+		    animation: navLoad 0.5s ease-in;
+		}
+		.sticky{
+			position: fixed;
+			z-index: 10;
+			top: 0;
+			width: 100%;
+		}
+		.search{
+		    position: absolute;
+			top: 12px;
+		    left: 70px;
+		}
+		.input{
+		    cursor: pointer;
+		    position: absolute;
+		    width: 25px;
+		    height: 25px;
+		    padding-left: 25px;
+		    font-size: 15px;
+		    letter-spacing: 1px;
+		    border: 1px solid #161616;
+		    border-radius: 50%;
+		    outline: none;
+		    background: #fafafa;
+		    transition: 0.5s;
+		}
+		.inputClicked{
+		    cursor: text;
+		    width: 20vw;
+		    padding-left: 5px;
+		    border-radius: 0;
+		    transition-delay: 0.25s;
+		    transition: 0.5s;
+		}
+		.searchBtn{
+		    position: absolute;
+		    cursor: pointer;
+		    top: 0;
+		    right: 0;
+		    width: 20px;
+		    height: 10px;
+		    border: none;
+		    outline: none;
+		    background: none;
+		}
+		.searchBtn::before{
+		    position: absolute;
+		    top: 24px;
+		    right: -29px;
+		    width: 8px;
+		    height: 2px;
+		    content: "";
+		    background: #161616;
+		    transform: rotate(45deg);
+		    transition: 0.5s;
+		}
+		.close::before, .close::after{
+		    position: absolute;
+		    top: 12px;
+		    left: 20vw;
+		    width: 15px;
+		    height: 2px;
+		    content: "";
+		    background: #161616;
+		    transition: 0.5s;
+		}
+		.close::before{
+		    transform: rotate(-45deg);
+		}
+		.close::after{
+		    transform: rotate(45deg);
+		}
+		.links{
+		    display: flex;
+		    width: 700px;
+		    text-transform: uppercase;
+		    justify-content: space-around;
+		}
+		.links li{
+		    cursor: default;
+		    list-style-type: none;
+		    letter-spacing: 2px;
+		    line-height: 48px;
+		    font-size: 13px;
+		    font-weight: bold;
+		    color: #161616;
+		}
+		.links a{
+		    display: block;
+		    text-decoration: none;
+		    letter-spacing: 3px;
+		    line-height: 48px;
+		    font-size: 13px;
+		    font-weight: bold;
+		    border-bottom: 1px solid transparent;
+		    color: #161616;
+		}
+		.links a:hover{
+		    border-bottom: 1px solid #161616;
+		}
+		.mobile{
+		    display: none;
+		    position: relative;
+		    left: 26%;
+		    cursor: pointer;
+		}
+		.mobile div{
+		    margin: 5px;
+		    width: 25px;
+		    height: 2px;
+		    background: #161616;
+		    transition: all 0.5s ease;
+		}
+		.input::placeholder{
+		    opacity: 0;
+		}
+		.input:focus::placeholder{
+		    opacity: 1;
+		}
+		.wrapper{
+			position: relative;
+			min-height: 100%;
+		}
+		.card{
+		    position: relative;
+			top: -300px;
+			left: 50%;
+		    padding: 20px;
+		    width: 69%;
+		    transform: translate(-50%, -200px);
+		    justify-content: center;
+		    text-align: center;
+		    line-height: 20px;
+		    border: 1px solid #dcdcdc;
+		    border-radius: 10px;
+		    background: #ffffff;
+			color: #161616;
+			box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+		    animation: articleLoad 0.5s ease-in 0.5s;
+		    animation-fill-mode: forwards;
+		    opacity: 0;
+		    transition: 0.5s;
+		}
+		.type{
+			position: relative;
+			left: 50%;
+			margin-bottom: 25px;
+			transform: translateX(-50%);
+			width: 100px;
+			height: 25px;
+			border: 1px solid #dcdcdc;
+			background: #ffffff;
+			overflow: hidden;
+			transition: 0.25s;
+		}
+		.type:hover{
+			background: #dcdcdc;
+			transition: 0.25s;
+		}
+		.type::after{
+			cursor: pointer;
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 15px;
+			padding: 2px;
+			content: '\25BC';
+			font-size: 10px;
+			color: #161616;
+			transition: 0.25s all ease;
+		}
+		select{
+			cursor: pointer;
+			padding-left: 28px;
+			width: inherit;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			-ms-appearance: none;
+			appearance: none;
+			font-size: 13px;
+			outline: 0;
+			border: 0!important;
+			box-shadow: none;
+			background: none;
+			background-image: none;
+		}
+		select::-ms-expand{
+			display: none;
+		}
+		label[for=title]{
+			display: block; 
+			margin-left: -340px;
+		}
+		.title{
+		    color: #161616;
+		    font-family: Optima, sans-serif;
+		    font-size: 28px;
+		    font-weight: 600;
+		}
+		label[for=subtitle]{
+			display: block; 
+			font-size: 13px; 
+			margin-top: 15px; 
+			margin-bottom: -15px; 
+		}
+		.subtitle{
+		    color: black;
+		    font-size: 14px;
+		    margin: 15px 0;
+		}
+		label[for=body]{
+			position: absolute;
+			top: 485px;
+			margin-left: -15px;
+		}
+		.body{
+		    padding: 10px;
+		    width: 100%;
+			height: 250px;
+			overflow: auto;
+		    font-size: 16px;
+			color: #505050;
+		}
+		label[for=avatar]{
+			display: block; 
+		}
+		.avatar p{
+			position: absolute; 
+			top: 40%; 
+			left: 50%; 
+			transform: translate(-50%, 40%);
+		}
+		.avatar{
+		    position: relative;
+			left: 50%;
+			margin-bottom: 15px;
+		    width: 200px;
+		    height: 200px;
+		    overflow-y: hidden;
+		    overflow-x: hidden;
+		    transform: translateX(-50%);
+		    text-align: center;
+		    border: 2px solid #dcdcdc;
+		    border-radius: 10px;
+			background: #fafafa;
+		    transition: 0.5s;
+		}
+		.avatar:hover{
+		    cursor: pointer;
+			border: 2px solid #007bf6;
+			background: #dcdcdc;
+		    transition: 0.25s;
+		}
+		.picture{
+		    position: relative;
+		    width: 200px;
+		    height: 200px;
+		    background-size: cover;
+		    background-repeat: no-repeat;
+		    transition: 0.5s;
+		}
+		.wrapper input,
+		.body{
+			position: relative;
+		    text-align: center;
+		    border: 1px solid #dcdcdc;
+		    background: #fafafa;
+		    transition: 0.25s;
+		}
+		.wrapper input:hover,
+		.body:hover{
+		    background: #dcdcdc;
+		    transition: 0.25s;
+		}
+		.wrapper input:focus,
+		.body:focus{
+			background: #fafafa;
+			border: 1px solid #007bf6;
+			transition: 0.25s;
+		}
+		.submit{
+		    cursor: pointer;
+		    position: relative;
+		    width: 175px;
+		    height: 30px;
+		    border: none;
+		    font-size: 15px;
+		    background: #007bf6;
+		    color: white;
+		    transition: 0.25s;
+		}
+		.tool-list{
+			display: flex;
+			list-style: none;
+			margin-top: 20px;
+			padding: 0;
+			overflow: hidden;
+		}	
+		.tool--btn{
+			display: block;
+			border: none;
+			padding: .5rem;
+			font-size: 20px;
+			background: #ffffff;
+			color: #161616;
+		}
+		.tool--btn:hover{
+			cursor: pointer;
+			background: #dcdcdc;
+		    transition: 0.25s;
+		}
+		.comments-div{
+			position: relative;
+			top: 25px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 100%;
+			height: 75px;
+		}
+		label[for=commentsEnabled]{
+			position: relative;
+			top: 3px;
+			left: -100px;
+			width: 200px;
+		}
+		input[type='checkbox']{
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			-webkit-appearance: none;
+			width: 25px;
+			height: 25px;
+			background: #ffffff;
+			border: 1px solid #dcdcdc;
+		}
+		input[type='checkbox']:hover{
+			cursor: pointer;
+			background: #dcdcdc;
+			transition: 0.25s;
+		}
+		input[type='checkbox']:checked::after{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: inherit;
+			height: inherit;
+			content: "\2713";
+			font-size: 20px;
+			background: #007bf6;
+			color: #ffffff;
+			transition: 0.25s;
+		}
+		.footer{
+            position: absolute;
+            bottom: 0;
+            padding-top: 20px;
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            border-top: 1px solid #dcdcdc;
+            background: #ffffff;
+            color: #505050;
+        }
+        .footer-left{
+            position: absolute;
+            left: 15%;
+        }
+        .footer-right{
+			display: flex;
+            position: absolute;
+            right: 15%;
+        }
+		.footer i{
+			width: 20px;
+			height: 100%;
+			font-size: 20px;
+		}
+		@keyframes navLoad{
+    		0%{
+    		    transform: translateY(-200%);
+    		}
+    		100%{
+    		    transform: translateY(0);
+    		}
+		}
+		@keyframes headerLoad{
+		    0%{
+		        transform: translateY(-20px);
+		        opacity: 0;
+		    }
+		    100%{
+		        transform: translateY(0);
+		        opacity: 1;
+		    }
+		}
+		@keyframes articleLoad{
+		    0%{
+		        transform: translate(-50%, 45%);
+		        opacity: 0;
+		    }
+		    100%{
+		        transform: translate(-50%, 50%);
+		        opacity: 1;
+		    }
+		}
+		@media screen and (max-width: 1024px){
+		    .search{
+		        left: 19%;
+		    }
+		    .inputClicked{
+		        width: 61vw;
+				z-index: 10;
+		        transition-delay: 0.25s;
+		        transition: 0.5s;
+		    }
+		    .close::before, .close::after{
+		        left: 60vw;
+				z-index: 10;
+		    }
+		    .links{
+		        display: flex;
+		        position: absolute;
+		        z-index: 10;
+		        flex-direction: column;
+				top: 49px;
+		        right: 0px;
+		        width: 50%;
+		        height: 500px;
+		        align-items: center;
+		        border: 1px solid #dcdcdc;
+		        background: #ffffff;
+		        transform: translateX(100%);
+		        transition: transform 0.5s ease-in;
+		    }
+		    .links li{
+		        opacity: 0;
+		    }
+		    .links a{
+		        line-height: 0;
+		    }
+		    .links a:hover{
+		        border: none;
+		    }
+		    .mobile{
+		        display: block;
+		    }
+		    .linksActive{
+		        transform: translateX(0%);
+		    }
+			body{
+       			overflow: auto;
+    		}
+    		.card{
+    		    width: 90%;
+    		    transition: 0.5s;
+    		}
+    		.card h3{
+    		    margin-top: -75px;
+    		}
+    		.avatar{
+    		    width: 150px;
+    		    height: 150px;
+    		    transition: 0.5s;
+			}
+			.avatar p{
+				top: 30%;
+				transform: translate(-50%, 30%);
+			}
+    		.picture{
+    		    width: 150px;
+    		    height: 150px;
+    		    transition: 0.5s;
+			}
+			label[for=title]{
+				margin-left: -230px;
+			}
+			.title{
+				width: 100%;
+			}
+			.tool--btn{
+				font-size: 18px;
+			}
+			label[for=body]{
+				opacity: 0;
+			}
+			label[for=commentsEnabled]{
+				left: -80px;
+				font-size: 14px;
+			}
+			.submit{
+				width: 100px;
+				height: 50px;
+			}
+            .footer{
+                font-size: 12px;
+                height: 75px;
+            }
+    		.footer-left{
+    		    left: 0;
+				right: 0;
+				margin-left: auto;
+				margin-right: auto;
+				width: 200px;
+            }
+            .footer i{
+                font-size: 15px;
+            }
+    		.footer-right{
+                position: relative;
+				top: 25px;
+ 				left: 0; 
+ 				right: 0; 
+ 				margin-left: auto; 
+ 				margin-right: auto; 
+ 				width: 300px;
+    		}
+		}
+		@keyframes navLinkFade{
+		    from{
+		        opacity: 0;
+		        transform: translateX(50px);
+		    }
+		    to{
+		        opacity: 1;
+		        transform: translateX(0px);
+		    }
+		}
+		.toggle .line1{
+		    transform: rotate(-45deg) translate(-5px,6px);
+		}
+		.toggle .line2{
+		    opacity: 0;
+		}
+		.toggle .line3{
+		    transform: rotate(45deg) translate(-5px,-6px);
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="logo">
+			<img src="logo/mop.png" onclick="window.location.href = '/'">
+			<h4 onclick="window.location.href = '/'">Mesec Od Papira</h4>
+		</div>
+		<nav>
+			<div class="search">
+				<form class="searchBox" action="/pretraga" method="GET">
+					<input class="input" type="text" placeholder="Pretraži..." name="q">
+					<button class="searchBtn" type="button"></button>
+				</form>
+			</div>
+			<ul class="links">
+    	        <li><a href="/admin/objavi">Objavi</a></li>
+				<li><a href="/">Početna</a></li>
+				<li><a href="/poezija">Poezija</a></li>
+    	        <li><a href="/o-meni">O meni</a></li>
+    	        <li><a href="/admin/">Admin</a></li>
+			</ul>
+			<div class="mobile">
+				<div class="line1"></div>
+				<div class="line2"></div>
+				<div class="line3"></div>
+			</div>
+		</nav>
+		<div class="wrapper">
+			<div class="card">
+				<label for="type">Tip</label>
+				<div class="type">
+					<select class="select" required>
+						<option selected disabled></option>
+						<option value="poetry">Poezija</option>
+						<option value="other">Drugo</option>
+					</select>
+				</div>
+				<label for="avatar">Naslovna slika (lepse je sa)</label>
+				<div class="avatar" onclick="upload();">
+					<p>Izaberi sliku</p>
+					<img class="picture">
+					<input id="inputFile" type="file" accept="image/*" onchange="viewImage(event);" style="display: none;">
+				</div>
+				<label for="title">Naslov</label>
+				<input type="text" class="title"><br>
+				<label for="subtitle">Podnaslov (opciono)</label>
+				<input type="text" class="subtitle"><br>
+				<div class="toolbar">
+					<ul class="tool-list">
+						<li class="tool">
+							<button 
+								type="button" 
+								data-command="bold" 
+								class="tool--btn">
+								<i class=' fas fa-bold'></i>
+							</button>
+						</li>
+						<li class="tool">
+							<button 
+								type="button" 
+								data-command="italic"
+								class="tool--btn">
+								<i class=' fas fa-italic'></i>
+							</button>
+						</li>
+						<li class="tool">
+							<button 
+								type="button" 
+								data-command="underline"
+								class="tool--btn">
+								<i class=' fas fa-underline'></i>
+							</button>
+						</li>
+						<li class="tool">
+							<button 
+								type="button" 
+								data-command="insertOrderedList"
+								class="tool--btn">
+								<i class=' fas fa-list-ol'></i>
+							</button>
+						</li>
+						<li class="tool">
+							<button 
+								type="button" 
+								data-command="insertUnorderedList"
+								class="tool--btn">
+								<i class=' fas fa-list-ul'></i>
+							</button>
+						</li>
+						<li class="tool">
+							<button 
+								type="button" 
+								data-command='justifyLeft'
+								class="tool--btn">
+								<i class=' fas fa-align-left'></i>
+							</button>
+						</li>
+						<li class="tool">
+							<button 
+								type="button" 
+								data-command='justifyCenter' 
+								class="tool--btn">
+								<i class=' fas fa-align-center'></i>
+							</button>
+						</li>
+						<li class="tool">
+							<button 
+								type="button" 
+								data-command='justifyRight'
+								class="tool--btn">
+								<i class=' fas fa-align-right'></i>
+							</button>
+						</li>
+						<li class="tool">
+							<button 
+								type="button" 
+								data-command="createlink" 
+								class="tool--btn">
+								<i class=' fas fa-link'></i>
+							</button>
+						</li>
+					</ul>
+				</div>
+				<label for="body">Telo</label>
+				<div class="body" contenteditable="true"></div>
+				<div class="comments-div">
+					<label for="commentsEnabled">Dozvoli komentare</label>
+					<input type="checkbox" class="commentsEnabled" checked="checked">
+				</div><br><br>
+				<button class="submit" onclick="publish()">OBJAVI</button>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-left">
+				Copyright &copy;<script type="text/javascript">document.write(`&nbsp${new Date().getFullYear()}&nbsp`)</script><a href="/">Mesec Od Papira</a>
+			</div>
+			<div class="footer-right">
+				Designed, developed and distributed by&nbsp;<a href="https://www.instagram.com/velickovicdj/" style="display: inherit;"><i class="fa fa-instagram"></i>velickovicdj</a>
+			</div>
+		</div>
+	</div> 
+	<script type="text/javascript">
+		const searchBtn = document.querySelector('.searchBtn'),
+		input = document.querySelector('.input'),
+		mobile = document.querySelector('.mobile'),
+		links = document.querySelector('.links'),
+		navLinks = document.querySelectorAll('.links li');
+
+		window.onscroll = function() {stickyNav()};
+
+		const nav = document.querySelector('nav'),
+		sticky = nav.offsetTop;
+
+		function stickyNav() {
+		  if (window.pageYOffset >= sticky) {
+		    nav.classList.add('sticky')
+		  } else {
+		    nav.classList.remove('sticky');
+		  }
+		}
+
+		window.addEventListener('mouseup', (event)=>{
+		    if(event.target != input){
+		        input.blur();
+		        document.querySelector('.close').click();
+		    }
+		});
+		const navSlide = ()=>{
+		    mobile.addEventListener('click', ()=>{
+		        links.classList.toggle('linksActive');
+		        navLinks.forEach((link, index)=>{
+		            if(link.style.animation){
+		                link.style.animation = '';
+		            }else{
+		                link.style.animation = `navLinkFade 0.5s ease forwards ${index/5 + 0.5}s`;
+		            }
+		        });
+		        mobile.classList.toggle('toggle');
+		    });
+		}
+		searchBtn.addEventListener('click', ()=>{
+		    input.classList.toggle('inputClicked');
+		    searchBtn.classList.toggle('close');
+		});
+		input.addEventListener('focus', ()=>{
+		    searchBtn.click();
+		});
+		let body = document.querySelector('.body');
+		let buttons = document.getElementsByClassName('tool--btn');
+		for(let btn of buttons){
+			btn.addEventListener('click', ()=>{
+				let cmd = btn.dataset['command'];
+				if(cmd === 'createlink'){
+					let url = prompt("Link: ", "http:\/\/");
+					document.execCommand(cmd, false, url);
+				}else{
+					document.execCommand(cmd, false, null);
+				}
+			});
+		}
+
+		let picture;
+
+		function upload(){
+    		document.getElementById('inputFile').click();
+		}
+		function viewImage(event){
+		    var reader = new FileReader();
+		    reader.onload = ()=>{
+		        document.querySelector('.picture').src = reader.result;
+		        picture = reader.result;
+		    }
+		    reader.readAsDataURL(event.target.files[0]);
+		}
+		function publish(){
+			const type = document.querySelector('.select').value,
+		    title = document.querySelector('.title').value,
+		    subtitle = document.querySelector('.subtitle').value,
+			body = document.querySelector('.body').innerHTML,
+			preview = document.querySelector('.body').innerText,
+			commentsEnabled = document.querySelector('.commentsEnabled').checked;
+
+			if(type == '' || title == '' || body == ''){
+				alert('Popuni obavezna polja pls');
+				return;
+			}else{
+				const date = new Date();
+				const month = new Array();
+				month[0] = 'Januar';
+				month[1] = 'Februar';
+				month[2] = 'Mart';
+				month[3] = 'April';
+				month[4] = 'Maj';
+				month[5] = 'Jun';
+				month[6] = 'Jul';
+				month[7] = 'Avgust';
+				month[8] = 'Septembar';
+				month[9] = 'Oktobar';
+				month[10] = 'Novembar';
+				month[11] = 'Decembar';
+
+				const options = {
+		        	method: 'POST',
+		        	headers: {
+		        	    'Content-Type': 'application/json'
+		        	},
+		        	body: JSON.stringify({
+						date: `${date.getDate()} ${month[date.getMonth()]} ${date.getFullYear()}`,
+						type: type,
+						title: title, 
+						preview: `${preview.slice(0, 100)}...`, 
+						subtitle: subtitle, 
+						body: body, 
+						picture: picture,
+						commentsEnabled: commentsEnabled
+					})
+		    	}
+		    	fetch('/admin/objavi', options).then(res => res.json()).then((res)=>{
+					window.location.href = `/poezija/${res.slug}`;
+				});
+			}
+		}
+		navSlide();
+	</script>
+</body>
+</html>

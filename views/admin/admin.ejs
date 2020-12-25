@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin | Mesec Od Papira</title>
     <script type="text/javascript" src="js/fontawesome.js"></script>
+    <link id="css-partial" rel="stylesheet" type="text/css" href="css/partials/admin/admin_page/_profile.css">
     <link rel="shortcut icon" type="image/png" href="favicon/favicon.png">
-    <style>
+    <style type="text/css">
         *{
             margin: 0;
             padding: 0;
@@ -184,110 +185,146 @@
             min-height: 500px;
             content: "";
             clear: both;
-		}
-        .card{
-			position: relative;
-            left: 50%;
-			transform: translateX(-50%);
-			padding: 20px;
-            width: 450px;
 			justify-content: center;
-		    text-align: center;
-            line-height: 20px;
-            border: 1px solid #dcdcdc;
-            border-radius: 10px;
-            background: #ffffff;
-            color: #161616;
-			box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
-            animation: articleLoad 0.5s ease-in 0.5s;
-            animation-fill-mode: forwards;
-            opacity: 0;
-            transition: 0.5s;
+		}
+        .hidden{
+            position: relative;
+            left: 0;
+            width: 168px;
         }
-		.card h1{
-            margin-top: 60px;
-            margin-bottom: 60px;
-            text-align: center;
-            font-family: Optima, sans-serif;
-            font-size: 52px;
-            color: #161616;
-            animation: headerLoad 0.5s ease-in 0.5s;
-            animation-fill-mode: forwards;
-            transform: translateY(-20px);
-            opacity: 0;
-        }
-        .card p{
-            margin-top: 60px;
-            margin-bottom: 30px;
-            font-size: 16px;
-            letter-spacing: 1px;
-            line-height: 26px;
-            color: #505050;
-        }
-        #logoutBtn{
-            cursor: pointer;
-		    position: relative;
-		    width: 175px;
-		    height: 30px;
-            border: none;
-            font-size: 14px;
-		    background: #007bf6;
-		    color: white;
-		    transition: 0.25s;
-        }
-        .settings{
-            display: none;
-            cursor: pointer;
+        .dashboard{
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, 50%);
+            top: 184px;
+            left: 0; 
             z-index: 10;
             width: 200px;
-            height: 50px;
-            text-align: center;
-            color: #161616;
         }
-        .settings button{
-            cursor: pointer;
+        .stickyDash{
+            position: fixed;
+            z-index: 10;
+            top: 50px;
+        }
+        #misc{
+            background: #f5f5f5;
+        }
+        #misc td{
+            letter-spacing: 1px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .dashboard table{
             position: relative;
-			top: -100px;
-			margin-bottom: 50px;
-            width: 175px;
-            height: 30px;
+            width: 100%;
+            border-collapse: collapse;
             background: #ffffff;
-            border: #dcdcdc;
-            border-radius: 10px;
-            font-size: 18px;
-            color: #161616;
-            transition: 0.25s;
         }
-        .settings button:hover{
+        .dashboard tr{
+            width: 100%;
+            border-bottom: 1px solid #dcdcdc;
+            border-right: 1px solid #dcdcdc;
+        }
+        .dashboard td{
+            padding: 10px;
+            width: 100%;
+            text-align: left;
+            font-size: 12px;
+            color: #505050;
+        }
+        .dashboard th{
+            padding: 20px;
+            width: 100%;
+            text-align: left;
+            letter-spacing: 1px;
+            font-size: 13px;
+            color: #161616;
+        }
+        .dashboard tr:hover{
+            cursor: pointer;
             background: #dcdcdc;
             transition: 0.25s;
         }
-        .blur{
+        .dashboard i{
+            margin-right: 20px;
+            font-size: 20px;
+        }
+        .show-hide-icon{
+            margin-left: 20px;
+            font-size: 10px;
+        }
+        #misc i{
+            margin-left: 30px;
+        }
+        .alert-box{
+            position: fixed;
+            z-index: 15;
+            top: 10%;
+            left: 50%;
+            transform: translateY(-200%);
+            width: 300px;
+            height: 110px;
+            border: 1px solid #dcdcdc;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
+            transition: 0.5s;
+        }
+        .alert-box #title{
+            position: relative;
+            width: 100%;
+            height: 40px;
+            text-align: left;
+            border-bottom: 1px solid #dcdcdc;
+            color: #505050;
+        }
+        .alert-box #title p{
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            letter-spacing: 1px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: #505050;
+        }
+        .alert-box #title i{
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+        }
+        .alert-box button{
+            cursor: pointer;
+            position: relative;
+            display: inline;
+            bottom: -20px;
+            left: 5%;
+            right: 10%;
+            padding: 5px;
+            margin-right: 10%;
+            width: 40%;
+            height: 30px;
+            letter-spacing: 1px;
+            font-size: 15px;
+            border: none;
+            border-radius: 5px;
+            background: #007bf6;
+            color: white;
+            transition: 0.25s;
+        } 
+        #edit-name{
+            cursor: pointer;
             display: none;
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            background: rgba(22, 22, 22, 0.8);
+            text-align: center;
+            text-transform: uppercase;
+            border: 1px solid #dcdcdc;
+            background: #dcdcdc;
         }
-        .gear{
-			position: relative;
-			top: -280px;
-			left: 63%;
-			width: 69%;
-			height: 100px;
-		}
-		.gear img{
-			cursor: pointer;
-			position: relative;
-			width: 35px;
-			height: 35px;
+        #edit-name i{
+            position: relative;
+            left: -70px;
         }
         .footer{
             margin-top: 100px;
@@ -386,35 +423,6 @@
             .linksActive{
                 transform: translateX(0%);
             }
-            .card{
-                width: 325px;
-            }
-			.avatar{
-		        top: -110px;
-		        left: 50%;
-		        width: 175px;
-		        height: 175px;
-		        transition: 0.5s;
-		    }
-		    .picture{
-		        width: 175px;
-		        height: 175px;
-		        transition: 0.5s;
-		    }
-            .title{
-                margin-top: -85px;
-                transition: 0.5s;
-            }
-            .card h1{
-                font-size: 50px;
-            }
-            .card p{
-                font-size: 14px;
-            }
-            #logoutBtn{
-                width: 100px;
-                height: 40px;
-            }
             .footer{
                 font-size: 12px;
                 height: 75px;
@@ -473,7 +481,7 @@
 			</form>
 		</div>
 		<ul class="links" style="width: 700px;">
-			<li><a href="/admin/objavi">Objavi</a></li>
+			<li><a href="/admin/mejl">Mejl</a></li>
 			<li><a href="/">Početna</a></li>
 			<li><a href="/poezija">Poezija</a></li>
 			<li><a href="/o-meni">O meni</a></li>
@@ -486,26 +494,30 @@
 		</div>
 	</nav>
     <div class="wrapper">
-		<div class="card">
-			<h1>Kristina</h1>
-			<p><i>"Mesec, posle kog sam mnogo više ja.<br>
-				Mesec, posle kog su svi drugi kao taj.<br>
-				Želim da ti svaki bude, kao što je meni<br>
-				mesec July."</i><br>
-			</p>
-			<div class="gear">
-				<img src="icons/gear.png">
-			</div>
-			<form action="/admin/odjava" method="POST">
-				<button id="logoutBtn" type="submit">Izloguj se</button>
-			</form>
-			<div class="settings">
-				<a href="/admin/objave"><button>Upravljaj objavama</button></a>
-				<form action="/admin/lozinka" method="GET"><button type="submit" id="passBtn">Promeni lozinku</button></form>
-				<form action="/admin/odjava" method="POST"><button type="submit">Izloguj se</button></form>
-			</div>
-			<div class="blur"></div>
-		</div>
+        <div class="alert-box">
+            <div id="title">
+                <p id="message"></p><i onclick="document.querySelector('.alert-box').style.transform = 'translate(-50%,-200%)'; document.cookie = '_sub = false';" class="fas fa-times"></i>
+            </div>
+            <button>Vidi objavu</button><button onclick="document.querySelector('.alert-box').style.transform = 'translate(-50%,-200%)';" style="background: #dcdcdc; color: #161616;">Zatvori</button>
+        </div>
+        <div class="dashboard">
+            <table>
+                <tr><th id="0" onclick="load('manage-posts/_publish', 'js/partials/admin/admin_page/manage-posts/_publish.js'); selected(0);"><i class="fas fa-plus-square"></i>OBJAVI</th></tr>
+                <tr><th id="1" onclick="load('manage-posts/_manage', 'js/partials/admin/admin_page/manage-posts/_manage.js'); selected(1);"><i class="fas fa-thumbtack"></i>OBJAVE</th><th id="edit-name"></th></tr>
+                <tr><th id="2" class="wrench" onclick="showWrench();"><i class="fa fa-wrench" aria-hidden="true"></i>POSTAVKE<span class="show-hide-icon">&#9660;</span></th></tr>
+                    <tbody id="misc" style="display: none;">
+                        <tr><td id="3" onclick="load('settings/profile/_profile', 'js/partials/admin/admin_page/settings/profile/_profile.js'); selected(3);"><i class="fa fa-user" aria-hidden="true"></i>PROFIL</td></tr>
+                        <tr><td id="4" onclick="load('settings/notifications/_notifications', 'js/partials/admin/admin_page/settings/notifications/_notifications.js');selected(4);"><i class="fa fa-bell" aria-hidden="true"></i>OBAVEŠTENJA</td></tr>
+                        <tr><td id="5" onclick="load('settings/security/_security', 'js/partials/admin/admin_page/settings/security/_security.js');selected(5);"><i class="fa fa-lock" aria-hidden="true"></i>BEZBEDNOST</td></tr>
+                    </tbody>
+                </th></tr>
+                <tr><th onclick="document.getElementById('logout-form').submit();"><form id="logout-form" action="/admin/odjava" method="POST"></form><i class="fa fa-sign-out" aria-hidden="true"></i>ODJAVA</th></tr>
+            </table>
+        </div>
+        <div class="hidden"></div>
+        <div class="card">
+            <%- include(`../partials/admin/admin_page/${partial}`) %> 
+        </div>
     </div>
     <div class="footer">
         <div class="footer-left">
@@ -522,23 +534,30 @@
         links = document.querySelector('.links'),
         navLinks = document.querySelectorAll('.links li');
 
-		window.onscroll = function() {stickyNav()};
+        window.onscroll = function() {stickyNav()};
 
-		const nav = document.querySelector('nav'),
-		sticky = nav.offsetTop;
+        const nav = document.querySelector('nav'),
+        sticky = nav.offsetTop;
+        
+        const dash = document.querySelector('.dashboard'),
+        stickyDash = dash.offsetTop;
 
 		function stickyNav() {
-		  if (window.pageYOffset >= sticky) {
-		    nav.classList.add('sticky')
-		  } else {
-		    nav.classList.remove('sticky');
-		  }
+		    if(window.pageYOffset >= sticky) {
+                nav.classList.add('sticky');
+                dash.classList.add('stickyDash');
+		    }else{
+                nav.classList.remove('sticky');
+                dash.classList.remove('stickyDash');
+		    }
 		}
 
 		window.addEventListener('mouseup', (event)=>{
 		    if(event.target != input){
-		        input.blur();
-		        document.querySelector('.close').click();
+                input.blur();
+                if(!!document.querySelector('.close')){
+                    document.querySelector('.close').click();
+                }
 		    }
 		});
 		const navSlide = ()=>{
@@ -561,19 +580,55 @@
 		input.addEventListener('focus', ()=>{
 		    searchBtn.click()
         });
-        const gear = document.querySelector('.gear img'),
-        settings = document.querySelector('.settings'),
-        blur = document.querySelector('.blur');
-        gear.addEventListener('click', ()=>{
-            settings.style.display = 'block';
-            blur.style.display = 'block';
-        });
-        window.addEventListener('mouseup', (event)=>{
-            if(settings.style.display == 'block' && event.target !== settings){
-                settings.style.display = 'none';
-                blur.style.display = 'none';
+        class ScriptLoader{
+            constructor(script){
+                this.script = script;
+                this.scriptElement = document.createElement('script');
+                this.head = document.querySelector('head');
             }
-        });
+            process(){
+                return new Promise((resolve, reject)=>{
+                    this.scriptElement.src = this.script;
+                    this.scriptElement.onload = e => resolve(e);
+                    this.scriptElement.onerror = e => reject(e);
+                    this.head.appendChild(this.scriptElement);
+                });
+            }
+        }
+        function selected(id){
+            document.getElementById(id).style.background = '#dcdcdc';
+            for(let i=0; i<=5; i++){
+                if(i !== id){
+                    document.getElementById(i).style.background = '#ffffff';
+                }
+            }
+            return;
+        }
+        function showWrench(){
+            if(document.getElementById('misc').style.display == 'none'){
+                document.getElementById('misc').style.display = '';
+                document.querySelector('.wrench').innerHTML = '<i class="fa fa-wrench" aria-hidden="true"></i>POSTAVKE <span class="show-hide-icon">\u25B2</span>';
+            }else{
+                document.getElementById('misc').style.display = 'none';
+                document.querySelector('.wrench').innerHTML = '<i class="fa fa-wrench" aria-hidden="true"></i>POSTAVKE <span class="show-hide-icon">\u25BC</span>';
+            }
+        }
+        async function load(partial, src, id){
+            const script = new ScriptLoader(src);
+            script.process();
+
+            const options = {
+		        	method: 'POST',
+		        	headers: {
+		        	    'Content-Type': 'application/json'
+		        	},
+		        	body: JSON.stringify({partial: partial, id: id})
+            }
+            await fetch('/admin', options).then(res => res.json()).then((res)=>{
+                document.querySelector('.card').innerHTML = res.html;
+                document.getElementById('css-partial').href = res.css;
+            });
+        }
 		navSlide();
     </script>
 </body>

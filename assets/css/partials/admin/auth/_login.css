@@ -1,0 +1,110 @@
+.card .title{
+    position: relative;
+    width: 100%;
+    margin-bottom: 40px;
+    text-align: center;
+    border-bottom: 1px solid #dcdcdc;
+    color: #505050;
+}
+.title p{
+    position: relative;
+    line-height: 48px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #505050;
+}
+.card .input-data{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 175px;
+    text-align: center;
+}
+.input-data .name, .input-data .pass{
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+.input-data input{
+    position: relative;
+    padding: 5px;
+    width: 175px;
+    height: 30px;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 1px;
+    border: none;
+    border-bottom: 1px solid #dcdcdc;
+    color: #505050;
+    transition: all 0.5s ease;
+}
+.input-data input:focus{
+    outline: none;
+    border-bottom: 1px solid #505050;
+}
+.input-data label{
+    cursor: text;
+    position: absolute;
+    left: 0;
+    padding: 5px;
+    font-size: 12px;
+    color: gray;
+}
+.name label{
+    top: 0;
+}
+.pass label{
+    top: 0;
+}
+input[name="name"]:focus ~ label[for="name"]{
+    top: -25px;
+}
+input[name="pass"]:focus ~ label[for="pass"]{
+    top: -25px;
+}
+.input-data button{
+    cursor: pointer;
+    position: relative;
+    width: 175px;
+    height: 30px;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    background: #007bf6;
+    color: white;
+    transition: 0.25s;
+}
+#forgot-password{
+    cursor: pointer;
+    position: relative;
+    top: 20px;
+    font-size: 13px;
+    color: #505050;
+}
+#forgot-password:hover{
+    color: #007bf6;
+    transition: 0.25s;
+}
+#error-name, #error-pass{
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    font-size: 12px;
+    color: red;
+}
+#error-name label{
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 160px;
+    color: red;
+}
+#error-pass label{
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 160px;
+    color: red;
+}

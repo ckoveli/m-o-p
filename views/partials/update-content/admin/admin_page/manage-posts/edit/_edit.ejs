@@ -1,0 +1,56 @@
+<% for(let i=0; i<data.comments.length; i++){ %> 
+    <thead>
+        <tr><th align="left">
+            <% if(data.comments[i].img == 'admin'){ %>
+                <img src="logo/img.png" style="position: absolute; margin-top: -1px; margin-left: -30px; width: 20px; height: 20px;">Kristina Kljajić
+            <% }else{ %> 
+                <% if(data.comments[i].username == ''){ %>
+                    Anoniman 
+                <% }else{ %>
+                    <%= data.comments[i].username %>
+                <% } %>  
+            <% } %>  
+            </th><td align="right"><p id="commentDate"><%= data.comments[i].date %></p><br><form onsubmit="return deleteComment(event, '<%= [data.id, data.comments[i].id] %>')" action="" method=""><button id="delete-btn" type="submit">Izbriši</button></form></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><p id="comment"><%= data.comments[i].comment %></p>
+                <% if(data.comments[i].replies !== undefined && data.comments[i].replies.length>0){ %>
+                    <div id="replies-title_id<%= i %>">
+                    <% if(data.comments[i].replies.length>1){ %>
+                        <% if(data.comments[i].replies.length !== 11 && ((data.comments[i].replies.length % 10).toString()).includes("1")){ %> 
+                            <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')">Prikaži <%= data.comments[i].replies.length %> odgovor <span class="show-hide-icon">&#9660;</span></h3>
+                        <% }else{ %> 
+                        <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')">Prikaži <%= data.comments[i].replies.length %> odgovora <span class="show-hide-icon">&#9660;</span></h3>
+                        <% } %> 
+                    <% } else{ %>
+                        <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')">Prikaži odgovor <span class="show-hide-icon">&#9660;</span></h3>
+                    <% } %>  
+                    </div>
+                    <tbody id="replies-partial_id<%= i %>" class="replies id<%= i %>" style="display: none; float: right; margin: 0 auto; width: 90%; border-bottom: none;">
+                        <% for(let j=0; j<data.comments[i].replies.length; j++){ %>
+                            <tr class="replies" style="font-size: 15px;"><th align="left">
+                                <% if(data.comments[i].replies[j].img == 'admin'){ %>
+                                    <img src="logo/img.png" style="position: absolute; margin-top: -1px; margin-left: -30px; width: 20px; height: 20px;">Kristina Kljajić
+                                <% }else{ %>  
+                                    <% if(data.comments[i].replies[j].username == ''){ %>
+                                        Anoniman 
+                                    <% }else{ %>
+                                        <%= data.comments[i].replies[j].username %>
+                                    <% } %>  
+                                <% } %>  
+                                </th><td align="right" style="width: 150px;"><p id="commentDate"><%= data.comments[i].replies[j].date %></p></td>
+                            </tr>
+                            <tr>
+                                <td align="left"><p id="reply"><%= data.comments[i].replies[j].reply %></p></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                <% }else{ %>
+                        <div id="replies-title_id<%= i %>"></div>
+                <% } %>    
+            </td>
+        </tr>
+    </tbody>
+<% } %>

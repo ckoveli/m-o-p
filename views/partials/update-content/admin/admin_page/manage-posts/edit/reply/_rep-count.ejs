@@ -1,0 +1,19 @@
+<% for(let j=0; j<comment.replies.length; j++){ %>
+    <tr id="reply_<%= commentId %>_<%= j %>" style="font-size: 15px;"><th align="left">
+        <% if(comment.replies[j].type == 'admin'){ %>
+            <img src="logo/img.png" style="position: absolute; margin-top: -1px; margin-left: -30px; width: 20px; height: 20px;">Kristina Kljajić
+        <% }else{ %> 
+            <% if(comment.replies[j].username == ''){ %>
+                Anoniman 
+            <% }else{ %>
+                <%= comment.replies[j].username %>
+            <% } %>  
+        <% } %>  
+        </th><td align="right" style="width: 150px;"><p id="commentDate"><%= comment.replies[j].date %></p><br>
+            <form onsubmit="return deleteReply(event, '<%= [dataId, commentId, comment.replies[j].id] %>')" action="" method=""><button id="delete-btn" type="submit">Izbriši</button></form>
+        </td>
+    </tr>
+    <tr>
+        <td align="left"><p id="reply"><%= comment.replies[j].reply %></p></td>
+    </tr> 
+<% } %>

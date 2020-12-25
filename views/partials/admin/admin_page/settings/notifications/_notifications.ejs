@@ -1,0 +1,139 @@
+    <h1>OBAVEŠTENJA</h1>
+    <% if(receiveNotifications == false){ %>
+        <p><input id="receiveNotifications" type="checkbox" style="display: none;">
+            Primaj obaveštenja 
+            <i onclick="updateSlider('receiveNotifications', '-on', '-off');" id="receiveNotifications-off" class="fas fa-toggle-off"></i>
+            <i onclick="updateSlider('receiveNotifications', '-on', '-off');" id="receiveNotifications-on" class="fas fa-toggle-on" style="display: none;"></i>
+        </p>
+        <div class="accept-notifications">
+            <p style="color: #dcdcdc;">
+                Na imejl: <input disabled onkeyup="document.getElementById('notificationsMailCheck').style.display = '';" id="notificationsMail" type="text" value="<%= mail %>" style="background: #dcdcdc;">
+                <i onclick="updateNotifications(); this.style.display = 'none';" id="notificationsMailCheck" class="fas fa-check-square" style="display: none;"></i>
+                <input type="hidden" value="<%= mail %>" id="notificationsMailDefault">
+            </p><br>
+            <% if(comments == false){ %>
+                <p style="color: #dcdcdc;"><input id="receiveComments" type="checkbox" style="display: none;">Komentari 
+                    <i onclick="updateSlider('receiveComments', '-on', '-off');" id="receiveComments-off" class="fas fa-toggle-off"></i>
+                    <i onclick="updateSlider('receiveComments', '-on', '-off');" id="receiveComments-on" class="fas fa-toggle-on" style="display: none;"></i>
+                </p><br>
+            <% }else{ %>
+                <p style="color: #dcdcdc;">
+                    <input id="receiveComments" type="checkbox" checked="checked" style="display: none;"> Komentari 
+                    <i onclick="updateSlider('receiveComments', '-on', '-off');" id="receiveComments-on" class="fas fa-toggle-on"></i>
+                    <i onclick="updateSlider('receiveComments', '-on', '-off');" id="receiveComments-off" class="fas fa-toggle-off" style="display: none;"></i>
+                </p><br>
+            <% } %>  
+            <% if(myReplies == false){ %>
+                <p style="color: #dcdcdc;"><input id="receiveMyReplies" type="checkbox" style="display: none;">Odgovori na tvoje komentare 
+                    <i onclick="updateSlider('receiveMyReplies', '-on', '-off');" id="receiveMyReplies-off" class="fas fa-toggle-off"></i>
+                    <i onclick="updateSlider('receiveMyReplies', '-on', '-off');" id="receiveMyReplies-on" class="fas fa-toggle-on" style="display: none;"></i>
+                </p><br>
+            <% }else{ %>
+                <p style="color: #dcdcdc;"><input id="receiveMyReplies" type="checkbox" checked="checked" style="display: none;">Odgovori na tvoje komentare 
+                    <i onclick="updateSlider('receiveMyReplies', '-on', '-off');" id="receiveMyReplies-on" class="fas fa-toggle-on"></i>
+                    <i onclick="updateSlider('receiveMyReplies', '-on', '-off');" id="receiveMyReplies-off" class="fas fa-toggle-off" style="display: none;"></i>
+                </p><br>
+            <% } %> 
+            <% if(otherReplies == false){ %>
+                <p style="color: #dcdcdc;"><input id="receiveOtherReplies" type="checkbox" style="display: none;">Odgovori na druge komentare 
+                    <i onclick="updateSlider('receiveOtherReplies', '-on', '-off');" id="receiveOtherReplies-off" class="fas fa-toggle-off"></i>
+                    <i onclick="updateSlider('receiveOtherReplies', '-on', '-off');" id="receiveOtherReplies-on" class="fas fa-toggle-on" style="display: none;"></i>
+                </p><br>
+            <% }else{ %>
+                <p style="color: #dcdcdc;"><input id="receiveOtherReplies" type="checkbox" checked="checked" style="display: none;">Odgovori na druge komentare 
+                    <i onclick="updateSlider('receiveOtherReplies', '-on', '-off');" id="receiveOtherReplies-on" class="fas fa-toggle-on"></i>
+                    <i onclick="updateSlider('receiveOtherReplies', '-on', '-off');" id="receiveOtherReplies-off" class="fas fa-toggle-off" style="display: none;"></i>
+                </p><br>
+            <% } %>     
+            <% if(registeredUsers == false){ %>
+                <p style="color: #dcdcdc;"><input id="receiveRegisteredUsers" type="checkbox" style="display: none;">Novoprijavljeni posetioci 
+                    <i onclick="updateSlider('receiveRegisteredUsers', '-on', '-off');" id="receiveRegisteredUsers-off" class="fas fa-toggle-off"></i>
+                    <i onclick="updateSlider('receiveRegisteredUsers', '-on', '-off');" id="receiveRegisteredUsers-on" class="fas fa-toggle-on" style="display: none;"></i>
+                </p><br>
+            <% }else{ %>   
+                <p style="color: #dcdcdc;"><input id="receiveRegisteredUsers" type="checkbox" checked="checked" style="display: none;">Novoprijavljeni posetioci 
+                    <i onclick="updateSlider('receiveRegisteredUsers', '-on', '-off');" id="receiveRegisteredUsers-on" class="fas fa-toggle-on"></i>
+                    <i onclick="updateSlider('receiveRegisteredUsers', '-on', '-off');" id="receiveRegisteredUsers-off" class="fas fa-toggle-off" style="display: none;"></i>
+                </p><br>
+            <% } %> 
+        </div>
+        <% if(usersReceiveNotifications == false){ %>
+            <p><input id="usersReceiveNotifications" type="checkbox" style="display: none;">Posetioci primaju obaveštenja 
+                <i onclick="updateSlider('usersReceiveNotifications', '-on', '-off');" id="usersReceiveNotifications-off" class="fas fa-toggle-off"></i>
+                <i onclick="updateSlider('usersReceiveNotifications', '-on', '-off');" id="usersReceiveNotifications-on" class="fas fa-toggle-on" style="display: none;"></i>
+            </p>
+        <% }else{ %>
+            <p><input id="usersReceiveNotifications" type="checkbox" checked="checked" style="display: none;">Posetioci primaju obaveštenja 
+                <i onclick="updateSlider('usersReceiveNotifications', '-on', '-off');" id="usersReceiveNotifications-on" class="fas fa-toggle-on"></i>
+                <i onclick="updateSlider('usersReceiveNotifications', '-on', '-off');" id="usersReceiveNotifications-off" class="fas fa-toggle-off" style="display: none;"></i>
+            </p>
+        <% } %>  
+    <% }else{ %>  
+            <p><input id="receiveNotifications" type="checkbox" checked="checked" style="display: none;">
+                Primaj obaveštenja 
+                <i onclick="updateSlider('receiveNotifications', '-on', '-off');" id="receiveNotifications-on" class="fas fa-toggle-on"></i>
+                <i onclick="updateSlider('receiveNotifications', '-on', '-off');" id="receiveNotifications-off" class="fas fa-toggle-off" style="display: none;"></i>
+            </p>
+            <div class="accept-notifications">
+                <p style="color: #505050;">
+                    Na imejl: <input onkeyup="document.getElementById('notificationsMailCheck').style.display = '';" id="notificationsMail" type="text" value="<%= mail %>">
+                    <i onclick="updateNotifications(); this.style.display = 'none';" id="notificationsMailCheck" class="fas fa-check-square" style="display: none;"></i>
+                    <input type="hidden" value="<%= mail %>" id="notificationsMailDefault">
+                </p><br>
+                <% if(comments == false){ %>
+                    <p><input id="receiveComments" type="checkbox" style="display: none;">Komentari 
+                        <i onclick="updateSlider('receiveComments', '-on', '-off');" id="receiveComments-off" class="fas fa-toggle-off"></i>
+                        <i onclick="updateSlider('receiveComments', '-on', '-off');" id="receiveComments-on" class="fas fa-toggle-on" style="display: none;"></i>
+                    </p><br>
+                <% }else{ %>
+                    <p><input id="receiveComments" type="checkbox" checked="checked" style="display: none;">Komentari 
+                        <i onclick="updateSlider('receiveComments', '-on', '-off');" id="receiveComments-on" class="fas fa-toggle-on"></i>
+                        <i onclick="updateSlider('receiveComments', '-on', '-off');" id="receiveComments-off" class="fas fa-toggle-off" style="display: none;"></i>
+                    </p><br>
+                <% } %>  
+                <% if(myReplies == false){ %>
+                    <p><input id="receiveMyReplies" type="checkbox" style="display: none;">Odgovori na tvoje komentare 
+                        <i onclick="updateSlider('receiveMyReplies', '-on', '-off');" id="receiveMyReplies-off" class="fas fa-toggle-off"></i>
+                        <i onclick="updateSlider('receiveMyReplies', '-on', '-off');" id="receiveMyReplies-on" class="fas fa-toggle-on" style="display: none;"></i>
+                    </p><br>
+                <% }else{ %>
+                    <p><input id="receiveMyReplies" type="checkbox" checked="checked" style="display: none;">Odgovori na tvoje komentare 
+                        <i onclick="updateSlider('receiveMyReplies', '-on', '-off');" id="receiveMyReplies-on" class="fas fa-toggle-on"></i>
+                        <i onclick="updateSlider('receiveMyReplies', '-on', '-off');" id="receiveMyReplies-off" class="fas fa-toggle-off" style="display: none;"></i>
+                    </p><br>
+                <% } %> 
+                <% if(otherReplies == false){ %>
+                    <p><input id="receiveOtherReplies" type="checkbox" style="display: none;">Odgovori na druge komentare 
+                        <i onclick="updateSlider('receiveOtherReplies', '-on', '-off');" id="receiveOtherReplies-off" class="fas fa-toggle-off"></i>
+                        <i onclick="updateSlider('receiveOtherReplies', '-on', '-off');" id="receiveOtherReplies-on" class="fas fa-toggle-on" style="display: none;"></i>
+                    </p><br>
+                <% }else{ %>
+                    <p><input id="receiveOtherReplies" type="checkbox" checked="checked" style="display: none;">Odgovori na druge komentare 
+                        <i onclick="updateSlider('receiveOtherReplies', '-on', '-off');" id="receiveOtherReplies-on" class="fas fa-toggle-on"></i>
+                        <i onclick="updateSlider('receiveOtherReplies', '-on', '-off');" id="receiveOtherReplies-off" class="fas fa-toggle-off" style="display: none;"></i>
+                    </p><br>
+                <% } %>     
+                <% if(registeredUsers == false){ %>
+                    <p><input id="receiveRegisteredUsers" type="checkbox" style="display: none;">Novoprijavljeni posetioci 
+                        <i onclick="updateSlider('receiveRegisteredUsers', '-on', '-off');" id="receiveRegisteredUsers-off" class="fas fa-toggle-off"></i>
+                        <i onclick="updateSlider('receiveRegisteredUsers', '-on', '-off');" id="receiveRegisteredUsers-on" class="fas fa-toggle-on" style="display: none;"></i>
+                    </p><br>
+                <% }else{ %>   
+                    <p><input id="receiveRegisteredUsers" type="checkbox" checked="checked" style="display: none;">Novoprijavljeni posetioci 
+                        <i onclick="updateSlider('receiveRegisteredUsers', '-on', '-off');" id="receiveRegisteredUsers-on" class="fas fa-toggle-on"></i>
+                        <i onclick="updateSlider('receiveRegisteredUsers', '-on', '-off');" id="receiveRegisteredUsers-off" class="fas fa-toggle-off" style="display: none;"></i>
+                    </p><br>
+                <% } %> 
+            </div>
+            <% if(usersReceiveNotifications == false){ %>
+                <p><input id="usersReceiveNotifications" type="checkbox" style="display: none;">Posetioci primaju obaveštenja 
+                    <i onclick="updateSlider('usersReceiveNotifications', '-on', '-off');" id="usersReceiveNotifications-off" class="fas fa-toggle-off"></i>
+                    <i onclick="updateSlider('usersReceiveNotifications', '-on', '-off');" id="usersReceiveNotifications-on" class="fas fa-toggle-on" style="display: none;"></i>
+                </p>
+            <% }else{ %>
+                <p><input id="usersReceiveNotifications" type="checkbox" checked="checked" style="display: none;">Posetioci primaju obaveštenja 
+                    <i onclick="updateSlider('usersReceiveNotifications', '-on', '-off');" id="usersReceiveNotifications-on" class="fas fa-toggle-on"></i>
+                    <i onclick="updateSlider('usersReceiveNotifications', '-on', '-off');" id="usersReceiveNotifications-off" class="fas fa-toggle-off" style="display: none;"></i>
+                </p>
+            <% } %>   
+        <% } %> 

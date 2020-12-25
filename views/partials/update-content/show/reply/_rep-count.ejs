@@ -1,0 +1,9 @@
+<% if(repliesCount>1){ %>
+    <% if(repliesCount !== 11 && ((repliesCount % 10).toString()).includes("1")){ %> 
+        <h3 class="show-hide-replies id<%= commentId %>" onclick="showReplies('<%= commentId %>', '<%= repliesCount %>')">Prikaži <%= repliesCount %> odgovor <span class="show-hide-icon">&#9660;</span></h3>
+    <% }else{ %> 
+        <h3 class="show-hide-replies id<%= commentId %>" onclick="showReplies('<%= commentId %>', '<%= repliesCount %>')">Prikaži <%= repliesCount %> odgovora <span class="show-hide-icon">&#9660;</span></h3>
+    <% } %> 
+<% } else{ %>
+    <h3 class="show-hide-replies id<%= commentId %>" onclick="showReplies('<%= commentId %>', '<%= repliesCount %>')">Prikaži odgovor <span class="show-hide-icon">&#9660;</span></h3>
+<% } %> 

@@ -1,0 +1,73 @@
+    <thead>
+        <tr><th id="commentName" align="left">
+            <% if(comment.type == 'admin'){ %>
+                <img src="logo/img.png" style="position: absolute; margin-top: -1px; margin-left: -30px; width: 20px; height: 20px;">Kristina Kljajić
+            <% }else{ %> 
+                <% if(comment.username == ''){ %>
+                    Anoniman 
+                <% }else{ %>
+                    <%= comment.username %>
+                <% } %>  
+            <% } %> 
+            </th><td align="right"><p id="commentDate"><%= comment.date %></p></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><p id="comment"><%= comment.comment %></p><br><p class="reply-button id<%= id %>" id="<%= id %>" onclick="revealCommentReply(this)">Odgovori</p>
+                <form onsubmit="return submitReply(event, this, '<%= id %>', '<%= comment.replies.length %>')" class="reply-box id<%= id %>" action="/odgovor/<%= slug %>?_method=PUT" method="POST" style="display: none;">
+                    <textarea class="reply-box-textarea" name="reply" placeholder="Dodaj komentar" maxlength="500"></textarea><br><br>
+                    <% if(!token){ %> 
+                    <p>Komentariši kao: </p><% } %> <input class="rep-username" id="rep-username_<%= id %>" type="text" name="username" placeholder="Ime" maxlength="20">
+                    <input type="hidden" name="commentId" value="<%= id %>">
+                    <input type="hidden" name="token" value="<%= token %>">
+                    <% if(!token){ %> 
+                    <div class="type">
+                        <select onchange="revealReplyInputUser(this.options[this.selectedIndex].value, '<%= id %>')" name="user">
+                            <option value="anonymous">Anonimno</option>
+                            <option value="name">Ime</option>
+                        </select>
+                    </div>
+                    <% } %> 
+                    <button type="submit">Odgovori</button>
+                </form>
+                <div class="replies-title id<%= id %>">
+                <% if(comment.replies !== undefined && comment.replies.length>0){ %>
+                    <% if(comment.replies.length>1){ %>
+                        <% if(comment.replies.length !== 11 && ((comment.replies.length % 10).toString()).includes("1")){ %> 
+                            <h3 class="show-hide-replies id<%= id %>" onclick="showReplies('<%= id %>', '<%= comment.replies.length %>')">Prikaži <%= comment.replies.length %> odgovor <span class="show-hide-icon">&#9660;</span></h3>
+                        <% }else{ %> 
+                        <h3 class="show-hide-replies id<%= id %>" onclick="showReplies('<%= id %>', '<%= comment.replies.length %>')">Prikaži <%= comment.replies.length %> odgovora <span class="show-hide-icon">&#9660;</span></h3>
+                        <% } %> 
+                    <% } else{ %>
+                        <h3 class="show-hide-replies id<%= id %>" onclick="showReplies('<%= id %>', '<%= comment.replies.length %>')">Prikaži odgovor <span class="show-hide-icon">&#9660;</span></h3>
+                    <% } %>  
+                    </div>
+                    <tbody class="replies-partial id<%= id %>" style=" float: right; margin: 0 auto; width: 90%;">
+                        <% for(let j=0; j<comment.replies.length; j++){ %>
+                            <tr id="reply_<%= id %>_<%= j %>" style="font-size: 15px;"><th align="left">
+                                <% if(comment.replies[j].type == 'admin'){ %>
+                                    <img src="logo/img.png" style="position: absolute; margin-top: -1px; margin-left: -30px; width: 20px; height: 20px;">Kristina Kljajić
+                                <% }else{ %>  
+                                    <% if(comment.replies[j].username == ''){ %>
+                                        Anoniman 
+                                    <% }else{ %>
+                                        <%= comment.replies[j].username %>
+                                    <% } %>  
+                                <% } %>  
+                                </th><td align="right" style="width: 150px;"><p id="commentDate"><%= comment.replies[j].date %></p></td>
+                            </tr>
+                            <tr>
+                                <td align="left"><p id="reply"><%= comment.replies[j].reply %></p></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                <% }else{ %>
+                    <h3 class="show-hide-replies id<%= id %>" onclick="showReplies('<%= id %>', '<%= comment.replies.length %>')"></h3>
+
+                    <tbody class="replies-partial id<%= id %>" style=" float: right; margin: 0 auto; width: 90%;">
+                    </tbody>
+                <% } %> 
+            </td>
+        </tr>
+    </tbody>

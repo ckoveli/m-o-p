@@ -1,0 +1,18 @@
+<div class="avatar">
+    <img class="picture" src="<%= data.picture %>">
+</div><% if(token == true){ %> 
+<div class="gear">
+    <img src="icons/gear.png">
+</div><% } %> 
+<h3 class="title"><%= data.title %></h3>
+<p class="subtitle"><%= data.subtitle %></p>
+<div class="body"><%- data.body %> </div><% if(token == true){ %> 
+    <div class="settings">
+        <form onsubmit="return aboutEdit(event);" action="/admin/uredi" method="GET"><button type="submit" name="e" value="about">Uredi</button></form>
+    </div>
+    <div class="blur"></div><% } %> 
+<div class="social-media">
+    <a href="https://www.facebook.com/profile.php?id=100019338011818" target="blank"><i class="fa fa-facebook"></i></a>
+    <a href="https://www.instagram.com/mesec_od_papiraa/" target="blank"><i class="fa fa-instagram"></i></a>
+    <a href="https://rs.linkedin.com/in/kristina-kljajić-a798761b3" target="blank"><i class="fa fa-linkedin"></i></a>
+</div>

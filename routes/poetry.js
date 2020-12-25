@@ -20,8 +20,17 @@ router.get('/:slug', getToken, async(req, res, next)=>{
 		if(!post) return next();
 
 		res.render('show/show-post', {
+			sub: req.headers.cookie && req.headers.cookie.includes('_sub') ? true : false,
 			token: res.locals.token,
-			data: post
+			data: post,
+			repliesCount: ()=>{
+				let cnt = 0;
+
+				for(let i=0; i<post.comments.length; i++){
+					cnt += post.comments[i].replies !== undefined ? post.comments[i].replies.length>0 ? post.comments[i].replies.length : 0 : 0;
+				} 
+				return cnt;
+			}
 		});
 	});
 });

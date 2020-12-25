@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Admin | Mesec Od Papira</title>
 	<script type="text/javascript" src="js/fontawesome.js"></script>
+	<link id="css-partial" rel="stylesheet" href="css/partials/admin/auth/_login.css">
 	<link rel="shortcut icon" type="image/png" href="favicon/favicon.png">
 	<style type="text/css">
 		*{
@@ -76,17 +77,20 @@
 			top: 0;
 			width: 100%;
 		}
-		.wrapper{
-			position: relative;
-			min-height: 100%;
+        .wrapper{
+            min-height: 500px;
+            content: "";
+            clear: both;
+			justify-content: center;
 		}
 		.card{
-    		position: relative;
-			top: 50%;
+			position: relative;
+			top: 0;
     		left: 50%;
+    		transform: translateX(-50%);
     		padding: 20px;
-    		width: 450px;
-    		transform: translate(-50%, 50%);
+			width: 450px;
+			height: 400px;
     		justify-content: center;
     		text-align: center;
     		line-height: 20px;
@@ -94,40 +98,12 @@
     		border-radius: 10px;
     		background: #ffffff;
     		color: #161616;
-			box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    		box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
     		animation: articleLoad 0.5s ease-in 0.5s;
     		animation-fill-mode: forwards;
     		opacity: 0;
     		transition: 0.5s;
 		}
-		.card input{
-		    position: relative;
-		    width: 175px;
-		    height: 30px;
-		    text-align: center;
-		    border: 1px solid #dcdcdc;
-		    background: #fafafa;
-		    transition: 0.25s;
-		}
-		.card button{
-		    cursor: pointer;
-		    position: relative;
-		    width: 175px;
-		    height: 30px;
-		    border: none;
-		    background: #007bf6;
-		    color: white;
-		    transition: 0.25s;
-		}
-        .card input:hover{
-            background: #dcdcdc;
-			transition: 0.25s;
-        }
-        .card input:focus{
-            background: #fafafa;
-			border: 1px solid #007bf6;
-			transition: 0.25s;
-        }
 		.footer{
             position: absolute;
             bottom: 0;
@@ -183,7 +159,7 @@
 		}
 		@media screen and (max-width: 1024px){
 			.card{
-				width: 325px;
+				width: 90%;
 				transition: 0.5s;
 			}
             .footer{
@@ -229,17 +205,31 @@
 			<h4 onclick="window.location.href = '/'">Mesec Od Papira</h4>
 		</div>
 		<nav>
-			<h3><%= title %></h3>
+			<h3>ADMIN</h3>
 		</nav>
 		<div class="wrapper">
 			<div class="card">
-				<form action="/admin/prijava" method="POST">
-					<input type="text" placeholder="Ime" name="name" required>
-					<br><br><br>
-					<input type="password" placeholder="Lozinka" name="pass" required>
-					<br><br><br>
-					<button type="submit">OK</button>
-				</form>
+				<div class="title">
+                    <p>PRIJAVA</p>
+				</div>
+				<div class="input-data">
+					<form onsubmit="login(event, this)" action="/admin/prijava" method="POST">
+						<div class="name">
+							<input onkeyup="inputFilled(this, document.getElementById('label-name'))" type="text" name="name" required>
+							<label onclick="document.querySelector('.name').getElementsByTagName('input')[0].focus();" id="label-name" for="name">Ime</label>
+							<i id="error-name" class="fas fa-exclamation-circle"><label></label></i>
+						</div>
+						<br><br><br>
+						<div class="pass">
+							<input onkeyup="inputFilled(this, document.getElementById('label-pass'));" type="password" name="pass" required>
+							<label onclick="document.querySelector('.pass').getElementsByTagName('input')[0].focus();" id="label-pass" for="pass">Lozinka</label>
+							<i id="error-pass" class="fas fa-exclamation-circle"><label></label></i>
+						</div>
+						<br><br><br>
+						<button type="submit">OK</button>
+					</form>
+				<p onclick="forgotPassword()" id="forgot-password">Zaboravljena lozinka?</p>
+				</div>
 			</div>
 		</div>
 		<div class="footer">
@@ -263,6 +253,86 @@
 		  } else {
 			nav.classList.remove('sticky');
 		  }
+		}
+		function inputFilled(input, label){
+			if(input.value !== ''){
+				label.style.top = '-25px';
+			}else{
+				label.style.top = '0';
+			}
+		}
+		async function login(e, form){
+			e.preventDefault();
+
+			const formData = new FormData(form);
+			const searchParams = new URLSearchParams();
+
+			for(const pair of formData){
+                searchParams.append(pair[0], pair[1]);
+			}
+
+			document.querySelector('.name').getElementsByTagName('label')[0].style.color = 'gray';
+			document.getElementById('error-name').style.display = 'none';
+			document.querySelector('.pass').getElementsByTagName('label')[0].style.color = 'gray';
+			document.getElementById('error-pass').style.display = 'none';
+
+			await fetch('/admin/prijava', {
+				method: 'POST',
+				body: searchParams
+			}).then(res => res.json()).then((res)=>{
+				if(res.error){
+					document.querySelector(`.${res.error.id}`).getElementsByTagName('label')[0].style.color = 'red';
+					document.getElementById(`error-${res.error.id}`).style.display = 'block';
+					document.getElementById(`error-${res.error.id}`).getElementsByTagName('label')[0].innerText = res.error.title;
+				}else window.location.href = res.path;
+			});
+		}
+		async function forgotPassword(){
+			const options = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({partial: 'forgot'})
+			}
+			await fetch('/22072019', options).then(res => res.json()).then((res)=>{
+				document.querySelector('.card').innerHTML = res.html;
+                document.getElementById('css-partial').href = res.css;
+			});
+		}
+		async function backToLogin(){
+			const options = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({partial: 'login'})
+			}
+			await fetch('/22072019', options).then(res => res.json()).then((res)=>{
+				document.querySelector('.card').innerHTML = res.html;
+				document.getElementById('css-partial').href = res.css;
+			});
+		}
+		async function proceedTwoStep(e, form){
+			e.preventDefault();
+
+			const formData = new FormData(form);
+			const searchParams = new URLSearchParams();
+
+			for(const pair of formData){
+                searchParams.append(pair[0], pair[1]);
+			}
+
+			await fetch(`/admin/two-step/forgot`, {
+				method: 'POST',
+				body: searchParams
+			}).then(res => res.json()).then((res)=>{
+				if(res.error){
+					document.querySelector(`.${res.error.id}`).getElementsByTagName('label')[0].style.color = 'red';
+					document.getElementById(`error-${res.error.id}`).style.display = 'block';
+					document.getElementById(`error-${res.error.id}`).getElementsByTagName('label')[0].innerText = res.error.title;
+				}else window.location.href = `/admin/two-step`;
+			});
 		}
 	</script>
 </body>

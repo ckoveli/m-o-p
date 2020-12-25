@@ -1,0 +1,95 @@
+.card .title{
+    position: relative;
+    top: -95px;
+    color: #161616;
+    font-family: Optima, sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+}
+.card .subtitle{
+    position: relative;
+    top: -101px;
+    color: black;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin: 15px 0;
+}
+.card .body{
+    position: relative;
+    top: -185px;
+    padding: 10px;
+    width: 100%;
+    height: 250px;
+    overflow: auto;
+    font-size: 16px;
+    color: #505050;
+}
+.card .avatar:hover{
+    cursor: pointer;
+    border: 2px solid #007bf6;
+    transition: 0.25s;
+}
+.card input,
+.card .body{
+    position: relative;
+    text-align: center;
+    border: 1px solid #dcdcdc;
+    background: #fafafa;
+    transition: 0.25s;
+}
+.card input:hover,
+.card .body:hover{
+    background: #dcdcdc;
+    transition: 0.25s;
+}
+.card input:focus,
+.card .body:focus{
+    background: #fafafa;
+    border: 1px solid #007bf6;
+    transition: 0.25s;
+}
+.card .tool-list{
+    display: flex;
+    position: relative;
+    top: -125px;
+    list-style: none;
+    margin-top: 20px;
+    padding: 0;
+    overflow: hidden;
+}	
+.card .tool--btn{
+    display: block;
+    border: none;
+    padding: .5rem;
+    font-size: 20px;
+    background: #ffffff;
+    color: #161616;
+}
+.card .tool--btn:hover{
+    cursor: pointer;
+    background: #dcdcdc;
+    transition: 0.25s;
+}
+.card .submit{
+    cursor: pointer;
+    position: relative;
+    width: 175px;
+    height: 30px;
+    border: none;
+    font-size: 15px;
+    background: #007bf6;
+    color: white;
+    transition: 0.25s;
+}
+.card .cancel{
+    cursor: pointer;
+    position: relative;
+    margin-right: 50px;
+    width: 175px;
+    height: 30px;
+    border: 1px solid transparent;
+    font-size: 15px;
+    background: #dcdcdc;
+    color: #161616;
+    transition: 0.25s;
+}

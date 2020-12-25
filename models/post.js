@@ -33,7 +33,7 @@ const postSchema = new mongoose.Schema({
         type: Boolean
     },
     comments: {
-        type: Array
+        type: Array,
     },
     slug:{
         type: String,

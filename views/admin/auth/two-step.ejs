@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin | Mesec Od Papira</title>
+	<script type="text/javascript" src="../js/fontawesome.js"></script>
+	<link rel="shortcut icon" type="image/png" href="../favicon/favicon.png">
+	<style type="text/css">
+		*{
+    		margin: 0;
+    		padding: 0;
+    		box-sizing: border-box;
+    		font-family: sans-serif;
+		}
+        html, body{
+            overflow-x: hidden;
+        }
+        body{
+            position: relative;
+            font-family: Arial;
+            background: #fafafa;
+        }
+		.container{
+			display: block;
+			position: relative;
+			padding-bottom: 250px;
+			min-height: 100vh;
+			overflow: hidden;
+		}
+		a{
+            cursor: pointer;
+            text-decoration: none;
+			font-size: inherit;
+            color: inherit;
+        }
+        a:hover{
+            color: #161616;
+            transition: 0.25s;
+        }
+		.logo{
+		    display: block;
+		    min-height: 10px;
+		    text-align: center;
+		    letter-spacing: 5px;
+		    font-family: Chalkduster, fantasy;
+		    font-size: 20px;
+		    background: rgb(22, 22, 22);
+		    color: white;
+		    animation: navLoad 0.5s ease-in;
+		}
+		.logo img{
+		    cursor: pointer;
+		    margin-top: 5px;
+		    width: 100px;
+		    height: 100px;
+		    animation: navLoad 1s ease-in;
+		}
+		.logo h4{
+		    cursor: pointer;
+		}
+		nav{
+		    display: flex;
+			position: relative;
+		    height: 50px;
+		    justify-content: space-around;
+		    align-items: center;
+		    font-family: Optima, sans-serif;
+		    border-bottom: 1px solid #dcdcdc;
+		    background: #ffffff;
+		    animation: navLoad 0.5s ease-in;
+		}
+		.sticky{
+			position: fixed;
+			z-index: 10;
+			top: 0;
+			width: 100%;
+		}
+        .wrapper{
+            min-height: 500px;
+            content: "";
+            clear: both;
+			justify-content: center;
+		}
+		.card{
+			position: relative;
+			top: 0;
+    		left: 50%;
+    		transform: translateX(-50%);
+    		padding: 20px;
+			width: 450px;
+			height: 400px;
+    		justify-content: center;
+    		text-align: center;
+    		line-height: 20px;
+    		border: 1px solid #dcdcdc;
+    		border-radius: 10px;
+    		background: #ffffff;
+    		color: #161616;
+    		box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
+    		animation: articleLoad 0.5s ease-in 0.5s;
+    		animation-fill-mode: forwards;
+    		opacity: 0;
+    		transition: 0.5s;
+		}		
+		.card .title{
+		    position: relative;
+		    width: 100%;
+		    margin-bottom: 30px;
+		    text-align: left;
+		    word-wrap: break-word;
+		    border-bottom: 1px solid #dcdcdc;
+		    color: #505050;
+		}
+		.title i{
+		    position: absolute;
+		    top: 3px;
+		    left: 0;
+		    cursor: pointer;
+		    font-size: 32px;
+		    color: #505050;
+		}
+		.title p{
+		    position: relative;
+		    left: 45px;
+		    margin-bottom: 20px;
+		    text-align: left;
+		    width: 90%;
+		    font-size: 18px;
+		    color: #505050;
+		}
+		.card .input-data{
+			position: relative;
+			top: 20%;
+		    left: 50%;
+		    transform: translateX(-50%);
+		    width: 100%;
+		}
+		.input-data input[name="code"]{
+			display: inline-block;
+			position: relative;
+			top: 50%;
+			padding: 5px;
+			margin-right: 25px;
+    		width: 50px;
+    		height: 50px;
+    		text-align: center;
+    		font-size: 25px;
+    		letter-spacing: 1px;
+    		border: none;
+    		border-bottom: 1px solid #dcdcdc;
+    		color: #505050;
+    		transition: all 0.5s ease;
+		}
+		.input-data input[name="code"]:focus{
+		    outline: none;
+		    border-bottom: 1px solid #505050;
+		}
+		.input-data input[name="answer"]{
+			position: relative;
+			top: 30px;
+    		padding: 5px;
+    		width: 175px;
+    		height: 30px;
+    		text-align: center;
+    		font-size: 15px;
+    		letter-spacing: 1px;
+    		border: none;
+    		border-bottom: 1px solid #dcdcdc;
+    		color: #505050;
+    		transition: all 0.5s ease;
+		}
+		.input-data input[name="answer"]:focus{
+			outline: none;
+    		border-bottom: 1px solid #505050;
+		}
+		.input-data button{
+    		cursor: pointer;
+    		position: relative;
+    		width: 175px;
+    		height: 30px;
+    		font-size: 15px;
+    		border: none;
+    		border-radius: 5px;
+    		background: #007bf6;
+    		color: white;
+    		transition: 0.25s;
+		}
+		#timer{
+			position: relative;
+		    font-size: 30px;
+		    color: #505050;
+		}
+		#login{
+    		cursor: pointer;
+    		position: relative;
+    		top: 90px;
+    		font-size: 13px;
+    		color: #505050;
+		}
+		#login:hover{
+		    color: #007bf6;
+		    transition: 0.25s;
+		}
+		.footer{
+            position: absolute;
+            bottom: 0;
+            padding-top: 20px;
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            border-top: 1px solid #dcdcdc;
+            background: #ffffff;
+            color: #505050;
+        }
+        .footer-left{
+            position: absolute;
+            left: 15%;
+        }
+        .footer-right{
+			display: flex;
+            position: absolute;
+            right: 15%;
+        }
+		.footer i{
+			width: 20px;
+			height: 100%;
+			font-size: 20px;
+		}
+		@keyframes navLoad{
+		    0%{
+		        transform: translateY(-200%);
+		    }
+		    100%{
+		        transform: translateY(0);
+		    }
+		}
+		@keyframes headerLoad{
+		    0%{
+		        transform: translateY(-20px);
+		        opacity: 0;
+		    }
+		    100%{
+		        transform: translateY(0);
+		        opacity: 1;
+		    }
+		}
+		@keyframes articleLoad{
+		    0%{
+		        transform: translate(-50%, 45%);
+		        opacity: 0;
+		    }
+		    100%{
+		        transform: translate(-50%, 50%);
+		        opacity: 1;
+		    }
+		}
+		@media screen and (max-width: 1024px){
+			.card{
+				width: 90%;
+				transition: 0.5s;
+			}
+            .footer{
+                font-size: 12px;
+                height: 75px;
+            }
+    		.footer-left{
+    		    left: 0;
+				right: 0;
+				margin-left: auto;
+				margin-right: auto;
+				width: 200px;
+            }
+            .footer i{
+                font-size: 15px;
+            }
+    		.footer-right{
+                position: relative;
+				top: 25px;
+ 				left: 0; 
+ 				right: 0; 
+ 				margin-left: auto; 
+ 				margin-right: auto; 
+ 				width: 300px;
+    		}
+		}
+		@keyframes navLinkFade{
+		    from{
+		        opacity: 0;
+		        transform: translateX(50px);
+		    }
+		    to{
+		        opacity: 1;
+		        transform: translateX(0px);
+		    }
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="logo">
+			<img src="../logo/mop.png" onclick="window.location.href = '/'">
+			<h4 onclick="window.location.href = '/'">Mesec Od Papira</h4>
+		</div>
+		<nav>
+			<h3>ADMIN</h3>
+		</nav>
+		<div class="wrapper">
+			<div class="card">
+				<div class="title">
+					<%- title %> 
+				</div>
+				<%- timer %> 
+				<div class="input-data">
+					<form onsubmit="return proceedTwoStep(event);" action="" method="">
+						<%- form %>  
+					</form>
+				</div>
+				<a href="/22072019" id="login">Prijava</a>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-left">
+				Copyright &copy;<script type="text/javascript">document.write(`&nbsp${new Date().getFullYear()}&nbsp`)</script><a href="/">Mesec Od Papira</a>
+			</div>
+			<div class="footer-right">
+				Designed, developed and distributed by&nbsp;<a href="https://www.instagram.com/velickovicdj/" style="display: inherit;"><i class="fa fa-instagram"></i>velickovicdj</a>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		window.onscroll = function() {stickyNav()};
+
+		const nav = document.querySelector('nav'),
+		sticky = nav.offsetTop;
+			
+		function stickyNav() {
+		  if (window.pageYOffset >= sticky) {
+			nav.classList.add('sticky')
+		  } else {
+			nav.classList.remove('sticky');
+		  }
+		}
+	</script>
+</body>
+</html>

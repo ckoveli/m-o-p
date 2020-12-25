@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 function parseToken(cookie){
-    return cookie.split(`${process.env.ADMIN_COOKIE_NAME}=`)[1];
+    return cookie.includes(process.env.ADMIN_COOKIE_NAME) ? cookie.split(`${process.env.ADMIN_COOKIE_NAME}=`)[1].split(process.env.ADMIN_COOKIE_SEPARATOR)[0] : null;
 }
 
 const admin = (cookie, callback)=>{
@@ -37,8 +37,20 @@ const strict = (cookie, callback)=>{
         });
 	});
 }
+const twoStep = (cookie, callback)=>{
+    const token = cookie && cookie.split(process.env.TMP_TOKEN_SECRET)[0];
+    const name = cookie && cookie.split(process.env.TMP_TOKEN_SECRET)[1];
 
+    if(token == null) return callback(false);
+
+    jwt.verify(token, process.env.TMP_TOKEN_SECRET, (err)=>{
+        if(err) return callback(false, {name: name});
+
+        return callback(null, {name: name})
+    });
+}
 module.exports = {
     verifyAdmin: admin,
-    verifyAdminStrict: strict
+    verifyAdminStrict: strict,
+    twoStep: twoStep
 }

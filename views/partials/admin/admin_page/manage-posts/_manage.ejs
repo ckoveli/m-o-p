@@ -1,0 +1,45 @@
+    <table id="posts-partial">
+        <thead>
+            <tr><th id="posts-title" colspan="5" style="border-bottom: 1px solid #dcdcdc;">
+                <% if((postCount%10) == 2 || (postCount%10) == 3 || (postCount%10) == 4){ %>
+                    <% if((postCount%100) == 12 || (postCount%100) == 13 || (postCount%100) == 14){ %>
+                        <%= postCount %> Objava 
+                    <% }else{ %>
+                        <%= postCount %> Objave
+                    <% } %>   
+                <% }else{ %>
+                    <%= postCount %> Objava
+                <% } %>    
+            </th></tr>
+            <tr><th colspan="3" style="border-right: 1px solid #dcdcdc;">Naslov</th><th colspan="2">Akcija</th></tr>
+        </thead>
+        <tbody>
+            <% data.forEach((data)=>{ %> 
+                <tr>
+                    <td><img onclick="window.location.href='/poezija/<%= data.slug %>'" class="picture" src="<%= data.picture %>"></td>
+                    <td onclick="window.location.href='/poezija/<%= data.slug %>'" style="cursor: pointer; color: #161616;"><%- data.title %></td>
+                    <td onclick="window.location.href='/poezija/<%= data.slug %>'" style="border-right: 1px solid #dcdcdc; color: #505050;">
+                        <% function repliesCount(comments){ %> 
+                            <% let cnt = 0; %>
+
+                            <% for(let i=0; i<comments.length; i++){ %>
+                                <% cnt += comments[i].replies !== undefined ? comments[i].replies.length>0 ? comments[i].replies.length : 0 : 0; %>
+                            <% } %>
+                            <% return cnt; %>
+                        <% } %> 
+                        <% if(data.comments.length>0){ %>
+                            <% if(data.comments.length + repliesCount(data.comments) !== 11 && (((data.comments.length + repliesCount(data.comments)) % 10).toString()).includes("1")){ %>
+                                <%= data.comments.length + repliesCount(data.comments) %> Komentar 
+                            <% }else{ %>
+                                <%= data.comments.length + repliesCount(data.comments) %> Komentara
+                            <% } %>   
+                        <% }else{ %>
+                            Nema komentara
+                        <% } %>
+                    </td>
+                    <td align="left"><button onclick="load('manage-posts/edit/_edit', 'js/partials/admin/admin_page/manage-posts/edit/_edit.js', '<%= data.id %>');" id="edit-btn">Uredi</button></td>
+                    <td align="right"><button onclick="deletePost('<%= data.id %>');" id="delete-btn">Izbriši</button></td>
+                </tr>
+            <% }); %> 
+        </tbody>
+    </table>

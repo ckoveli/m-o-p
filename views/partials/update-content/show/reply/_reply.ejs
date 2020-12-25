@@ -1,0 +1,15 @@
+    <tr id="reply_<%= commentId %>_<%= replyId %>" style="font-size: 15px;"><th align="left">
+        <% if(reply.type == 'admin'){ %>
+            <img src="logo/img.png" style="position: absolute; margin-top: -1px; margin-left: -30px; width: 20px; height: 20px;">Kristina Kljajić
+        <% }else{ %>  
+            <% if(reply.username == ''){ %>
+                Anoniman 
+            <% }else{ %>
+                <%= reply.username %>
+            <% } %>  
+        <% } %>  
+        </th><td align="right" style="width: 150px;"><p id="commentDate"><%= reply.date %></p></td>
+    </tr>
+    <tr>
+        <td align="left"><p id="reply"><%= reply.reply %></p></td>
+    </tr>

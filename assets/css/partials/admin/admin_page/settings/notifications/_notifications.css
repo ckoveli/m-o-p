@@ -1,0 +1,82 @@
+.card{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    width: 600px;
+    justify-content: center;
+    text-align: center;
+    line-height: 20px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #161616;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
+    animation: articleLoad 0.5s ease-in 0.5s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    transition: 0.5s;
+}
+.card h1{
+    letter-spacing: 2px;
+    line-height: 48px;
+    font-size: 20px;
+    border-bottom: 1px solid #dcdcdc;
+    color: #505050;
+}
+.card p{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 26px;
+    color: #505050;
+}
+.card i{
+    position: absolute;
+    right: 60px;
+    cursor: pointer;
+    font-size: 28px;
+}
+.accept-notifications p{
+    margin: 0;
+    margin-left: 90px;
+    font-size: 15px;
+    line-height: 25px;
+}
+.accept-notifications{
+    border-bottom: 1px solid #dcdcdc;
+}
+.accept-notifications i{
+    font-size: 22px;
+}
+.accept-notifications input{
+    position: relative;
+    left: 60px;
+    padding: 5px;
+    width: 200px;
+    height: 20px;
+    font-size: 15px;
+    border: 1px solid #dcdcdc;
+    color: #505050;
+}
+.accept-notifications input:hover{
+    background: #dcdcdc;
+    transition: 0.25s;
+}
+.accept-notifications input:focus{
+    background: #fafafa;
+    border: 1px solid #007bf6;
+    transition: 0.25s;
+}
+@media screen and (max-width: 1024px){
+    .card{
+        width: 90%;
+    }
+    .accept-notifications input{
+        width: 30%;
+    }
+} 

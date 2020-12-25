@@ -1,0 +1,122 @@
+.card{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    width: 600px;
+    justify-content: center;
+    text-align: center;
+    line-height: 20px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #161616;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
+    animation: articleLoad 0.5s ease-in 0.5s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    transition: 0.5s;
+}
+.card h1{
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    line-height: 48px;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #dcdcdc;
+}
+.card h1 i{
+    cursor: pointer;
+    position: absolute;
+    top: 33px;
+    left: 20px;
+    font-size: 20px;
+}
+.card .input-data{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 175px;
+    text-align: center;
+}
+.input-data .old-pass, .input-data .new-pass, .input-data .new-pass-again{
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+.input-data input{
+    position: relative;
+    padding: 5px;
+    width: 175px;
+    height: 30px;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 1px;
+    border: none;
+    border-bottom: 1px solid #dcdcdc;
+    color: #505050;
+    transition: all 0.5s ease;
+}
+.input-data input:focus{
+    outline: none;
+    border-bottom: 1px solid #505050;
+}
+.input-data label{
+    cursor: text;
+    position: absolute;
+    left: 0;
+    padding: 5px;
+    font-size: 12px;
+    color: gray;
+}
+.old-pass label, .new-pass label, .new-pass-again label{
+    top: 0;
+}
+input[name="oldpass"]:focus ~ label[for="oldpass"]{
+    top: -25px;
+}
+input[name="newpass"]:focus ~ label[for="newpass"]{
+    top: -25px;
+}
+input[name="newpassagain"]:focus ~ label[for="newpassagain"]{
+    top: -25px;
+}
+.input-data button{
+    cursor: pointer;
+    position: relative;
+    width: 175px;
+    height: 30px;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    background: #007bf6;
+    color: white;
+    transition: 0.25s;
+}
+#error-oldpass, #error-newpassagain{
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    font-size: 12px;
+    color: red;
+}
+#error-oldpass label{
+    position: absolute;
+    top: -5px;
+    left: 5px;
+    width: 160px;
+    color: red;
+}
+#error-newpassagain label{
+    position: absolute;
+    top: -5px;
+    left: 10px;
+    width: 160px;
+    color: red;
+}
+@media screen and (max-width: 1024px){
+    .card{
+        width: 90%;
+    }
+}

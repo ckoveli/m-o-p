@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{csrf_token()}}"/>
     <title><%= data.title %> | Mesec Od Papira</title>
     <script type="text/javascript" src="js/fontawesome.js"></script>
     <link rel="shortcut icon" type="image/png" href="favicon/favicon.png">
-    <style>
+    <style type="text/css">
         *{
             margin: 0;
             padding: 0;
@@ -222,6 +223,7 @@
 		}
         .picture{
             width: inherit;
+            height: 500px;
 			border-top-right-radius: 10px;
 			border-top-left-radius: 10px;
 		    background-repeat: no-repeat;
@@ -250,6 +252,7 @@
             padding: 40px;
             padding-top: 20px;
             font-size: 16px;
+            word-wrap: break-word;
             color: #505050;
         }
         .card .comments-title{
@@ -261,6 +264,38 @@
         #comment{
             max-width: 500px;
             word-wrap: break-word;
+        }
+        #reply{
+            width: 300px;
+            word-wrap: break-word;
+        }
+        #add-comment{
+            display: none; 
+            padding-top: 20px; 
+            text-align: center;
+            color: #505050;
+            transition: 0.25s;
+        }
+        #add-comment:hover{
+            cursor: pointer; 
+            color: #161616;
+            transition: 0.25s;
+        }
+        .show-hide-replies{
+            position: relative;
+            top: 15px;
+            font-size: 15px;
+            color: #505050;
+            transition: 0.25s;
+        }
+        .show-hide-replies:hover{
+            cursor: pointer;
+            color: #161616;
+            transition: 0.25s;
+        }
+        .show-hide-icon{
+            margin-left: 10px;
+            font-size: 10px;
         }
         .card textarea{
             resize: none;
@@ -284,7 +319,8 @@
         }
         .card textarea:focus{
             background: #fafafa;
-			border: 1px solid #007bf6;
+            border: 1px solid #007bf6;
+            outline: none;
 			transition: 0.25s;
         }
         .type{
@@ -336,7 +372,8 @@
         }
         .card input:focus{
             background: #fafafa;
-			border: 1px solid #007bf6;
+            border: 1px solid #007bf6;
+            outline: none;
 			transition: 0.25s;
         }
         select{
@@ -370,14 +407,25 @@
 		    color: white;
 		    transition: 0.25s;
         }
+        .reply-button{
+            cursor: pointer;
+            padding: 4px;
+            padding-left: 12px;
+            width: 85px;
+            height: 30px;
+            border: 1px solid transparent;
+            font-size: 14px;
+            background: #dcdcdc;
+            color: #161616;
+            transition: 0.25s;
+        }
         table{
             position: relative;
             width: 100%;
             border-collapse: collapse;
-            border-top: 1px solid #dcdcdc;
         }
-        tbody{
-            border-bottom: 1px solid #dcdcdc;
+        thead{
+            border-top: 1px solid #dcdcdc;
         }
         thead th{
             padding: 20px;
@@ -404,6 +452,126 @@
             border: 1px solid #161616;
             color: #161616;
             transition: 0.25s;
+        }
+        .subscribe-box{
+            position: fixed;
+            z-index: 15;
+            bottom: 10px;
+            left: 10px;
+            width: 400px;
+            height: 220px;
+            transform: translateX(-200%);
+            border: 1px solid #dcdcdc;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
+            transition: 0.5s;
+        }
+        .subscribe-box .title{
+            position: relative;
+            margin-bottom: 15px;
+            width: 100%;
+            height: 50px;
+            text-align: left;
+            border-bottom: 1px solid #dcdcdc;
+            color: #505050;
+        }
+        .subscribe-box .title p{
+            position: absolute;
+            top: 8px;
+            left: 10%;
+            letter-spacing: 1px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #505050;
+        }
+        .subscribe-box .title i{
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+        }
+        .input-data p{
+            position: relative;
+            top: 0;
+            left: 10%;
+            margin-bottom: 15px;
+        }
+        .input-data .email{
+            position: relative;
+            width: 100%;
+        }
+        .input-data input{
+            position: absolute;
+            top: 20px;
+            left: 10%;
+            right: 10%;
+            padding: 5px;
+            width: 80%;
+            height: 30px;
+            text-align: left;
+            font-size: 15px;
+            letter-spacing: 1px;
+            border: none;
+            border-bottom: 1px solid #dcdcdc;
+            color: #505050;
+            transition: all 0.5s ease;
+        }
+        .input-data input:focus{
+            outline: none;
+            border-bottom: 1px solid #505050;
+        }
+        .input-data label{
+            cursor: text;
+            position: absolute;
+            margin-top: 20px;
+            left: 10%;
+            padding: 5px;
+            font-size: 15px;
+            color: gray;
+        }
+        .email label{
+            top: 0;
+        }
+        input[name="email"]:focus ~ label[for="email"]{
+            top: -20px;
+        }
+        .subscribe-box button{
+            cursor: pointer;
+            position: relative;
+            bottom: -20px;
+            left: 10%;
+            right: 10%;
+            padding: 5px;
+            width: 80%;
+            height: 30px;
+            letter-spacing: 1px;
+            font-size: 15px;
+            border: none;
+            border-radius: 5px;
+            background: #007bf6;
+            color: white;
+            transition: 0.25s;
+        }
+        .subscribe-box #error-email{
+            display: none;
+            position: absolute;
+            bottom: 52px;
+            left: 10%;
+            right: 10%;
+            width: 80%;
+            font-size: 13px;
+            color: red;
+        }
+        .subscribe-box #error-email-label{
+            position: absolute;
+            bottom: -5px;
+            left: 5%;
+            right: 10%;
+            width: 80%;
+            font-size: 13px;
+            color: inherit;
         }
         .footer{
             margin-top: 100px;
@@ -539,11 +707,22 @@
                 width: 100px;
                 font-size: 14px;
             }
-            #username{
+            #reply{
+                width: 225px;
+            }
+            #com-username{
                 margin: 28px;
                 margin-left: -130px;
                 width: 155px;
                 height: 30px;
+            }
+            .rep-username{
+                margin-top: -28px;
+                width: 155px;
+                height: 30px;
+            }
+            .subscribe-box{
+                display: none;
             }
             .footer{
                 font-size: 12px;
@@ -602,7 +781,7 @@
                 <button class="searchBtn" type="button"></button>
             </form>
         </div><% if(token == true){ %> 
-        <%- include('../admin/partials/_nav') %> 
+        <%- include('../partials/admin/_nav') %> 
         <% }else{ %> 
             <ul class="links">
                 <li><a href="/">Početna</a></li>
@@ -616,6 +795,9 @@
         </div>
     </nav>
     <div class="wrapper">
+        <% if(sub == false && token == false){ %>
+            <%- include('../partials/show/subscribe/_subscribe') %> 
+        <% } %>  
         <div class="card">
             <div class="avatar">
                 <img class="picture" src="<%= data.picture %>">
@@ -634,45 +816,108 @@
             <div class="card">
                 <h4 class="comments-title">
                     <% if(data.comments.length>0){ %>
-                        <% if(data.comments.length == 1){ %>
-                            <%= data.comments.length %> Komentar 
+                        <% if(data.comments.length + repliesCount() !== 11 && (((data.comments.length + repliesCount()) % 10).toString()).includes("1")){ %>
+                            <%= data.comments.length + repliesCount() %> Komentar 
                         <% }else{ %>
-                            <%= data.comments.length %> Komentara
+                            <%= data.comments.length + repliesCount() %> Komentara
                         <% } %>   
                     <% }else{ %>
                         Nema komentara
                     <% } %>
                 </h4>
                 <% if(data.comments !== undefined || array.length>0){ %>
-                    <table>
-                        <% data.comments.forEach((comment)=>{ %> 
+                    <table id="comments-partial">
+                        <% for(let i=0; i<data.comments.length; i++){ %>
                             <thead>
-                                <tr><th align="left">
-                                    <% if(comment.username == ''){ %>
-                                        Anoniman 
-                                    <% }else{ %>
-                                        <%= comment.username %>
-                                    <% } %>   
-                                    </th><td align="right"><p id="commentDate"><%= comment.date %></p></td>
+                                <tr><th id="commentName" align="left">
+                                    <% if(data.comments[i].type == 'admin'){ %>
+                                        <img src="logo/img.png" style="position: absolute; margin-top: -1px; margin-left: -30px; width: 20px; height: 20px;">Kristina Kljajić
+                                    <% }else{ %> 
+                                        <% if(data.comments[i].username == ''){ %>
+                                            Anoniman 
+                                        <% }else{ %>
+                                            <%= data.comments[i].username %>
+                                        <% } %>  
+                                    <% } %> 
+                                    </th><td align="right"><p id="commentDate"><%= data.comments[i].date %></p></td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><p id="comment"><%= comment.comment %></p></td>
+                                    <td><p id="comment"><%= data.comments[i].comment %></p><br><p class="reply-button id<%= i %>" id="<%= i %>" onclick="revealCommentReply(this)">Odgovori</p>
+                                        <form onsubmit="return submitReply(event, this, '<%= i %>', '<%= data.comments[i].replies.length %>')" class="reply-box id<%= i %>" action="/odgovor/<%= data.slug %>?_method=PUT" method="POST" style="display: none;">
+                                            <textarea class="reply-box-textarea" name="reply" placeholder="Dodaj komentar" maxlength="500"></textarea><br><br>
+                                            <% if(!token){ %> 
+                                            <p>Komentariši kao: </p><% } %> <input class="rep-username" id="rep-username_<%= i %>" type="text" name="username" placeholder="Ime" maxlength="20">
+                                            <input type="hidden" name="commentId" value="<%= i %>">
+                                            <input type="hidden" name="token" value="<%= token %>">
+                                            <% if(!token){ %> 
+                                            <div class="type">
+                                                <select onchange="revealReplyInputUser(this.options[this.selectedIndex].value, '<%= i %>')" name="user">
+                                                    <option value="anonymous">Anonimno</option>
+                                                    <option value="name">Ime</option>
+                                                </select>
+                                            </div>
+                                            <% } %> 
+                                            <button type="submit">Odgovori</button>
+                                        </form>
+                                        <div class="replies-title id<%= i %>">
+                                        <% if(data.comments[i].replies !== undefined && data.comments[i].replies.length>0){ %>
+                                            <% if(data.comments[i].replies.length>1){ %>
+                                                <% if(data.comments[i].replies.length !== 11 && ((data.comments[i].replies.length % 10).toString()).includes("1")){ %> 
+                                                    <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')">Prikaži <%= data.comments[i].replies.length %> odgovor <span class="show-hide-icon">&#9660;</span></h3>
+                                                <% }else{ %> 
+                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')">Prikaži <%= data.comments[i].replies.length %> odgovora <span class="show-hide-icon">&#9660;</span></h3>
+                                                <% } %> 
+                                            <% } else{ %>
+                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')">Prikaži odgovor <span class="show-hide-icon">&#9660;</span></h3>
+                                            <% } %>  
+                                            </div>
+                                            <tbody class="replies-partial id<%= i %>" style="display: none; float: right; margin: 0 auto; width: 90%;">
+                                                <% for(let j=0; j<data.comments[i].replies.length; j++){ %>
+                                                    <tr id="reply_<%= i %>_<%= j %>" style="font-size: 15px;"><th align="left">
+                                                        <% if(data.comments[i].replies[j].type == 'admin'){ %>
+                                                            <img src="logo/img.png" style="position: absolute; margin-top: -1px; margin-left: -30px; width: 20px; height: 20px;">Kristina Kljajić
+                                                        <% }else{ %> 
+                                                            <% if(data.comments[i].replies[j].username == ''){ %>
+                                                                Anoniman 
+                                                            <% }else{ %>
+                                                                <%= data.comments[i].replies[j].username %>
+                                                            <% } %>  
+                                                        <% } %>  
+                                                        </th><td align="right" style="width: 150px;"><p id="commentDate"><%= data.comments[i].replies[j].date %></p></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left"><p id="reply"><%= data.comments[i].replies[j].reply %></p></td>
+                                                    </tr> 
+                                                <% } %>
+                                            </tbody>
+                                            <% }else{ %>
+                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')"></h3>
+                            
+                                                <tbody class="replies-partial id<%= i %>" style="display: none; float: right; margin: 0 auto; width: 90%;">
+                                                </tbody>
+                                            <% } %>
+                                    </td>
                                 </tr>
                             </tbody>
-                        <% }); %> 
+                        <% } %>
                     </table>
                 <% } %>  
-                <form action="/komentar/<%= data.slug %>?_method=PUT" method="POST">
-                    <textarea name="comment" placeholder="Dodaj komentar" maxlength="500"></textarea><br><br>
-                    <p>Komentariši kao: </p><input id="username" type="text" name="username" placeholder="Ime" maxlength="10">
+                <h3 id="add-comment">Dodaj komentar</h3>
+                <form class="comment-box" action="/komentar/<%= data.slug %>?_method=PUT" method="POST">
+                    <textarea class="comment-box-textarea" name="comment" placeholder="Dodaj komentar" maxlength="500"></textarea><br><br>
+                    <% if(!token){ %> 
+                    <p>Komentariši kao: </p><% } %> <input id="com-username" type="text" name="username" placeholder="Ime" maxlength="20">
+                    <input type="hidden" name="token" value="<%= token %>">
+                    <% if(!token){ %> 
                     <div class="type">
-                        <select onchange="revealInputUser(this.options[this.selectedIndex].value)" name="user">
+                        <select onchange="revealCommentInputUser(this.options[this.selectedIndex].value)" name="user">
                             <option value="anonymous">Anonimno</option>
                             <option value="name">Ime</option>
                         </select>
                     </div>
+                    <% } %> 
                     <button type="submit">Objavi</button>
                 </form>
             </div>
@@ -680,7 +925,7 @@
             <div class="card">
                 <h4 class="comments-title">Komentari su onemogućeni za ovu objavu.</h4>
             </div>
-        <% } %>   
+        <% } %>
     </div>
     <div class="footer">
         <div class="footer-left">
@@ -700,24 +945,99 @@
         const title = document.querySelector('.title'),
         picture = document.querySelector('.picture').src;
 
+        const comBox = document.querySelector('.comment-box');
+        comBox.addEventListener('submit', async function(e){
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const searchParams = new URLSearchParams();
+
+            for(const pair of formData){
+                searchParams.append(pair[0], pair[1])
+            }
+
+            if(document.querySelector('.comment-box-textarea').value !== ''){
+                await fetch('/komentar/<%= data.slug %>', {
+                    method: 'PUT',
+                    body: searchParams
+                }).then(res => res.json()).then((res)=>{
+                    document.getElementById('comments-partial').innerHTML += res.partial;
+                    document.querySelector('.comments-title').innerHTML = res.comCount;
+                    document.querySelector('.comment-box-textarea').value = '';
+                });
+            }
+        });
+
+        async function submitReply(e, form, id, cnt){
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const searchParams = new URLSearchParams();
+
+            for(const pair of formData){
+                searchParams.append(pair[0], pair[1]);
+            }
+
+            await fetch('/odgovor/<%= data.slug %>', {
+                method: 'PUT',
+                body: searchParams
+            }).then(res => res.json()).then((res)=>{
+                document.querySelector(`.replies-partial.id${id}`).innerHTML += res.partial;
+                document.querySelector(`.replies-title.id${id}`).innerHTML = res.repCount;
+                document.querySelector('.comments-title').innerHTML = res.comCount;
+                document.querySelector('.reply-box-textarea').value = '';
+                form.style.display = 'none';
+                document.querySelector(`.reply-button.id${id}`).style.display = '';
+                if(document.querySelector(`.replies-partial.id${id}`).style.display == 'none'){
+                    document.querySelector(`.show-hide-replies.id${id}`).click();
+                    document.getElementById(`reply_${id}_${res.lastReply}`).scrollIntoView();
+                }else{
+                    document.querySelector(`.show-hide-replies.id${id}`).click();
+                    document.querySelector(`.show-hide-replies.id${id}`).click();
+                    document.getElementById(`reply_${id}_${res.lastReply}`).scrollIntoView();
+                }
+            });
+        }
+
         window.onscroll = function() {stickyNav()};
 
             const nav = document.querySelector('nav'),
             sticky = nav.offsetTop;
         
             function stickyNav() {
-              if (window.pageYOffset >= sticky) {
-              nav.classList.add('sticky')
-          } else {
-          nav.classList.remove('sticky');
-          }
-        }
-
-        window.addEventListener('mouseup', (event)=>{
-            if(event.target != input){
-                input.blur();
-                document.querySelector('.close').click();
+                if(window.pageYOffset >= sticky){
+                    nav.classList.add('sticky');
+                    if(document.cookie.indexOf('_sub')<0){
+                        if(document.querySelector('.subscribe-box') !== null) document.querySelector('.subscribe-box').style.transform = 'translateX(0)';
+                    }
+                }else{
+                    nav.classList.remove('sticky');
+                }
             }
+        window.addEventListener('mouseup', (event)=>{
+            let replyBoxes = document.getElementsByClassName('reply-box');
+ 
+            for(let i=0; i<replyBoxes.length; i++){
+                if(event.target !== replyBoxes[i] && event.target !== replyBoxes[i].querySelector('.reply-box-textarea') 
+                && event.target !== replyBoxes[i].querySelector('.rep-username') && event.target != replyBoxes[i].querySelector('select')){
+                    replyBoxes[i].style.display = 'none';
+                    if(document.querySelector(`.reply-button.id${i}`).style.display == 'none'){
+                        document.querySelector(`.reply-button.id${i}`).style.display = 'block';
+                        break;
+                    }
+                }
+            }
+			if(event.target == document.querySelector('.close')){
+				input.value = '';
+				input.focus();
+				return;
+			}
+		    if(event.target !== input && event.target !== document.querySelector('.close')){
+		        input.blur();
+                if(!!document.querySelector('.close')){
+                    document.querySelector('.close').click();
+				}		    
+			}
         });
         const navSlide = ()=>{
             mobile.addEventListener('click', ()=>{
@@ -739,12 +1059,89 @@
         input.addEventListener('focus', ()=>{
             searchBtn.click()
         });
-        function revealInputUser(value){
+        function revealCommentInputUser(value){
             if(value == 'name'){
-                document.querySelector('.card input').style.display = 'block';
+                document.getElementById('com-username').style.display = 'block';
             }else{
-                document.querySelector('.card input').value = '';
-                document.querySelector('.card input').style.display = 'none';
+                document.getElementById('com-username').value = '';
+                document.getElementById('com-username').style.display = 'none';
+            }
+        }
+        function inputFilled(input, label){
+			if(input.value !== ''){
+				label.style.top = '-20px';
+			}else{
+				label.style.top = '0';
+			}
+        }
+        async function signUpNotifications(e, form){
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const searchParams = new URLSearchParams();
+
+			for(const pair of formData){
+                searchParams.append(pair[0], pair[1]);
+            }
+            
+            await fetch('/prijava-na-obavestenja', {
+                method: 'PUT',
+                body: searchParams
+            }).then(res => res.json()).then((res)=>{
+                if(res.error){
+                    document.getElementById('error-email').style.display = 'block';
+                    document.getElementById('error-email-label').innerText = res.error.msg;
+                }else{
+                    document.querySelector('.subscribe-box').innerHTML = res.html;
+                    document.querySelector('.subscribe-box').style.width = '280px';
+                    document.querySelector('.subscribe-box').style.height = '50px';
+                    document.cookie = res.cookie;
+                    setTimeout(()=>{
+                        document.querySelector('.subscribe-box').style.transform = 'translateX(-200%)';
+                    }, 2500)
+                }
+            });
+        }
+        function revealReplyInputUser(value, index){
+            if(value == 'name'){
+                document.getElementById(`rep-username_${index}`).style.display = 'block';
+            }else{
+                document.getElementById(`rep-username_${index}`).value = '';
+                document.getElementById(`rep-username_${index}`).style.display = 'none';
+            }
+        }
+        function revealCommentReply(pos){
+            if(comBox.style.display = 'block'){
+                comBox.style.display = 'none';
+                document.getElementById('add-comment').style.display = 'block';
+            }
+
+            document.querySelector(`.reply-button.id${pos.id}`).style.display = 'none';
+            document.querySelector(`.reply-box.id${pos.id}`).style.display = 'block';
+
+            document.getElementById('add-comment').addEventListener('click', ()=>{
+                document.querySelector(`.reply-box.id${pos.id}`).style.display = 'none';
+                pos.style.display = 'block';
+
+                document.getElementById('add-comment').style.display = 'none';
+                comBox.style.display = 'block';
+            });    
+        }
+        function showReplies(id, cnt){
+            if(document.querySelector(`.replies-partial.id${id}`).style.display == 'none'){
+                document.querySelector(`.replies-partial.id${id}`).style.display = '';
+                if(cnt>1){
+                    document.querySelector(`.show-hide-replies.id${id}`).innerHTML = `Sakrij ${cnt} odgovora <span class="show-hide-icon">\u25B2</span>`;
+                }else{
+                    document.querySelector(`.show-hide-replies.id${id}`).innerHTML = 'Sakrij odgovor <span class="show-hide-icon">\u25B2</span>'
+                }
+            }else{
+                document.querySelector(`.replies-partial.id${id}`).style.display = 'none';
+                if(cnt>1){
+                    document.querySelector(`.show-hide-replies.id${id}`).innerHTML = `Prikaži ${cnt} odgovora <span class="show-hide-icon">\u25BC</span>`;
+                }else{
+                    document.querySelector(`.show-hide-replies.id${id}`).innerHTML = 'Prikaži odgovor <span class="show-hide-icon">\u25BC</span>'
+                }
             }
         }
         navSlide();

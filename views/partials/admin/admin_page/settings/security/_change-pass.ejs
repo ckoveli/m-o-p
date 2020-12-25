@@ -1,0 +1,22 @@
+<h1><i onclick="load('settings/security/_security', 'js/partials/admin/admin_page/settings/security/_security.js');" class="fas fa-chevron-left"></i>PROMENI LOZINKU</h1>
+<div class="input-data">
+    <form onsubmit="return changePass(event, this)" action="" method="">
+        <div class="old-pass">
+            <input onkeyup="inputFilled(this, document.getElementById('label-oldpass'))" type="password" name="oldpass" required>
+            <label onclick="document.querySelector('.old-pass').getElementsByTagName('input')[0].focus();" id="label-oldpass" for="oldpass">Stara lozinka</label>
+            <i id="error-oldpass" class="fas fa-exclamation-circle"><label></label></i>
+        </div>
+        <br><br><br>
+        <div class="new-pass">
+            <input onkeyup="inputFilled(this, document.getElementById('label-newpass'));" type="password" name="newpass" required>
+            <label onclick="document.querySelector('.new-pass').getElementsByTagName('input')[0].focus();" id="label-newpass" for="newpass">Nova lozinka</label>
+        </div>
+        <br><br>
+        <div class="new-pass-again">
+            <input onkeyup="inputFilled(this, document.getElementById('label-newpassagain'));" type="password" name="newpassagain" required>
+            <label onclick="document.querySelector('.new-pass-again').getElementsByTagName('input')[0].focus();" id="label-newpassagain" for="newpassagain">Potvrdi novu lozinku</label>
+            <i id="error-newpassagain" class="fas fa-exclamation-circle"><label></label></i>
+        </div>
+        <br><br><br>
+        <button type="submit">OK</button>
+    </form>

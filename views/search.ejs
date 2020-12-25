@@ -287,7 +287,7 @@
 		.avatar{
 		    position: relative;
 			margin-bottom: 15px;
-		    width: 100%;
+		    max-width: 100%;
 			max-height: 300px;
 			overflow: hidden;
 		    text-align: center;
@@ -297,11 +297,18 @@
 		}
 		.picture{
 		    position: relative;
-			max-width: 100%;
+			width: 100%;
+			height: 300px;
 			border-top-right-radius: 10px;
 			border-top-left-radius: 10px;
 		    background-repeat: no-repeat;
 		    transition: 0.5s;
+		}
+		.card i{
+			position: absolute;
+			bottom: 10px;
+			right: 15px;
+			color: #505050;
 		}
 		.pagination{
 			display: flex;
@@ -392,7 +399,8 @@
                 left: 19%;
             }
 			.search-card{
-				width: 325px;
+				width: 70%;
+				transition: 0.25s;
 			}
 		    .inputClicked{
 		        width: 61vw;
@@ -436,9 +444,8 @@
             }
 			.card{
 				flex-direction: column;
-				left: 250px;
 				transform: translateX(-50%);
-				width: 325px;
+				width: 70%;
 		        transition: 0.5s;
 		    }
             .footer{
@@ -499,7 +506,7 @@
 					<button class="searchBtn" type="button"></button>
 				</form>
 			</div><% if(token == true){ %> 
-			<%- include('admin/partials/_nav') %> 
+			<%- include('partials/admin/_nav') %> 
 			<% }else{ %> 
 				<ul class="links">
 					<li><a href="/">Početna</a></li>
@@ -519,7 +526,15 @@
 				<a href="/"><button>Prikaži sve objave</button></a>
 			</div>
 			<div class="wrapper">
-				<% for(let i=0; i<posts.length; i++){ %> 
+				<% for(let i=0; i<posts.length; i++){ %>
+					<% 	function repliesCount(){ %>
+						<% let cnt = 0; %>
+		
+						<% for(let j=0; j<posts[i].comments.length; j++){ %>
+							<% cnt += posts[i].comments[j].replies !== undefined ? posts[i].comments[j].replies.length>0 ? posts[i].comments[j].replies.length : 0 : 0; %>
+						<% } %>
+						<% return cnt; %>
+					<% } %>  
 					<div class="card">
 						<a href="/poezija/<%= posts[i].slug %>">
 							<div class="avatar">
@@ -527,6 +542,7 @@
 							</div>
 							<h3 class="title"><%= posts[i].title.toUpperCase() %></h3>
 							<div class="body"><%- posts[i].preview %></div>
+							<i class="fas fa-comment"><%= posts[i].comments.length + repliesCount() %></i>
 						</a>
 					</div>
 				<% } %> 
@@ -601,10 +617,17 @@
 		}
 
 		window.addEventListener('mouseup', (event)=>{
-		    if(event.target != input){
+			if(event.target == document.querySelector('.close')){
+				input.value = '';
+				input.focus();
+				return;
+			}
+		    if(event.target !== input && event.target !== document.querySelector('.close')){
 		        input.blur();
-		        document.querySelector('.close').click();
-		    }
+                if(!!document.querySelector('.close')){
+                    document.querySelector('.close').click();
+				}		    
+			}
 		});
 		const navSlide = ()=>{
 		    mobile.addEventListener('click', ()=>{

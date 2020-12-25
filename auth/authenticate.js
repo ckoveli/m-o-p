@@ -1,10 +1,11 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { reset } = require('nodemon');
 
 const login = async(admin, pass, callback)=>{
     if(!admin){
         return callback({
-            path: 'admin/auth/login',
+            id: 'name',
             title: 'Nepostojaće ime!'
         });
     }
@@ -16,15 +17,30 @@ const login = async(admin, pass, callback)=>{
         });
     }else{
         return callback({
-            path: 'admin/auth/login',
+            id: 'pass',
             title: 'Pogrešna lozinka!'
+        });
+    }
+}
+const twoStep = async(admin, expires, callback)=>{
+    if(!admin){
+        return callback({
+            id: 'name',
+            title: 'Nepostojaće ime!'
+        });
+    }else{
+        id = admin.id;
+        return callback(null, {
+            cookie: process.env.ADMIN_COOKIE_NAME,
+            token: `${jwt.sign({id: admin.id}, process.env.TMP_TOKEN_SECRET, {expiresIn: expires})}${process.env.TMP_TOKEN_SECRET}${admin.name}`,
+            path: '/admin/two-step'
         });
     }
 }
 const changePass = async(admin, oldPass, newPass, callback)=>{
     if(!admin){
         return callback({
-            path: 'admin/auth/password',
+            id: 'name',
             title: 'Nepostojaće ime!'
         });
     }
@@ -36,13 +52,24 @@ const changePass = async(admin, oldPass, newPass, callback)=>{
         });
 	}else{
         return callback({
-            path: 'admin/auth/password',
+            id: 'oldpass',
             title: 'Pogrešna stara lozinka!'
         });
     }    
 }
+const resetPass = async(admin, newPass, callback)=>{
+    if(!admin) return callback(false);
+
+    else return callback(null, {
+        cookie: process.env.ADMIN_COOKIE_NAME,
+        hash: await bcrypt.hash(newPass, 10),
+        path: '/22072019'
+    })
+}
 
 module.exports = {
     login: login,
-    changePass: changePass
+    twoStep: twoStep,
+    changePass: changePass,
+    resetPass: resetPass
 }
