@@ -21,7 +21,12 @@ router.use(methodOverride('_method'));
 router.use('/mejl', getToken, require('../../routes/admin/mail'));
 
 router.route('/').get(getToken, async(req, res)=>{
-	res.render('admin/admin', {partial: '_profile.ejs'});
+	const admin = await Admin.findOne({name: req.headers.cookie.split(process.env.ADMIN_COOKIE_SEPARATOR)[1]});
+	res.render('admin/admin', {
+		partial: '_profile.ejs',
+		title: admin.profile.title,
+		body: admin.profile.body
+	});
 }).post(getToken, async(req, res)=>{
 
 	await renderer.adminPage('admin/admin_page/', req, (result)=>{
@@ -30,69 +35,6 @@ router.route('/').get(getToken, async(req, res)=>{
 			css: result.css
 		})
 	});;
-});
-router.get('/resetovanje-lozinke/:code', async(req, res, next)=>{
-	if(req.headers.cookie){
-		await Admin.findOne({name: req.headers.cookie.split(process.env.TMP_TOKEN_SECRET)[1]}, async(err, admin)=>{
-			if(err) return next();
-
-			if(req.params.code == twoStepCode){
-				authorize.twoStep(req.headers.cookie.split('=')[1], (err)=>{
-					if(err) return next();
-	
-					else authenticate.twoStep(admin, '120s', (err, result)=>{
-						if(err) return next();
-
-						res.cookie(result.cookie, result.token);
-						res.render('admin/auth/password');
-					});
-				});
-			}
-			if(req.params.code == admin.security.securityQuestionAnswer){
-				authorize.twoStep(req.headers.cookie.split('=')[1], (err)=>{
-					if(err) return next();
-
-					else authenticate.twoStep(admin, '120s', (err, result)=>{
-						if(err) return next();
-
-						res.cookie(result.cookie, result.token);
-						res.render('admin/auth/password');
-					});
-				});
-			}else return next();
-		});
-	}else return next();
-});
-router.post('/resetovanje-lozinke/:code', (req, res, next)=>{
-	if(req.headers.cookie){
-		if(req.params.code == twoStepCode){
-			authorize.twoStep(req.headers.cookie.split('=')[1], async(err, result)=>{
-				if(err) return next();
-
-				else return await Admin.findOne({name: req.headers.cookie.split(process.env.TMP_TOKEN_SECRET)[1]}, (err, admin)=>{
-					if(err) return next();
-
-					else authenticate.resetPass(admin, req.body.newpass, async(err, result)=>{
-						if(err) return next();
-						
-						else{
-							admin.pass = result.hash;
-							try{
-								admin = await admin.save();
-								
-								res.clearCookie(result.cookie);
-								delete admin;
-								delete twoStepCode;
-								res.redirect(result.path);
-							}catch(e){
-								console.log(e);
-							}
-						}						
-					});
-				});
-			});	
-		}else return next();
-	}else return next();
 });
 router.post('/objavi', getToken, async(req, res)=>{
 	let post = new Post({
@@ -108,8 +50,11 @@ router.post('/objavi', getToken, async(req, res)=>{
 	});
 	try{
 		post = await post.save();
+		mailer.info('post', {
+			slug: post.slug,
+			post: post.title
+		});
 		res.status(200).json({slug: post.slug}).end();
-		mailer.info('post', {});
 	}catch(e){
 		console.log(e);
 	}
@@ -134,7 +79,7 @@ router.post('/lozinka', getToken, async(req, res)=>{
 		}
 	});
 });
-router.get('/two-step', (req, res, next)=>{
+router.route('/zaboravljena-lozinka').get((req, res, next)=>{
 	if(req.headers.cookie){
 		if(req.headers.cookie.includes(';')){
 			authorize.twoStep(req.headers.cookie.split(';')[1].split('=')[1], async(err, result)=>{
@@ -208,36 +153,94 @@ router.get('/two-step', (req, res, next)=>{
 			});
 		}
 	}else return next();
-});
-router.post('/two-step/:type', async(req, res)=>{
+}).post(async(req, res)=>{
 	if(req.headers.cookie && req.headers.cookie.includes('timer')) res.clearCookie('timer', {path: '/admin'});
 
-	if(req.params.type == 'forgot'){
-		await Admin.findOne({name: req.body.name}, (err, admin)=>{
-			if(err || !admin){ 
-				return res.status(401).json({error: {title: 'Nepostojće ime!', id: 'name'}}).end();
+	await Admin.findOne({name: req.body.name}, (err, admin)=>{
+		if(err || !admin){ 
+			return res.status(401).json({error: {title: 'Nepostojće ime!', id: 'name'}}).end();
+		}else{
+			if(req.body.mail !== admin.mail[0]){
+				return res.status(401).json({error: {title: 'Pogrešan imejl!', id: 'mail'}}).end();
 			}else{
-				if(req.body.mail !== admin.mail[0]){
-					return res.status(401).json({error: {title: 'Pogrešan imejl!', id: 'mail'}}).end();
-				}else{
-					authenticate.twoStep(admin, '60s', (err, result)=>{
-						if(err) return res.status(401).json({error: {title: err.title, id: err.id}}).end();
+				authenticate.twoStep(admin, '60s', (err, result)=>{
+					if(err) return res.status(401).json({error: {title: err.title, id: err.id}}).end();
 
-						else{
-							res.cookie(result.cookie, result.token);
-							res.status(200).json({path: result.path}).end();
-							if(admin.security.securityCode == true){
-								twoStepCode = require('crypto').randomBytes(2).toString('hex');
-								//mailer.info('two-step', {code: twoStepCode});
-								console.log(twoStepCode)
-							}
-							return;
-						} 
-					});
-				}
+					else{
+						res.cookie(result.cookie, result.token);
+						res.status(200).json({path: result.path}).end();
+						if(admin.security.securityCode == true){
+							twoStepCode = require('crypto').randomBytes(2).toString('hex');
+							mailer.info('two-step', {code: twoStepCode});
+						}
+						return;
+					} 
+				});
 			}
+		}
+	});
+});
+router.route('/resetovanje-lozinke/:code').get(async(req, res, next)=>{
+	if(req.headers.cookie){
+		await Admin.findOne({name: req.headers.cookie.split(process.env.TMP_TOKEN_SECRET)[1]}, async(err, admin)=>{
+			if(err) return next();
+
+			if(req.params.code == twoStepCode){
+				authorize.twoStep(req.headers.cookie.split('=')[1], (err)=>{
+					if(err) return next();
+	
+					else authenticate.twoStep(admin, '120s', (err, result)=>{
+						if(err) return next();
+
+						res.cookie(result.cookie, result.token);
+						res.render('admin/auth/password');
+					});
+				});
+			}
+			if(req.params.code == admin.security.securityQuestionAnswer){
+				authorize.twoStep(req.headers.cookie.split('=')[1], (err)=>{
+					if(err) return next();
+
+					else authenticate.twoStep(admin, '120s', (err, result)=>{
+						if(err) return next();
+
+						res.cookie(result.cookie, result.token);
+						res.render('admin/auth/password');
+					});
+				});
+			}else return next();
 		});
-	}
+	}else return next();
+}).post((req, res, next)=>{
+	if(req.headers.cookie){
+		if(req.params.code == twoStepCode){
+			authorize.twoStep(req.headers.cookie.split('=')[1], async(err, result)=>{
+				if(err) return next();
+
+				else return await Admin.findOne({name: req.headers.cookie.split(process.env.TMP_TOKEN_SECRET)[1]}, (err, admin)=>{
+					if(err) return next();
+
+					else authenticate.resetPass(admin, req.body.newpass, async(err, result)=>{
+						if(err) return next();
+						
+						else{
+							admin.pass = result.hash;
+							try{
+								admin = await admin.save();
+								
+								res.clearCookie(result.cookie);
+								delete admin;
+								delete twoStepCode;
+								res.redirect(result.path);
+							}catch(e){
+								console.log(e);
+							}
+						}						
+					});
+				});
+			});	
+		}else return next();
+	}else return next();
 });
 router.put('/uredi/:id', getToken, async(req, res, next)=>{
 	if(req.params.id == 'about'){
@@ -304,6 +307,21 @@ router.put('/settings', getToken, async(req, res, next)=>{
 			admin.security.securityQuestion = req.body.securityQuestion;
 			admin.security.securityQuestionQuestion = req.body.securityQuestionQuestion;
 			admin.security.securityQuestionAnswer = req.body.securityQuestionAnswer;
+
+			try{
+				admin = await admin.save();
+				res.status(200).end();
+			}catch(e){
+				console.log(e);
+			}
+		});
+	}
+	if(req.body.setting == 'settings/_profile'){
+		await Admin.findOne({name: req.headers.cookie.split(process.env.ADMIN_COOKIE_SEPARATOR)[1]}, async(err, admin)=>{
+			if(err) throw err;
+
+			admin.profile.title = req.body.title;
+			admin.profile.body = req.body.body;
 
 			try{
 				admin = await admin.save();
@@ -401,14 +419,13 @@ router.delete('/odgovor/:id', getToken, async(req, res)=>{
 router.post('/prijava', async(req, res)=>{
 	let admin = await Admin.findOne({name: req.body.name});
 
-	
 	authenticate.login(admin, req.body.pass, (err, result)=>{
 		if(err) return res.status(401).json({error: {title: err.title, id: err.id}}).end();
 		
 		res.cookie(result.cookie, `${result.token};${req.body.name}`);
 		res.locals.name = req.body.name;
 		delete admin;
-		res.status(301).json({path: result.path}).end();
+		res.status(200).json({path: result.path}).end();
 	});
 });
 router.post('/odjava', getToken, (req, res)=>{

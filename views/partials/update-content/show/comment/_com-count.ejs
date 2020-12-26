@@ -1,8 +1,8 @@
 <% if(commentCount>0){ %>
     <% if(commentCount + repliesCount() !== 11 && (((commentCount + repliesCount()) % 10).toString()).includes("1")){ %>
-        <%= commentCount + repliesCount() %> Komentar 
+        <%= commentCount + repliesCount() %> komentar 
     <% }else{ %>
-        <%= commentCount + repliesCount() %> Komentara
+        <%= commentCount + repliesCount() %> komentara
     <% } %>   
 <% }else{ %>
     Nema komentara

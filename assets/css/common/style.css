@@ -1,8 +1,14 @@
+@font-face {
+    font-family: 'poppins';
+    src: url('/fonts/poppins/poppins-regular-webfont.woff'),
+        url('/fonts/poppins/poppins-regular-webfont.woff2');
+    font-style: normal;
+    font-weight: 100;
+}
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
 }
 html, body{
     overflow-x: hidden;
@@ -12,11 +18,15 @@ body{
     font-family: Arial;
     background: #fafafa;
 }
-p{
-    font-size: 15px;
-    color: #505050;
+.container{
+    display: block;
+    position: relative;
+    padding-bottom: 250px;
+    min-height: 100vh;
+    overflow: hidden;
 }
 a{
+    display: inherit;
     cursor: pointer;
     text-decoration: none;
     font-size: inherit;
@@ -32,7 +42,7 @@ a:hover{
     text-align: center;
     letter-spacing: 5px;
     font-family: Chalkduster, fantasy;
-    font-size: 20px;
+    font-size: 18px;
     background: rgb(22, 22, 22);
     color: white;
     animation: navLoad 0.5s ease-in;
@@ -68,6 +78,7 @@ nav{
     position: absolute;
     top: 12px;
     left: 70px;
+    font-family: poppins, sans-serif;
 }
 .input{
     cursor: pointer;
@@ -81,15 +92,14 @@ nav{
     border-radius: 50%;
     outline: none;
     background: #fafafa;
-    transition: 0.5s;
+    transition: 0.25s;
 }
 .inputClicked{
     cursor: text;
     width: 20vw;
     padding-left: 5px;
     border-radius: 0;
-    transition-delay: 0.25s;
-    transition: 0.5s;
+    transition: 0.25s;
 }
 .searchBtn{
     position: absolute;
@@ -111,7 +121,7 @@ nav{
     content: "";
     background: #161616;
     transform: rotate(45deg);
-    transition: 0.5s;
+    transition: 0.25s;
 }
 .close::before, .close::after{
     position: absolute;
@@ -121,7 +131,7 @@ nav{
     height: 2px;
     content: "";
     background: #161616;
-    transition: 0.5s;
+    transition: 0.25s;
 }
 .close::before{
     transform: rotate(-45deg);
@@ -176,17 +186,16 @@ nav{
 .input:focus::placeholder{
     opacity: 1;
 }
-.wrapper{
-    min-height: 500px;
-    content: "";
-    clear: both;
-}
-.card{
+.search-card{
     position: relative;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    margin-bottom: 50px;
     padding: 20px;
-    width: 800px;
+    width: 450px;
+    transform: translate(-50%, 50%);
+    justify-content: center;
+    text-align: center;
     line-height: 20px;
     border: 1px solid #dcdcdc;
     border-radius: 10px;
@@ -196,88 +205,59 @@ nav{
     animation: articleLoad 0.5s ease-in 0.5s;
     animation-fill-mode: forwards;
     opacity: 0;
-    transition: 0.5s;
+    transition: 0.25s;
 }
-.gear{
-    position: absolute;
-    top: 10px;
-    left: 60%;
-    width: 69%;
-    height: 100px;
-}
-.gear img{
-    cursor: pointer;
+.search-card p{
     position: relative;
-    width: 35px;
-    height: 35px;
-}
-.settings{
-    display: none;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
+    padding: 10px;
     left: 50%;
-    transform: translate(-50%, 50%);
-    z-index: 10;
-    width: 200px;
-    height: 50px;
-    text-align: center;
-    color: #161616;
-}
-.settings button{
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 50%);
-    width: 175px;
-    height: 30px;
-    background: #ffffff;
-    border: #dcdcdc;
-    border-radius: 10px;
-    font-size: 20px;
-    color: #161616;
-    transition: 0.25s;
-}
-.settings button:hover{
-    background: #dcdcdc;
-    transition: 0.25s;
-}
-.blur{
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    z-index: 5;
-    border-radius: 10px;
-    background: rgba(22, 22, 22, 0.8);
-}
-.footer{
-    margin-top: 100px;
-    padding: 20px;
-    width: 100%;
-    height: 50px;
-    text-align: center;
-    border-top: 1px solid #dcdcdc;
-    background: #ffffff;
+    transform: translateX(-50%);
+    font-size: 18px;
     color: #505050;
 }
-.footer-left{
-    display: flex;
-    position: absolute;
-    left: 15%;
+.search-card button{
+    cursor: pointer;
+    position: relative;
+    margin-top: 20px;
+    width: 175px;
+    height: 30px;
+    border: none;
+    font-size: 14px;
+    background: #007bf6;
+    color: white;
 }
-.footer-right{
-    display: flex;
+.search-results{
+    cursor: pointer;
+    visibility: hidden;
     position: absolute;
-    right: 15%;
+    top: 25px;
+    width: 20vw;
+    z-index: 10;
+    border: 1px solid #dcdcdc;
+    border-collapse: collapse;
+    background: #ffffff;
+    color: #505050;
+    transition: 0.25s;
 }
-.footer i{
-    width: 20px;
-    height: 100%;
-    font-size: 20px;
+.search-results tr{
+    height: 30px;
+    border-bottom: 1px solid #dcdcdc;
+}
+.search-results tr:hover{
+    background: #fafafa;
+    transition: 0.25s;
+}
+.search-results a{
+    display: block;
+    position: relative;
+    padding: 5px;
+    color: #161616;
+}
+.search-results img{
+    position: relative;
+    width: 30px;
+    height: 30px;
 }
 @keyframes navLoad{
     0%{
@@ -299,11 +279,11 @@ nav{
 }
 @keyframes articleLoad{
     0%{
-        margin-top: 125px;
+        transform: translate(-50%, 45%);
         opacity: 0;
     }
     100%{
-        margin-top: 150px;
+        transform: translate(-50%, 50%);
         opacity: 1;
     }
 }
@@ -311,11 +291,18 @@ nav{
     .search{
         left: 19%;
     }
+    .search-card{
+        width: 70%;
+        transition: 0.25s;
+    }
     .inputClicked{
         width: 61vw;
         z-index: 10;
-        transition-delay: 0.25s;
-        transition: 0.5s;
+        transition: 0.25s;
+    }
+    .search-results{
+        width: 61vw;
+        transition: 0.25s;
     }
     .close::before, .close::after{
         left: 60vw;
@@ -350,33 +337,6 @@ nav{
     }
     .linksActive{
         transform: translateX(0%);
-    }
-    .card{
-        width: 90%;
-        transition: 0.5s;
-    }
-    .footer{
-        font-size: 12px;
-        height: 75px;
-    }
-    .footer-left{
-        left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;
-        width: 200px;
-    }
-    .footer i{
-        font-size: 15px;
-    }
-    .footer-right{
-        position: relative;
-        top: 25px;
-         left: 0; 
-         right: 0; 
-         margin-left: auto; 
-         margin-right: auto; 
-         width: 300px;
     }
 }
 @keyframes navLinkFade{

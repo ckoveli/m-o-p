@@ -7,6 +7,7 @@
     justify-content: center;
     text-align: center;
     line-height: 20px;
+    font-family: poppins, sans-serif;
     border: 1px solid #dcdcdc;
     border-radius: 10px;
     background: #ffffff;
@@ -20,6 +21,7 @@
 .card h1{
     letter-spacing: 2px;
     line-height: 48px;
+    font-family: Optima, sans-serif;
     font-size: 20px;
     border-bottom: 1px solid #dcdcdc;
     color: #505050;
@@ -58,18 +60,16 @@
     left: 60px;
     padding: 5px;
     width: 200px;
-    height: 20px;
+    height: 25px;
     font-size: 15px;
-    border: 1px solid #dcdcdc;
+    font-family: poppins, sans-serif;
+    border: none;
+    border-bottom: 1px solid #dcdcdc;
     color: #505050;
 }
-.accept-notifications input:hover{
-    background: #dcdcdc;
-    transition: 0.25s;
-}
 .accept-notifications input:focus{
-    background: #fafafa;
-    border: 1px solid #007bf6;
+    outline: none;
+    border-bottom: 1px solid #505050;
     transition: 0.25s;
 }
 @media screen and (max-width: 1024px){

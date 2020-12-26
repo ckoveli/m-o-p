@@ -5,190 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Poezija | Mesec Od Papira</title>
 	<script type="text/javascript" src="js/fontawesome.js"></script>
+	<script type="text/javascript" src="js/common/script.js" defer></script>
 	<link rel="shortcut icon" type="image/png" href="favicon/favicon.png">
+	<link rel="stylesheet" type="text/css" href="css/common/style.css">
 	<style type="text/css">
-		*{
-    		margin: 0;
-    		padding: 0;
-    		box-sizing: border-box;
-    		font-family: sans-serif;
-		}
-        html, body{
-            overflow-x: hidden;
-        }
-        body{
-            position: relative;
-            font-family: Arial;
-            background: #fafafa;
-        }
-		.container{
-			display: block;
-			position: relative;
-			padding-bottom: 250px;
-			min-height: 100vh;
-			overflow: hidden;
-		}
-		a{
-			display: inherit;
-            cursor: pointer;
-            text-decoration: none;
-			font-size: inherit;
-            color: inherit;
-        }
-        a:hover{
-            color: #161616;
-            transition: 0.25s;
-        }
-		.logo{
-		    display: block;
-		    min-height: 10px;
-		    text-align: center;
-		    letter-spacing: 5px;
-		    font-family: Chalkduster, fantasy;
-		    font-size: 20px;
-		    background: rgb(22, 22, 22);
-		    color: white;
-		    animation: navLoad 0.5s ease-in;
-		}
-		.logo img{
-		    cursor: pointer;
-		    margin-top: 5px;
-		    width: 100px;
-		    height: 100px;
-		    animation: navLoad 1s ease-in;
-		}
-		.logo h4{
-		    cursor: pointer;
-		}
-		nav{
-		    display: flex;
-			position: relative;
-		    height: 50px;
-		    justify-content: space-around;
-		    align-items: center;
-		    font-family: Optima, sans-serif;
-		    border-bottom: 1px solid #dcdcdc;
-		    background: #ffffff;
-		    animation: navLoad 0.5s ease-in;
-		}
-		.sticky{
-			position: fixed;
-			z-index: 10;
-			top: 0;
-			width: 100%;
-		}
-		.search{
-		    position: absolute;
-			top: 12px;
-		    left: 70px;
-		}
-		.input{
-		    cursor: pointer;
-		    position: absolute;
-		    width: 25px;
-		    height: 25px;
-		    padding-left: 25px;
-		    font-size: 15px;
-		    letter-spacing: 1px;
-		    border: 1px solid #161616;
-		    border-radius: 50%;
-		    outline: none;
-		    background: #fafafa;
-		    transition: 0.5s;
-		}
-		.inputClicked{
-		    cursor: text;
-		    width: 20vw;
-		    padding-left: 5px;
-		    border-radius: 0;
-		    transition-delay: 0.25s;
-		    transition: 0.5s;
-		}
-		.searchBtn{
-		    position: absolute;
-		    cursor: pointer;
-		    top: 0;
-		    right: 0;
-		    width: 20px;
-		    height: 10px;
-		    border: none;
-		    outline: none;
-		    background: none;
-		}
-		.searchBtn::before{
-		    position: absolute;
-		    top: 24px;
-		    right: -29px;
-		    width: 8px;
-		    height: 2px;
-		    content: "";
-		    background: #161616;
-		    transform: rotate(45deg);
-		    transition: 0.5s;
-		}
-		.close::before, .close::after{
-		    position: absolute;
-		    top: 12px;
-		    left: 20vw;
-		    width: 15px;
-		    height: 2px;
-		    content: "";
-		    background: #161616;
-		    transition: 0.5s;
-		}
-		.close::before{
-		    transform: rotate(-45deg);
-		}
-		.close::after{
-		    transform: rotate(45deg);
-		}
-		.links{
-		    display: flex;
-		    width: 500px;
-		    text-transform: uppercase;
-		    justify-content: space-around;
-		}
-		.links li{
-		    cursor: default;
-		    list-style-type: none;
-		    letter-spacing: 2px;
-		    line-height: 48px;
-		    font-size: 13px;
-		    font-weight: bold;
-		    color: #161616;
-		}
-		.links a{
-		    display: block;
-		    text-decoration: none;
-		    letter-spacing: 3px;
-		    line-height: 48px;
-		    font-size: 13px;
-		    font-weight: bold;
-		    border-bottom: 1px solid transparent;
-		    color: #161616;
-		}
-		.links a:hover{
-		    border-bottom: 1px solid #161616;
-		}
-		.mobile{
-		    display: none;
-		    position: relative;
-		    left: 26%;
-		    cursor: pointer;
-		}
-		.mobile div{
-		    margin: 5px;
-		    width: 25px;
-		    height: 2px;
-		    background: #161616;
-		    transition: all 0.5s ease;
-		}
-		.input::placeholder{
-		    opacity: 0;
-		}
-		.input:focus::placeholder{
-		    opacity: 1;
-		}
 		.wrapper{
 			display: grid;
 			grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
@@ -204,7 +24,8 @@
 		    width: 450px;
 			height: 500px;
 		    justify-content: center;
-		    line-height: 20px;
+			line-height: 20px;
+			font-family: poppins, sans-serif;
 		    border: 1px solid #dcdcdc;
 		    border-radius: 10px;
 		    background: #ffffff;
@@ -223,10 +44,11 @@
 		}
 		.title{
 			padding: 10px;
-		    color: #161616;
-		    font-family: Optima, sans-serif;
+			color: #161616;
+			letter-spacing: 1px;
 			line-height: 35px;
 			word-wrap: break-word;
+			font-family: Optima, sans-serif;
 		    font-size: 28px;
 		    font-weight: 600;
 		}
@@ -303,10 +125,11 @@
 		.footer{
             position: absolute;
             bottom: 0;
-            padding: 20px;
+            padding: 16px;
             width: 100%;
             height: 50px;
-            text-align: center;
+			text-align: center;
+			font-family: Optima, sans-serif;
             border-top: 1px solid #dcdcdc;
             background: #ffffff;
             color: #505050;
@@ -326,78 +149,7 @@
 			height: 100%;
 			font-size: 20px;
 		}
-		@keyframes navLoad{
-    		0%{
-    		    transform: translateY(-200%);
-    		}
-    		100%{
-    		    transform: translateY(0);
-    		}
-		}
-		@keyframes headerLoad{
-		    0%{
-		        transform: translateY(-20px);
-		        opacity: 0;
-		    }
-		    100%{
-		        transform: translateY(0);
-		        opacity: 1;
-		    }
-		}
-		@keyframes articleLoad{
-		    0%{
-		        transform: translate(-50%, 45%);
-		        opacity: 0;
-		    }
-		    100%{
-		        transform: translate(-50%, 50%);
-		        opacity: 1;
-		    }
-		}
 		@media screen and (max-width: 1024px){
-		    .search{
-		        left: 19%;
-		    }
-		    .inputClicked{
-		        width: 61vw;
-				z-index: 10;
-		        transition-delay: 0.25s;
-		        transition: 0.5s;
-		    }
-		    .close::before, .close::after{
-		        left: 60vw;
-				z-index: 10;
-		    }
-            .links{
-                display: flex;
-                position: absolute;
-                z-index: 10;
-                flex-direction: column;
-                top: 49px;
-                right: 0px;
-                left: 50%;
-                height: 500px;
-                border: 1px solid #dcdcdc;
-                background: #ffffff;
-                transform: translateX(100%);
-                transition: transform 0.5s ease-in;
-            }
-            .links li{
-                opacity: 0;
-                margin-left: 60px;
-            }
-		    .links a{
-		        line-height: 0;
-		    }
-		    .links a:hover{
-		        border: none;
-		    }
-		    .mobile{
-		        display: block;
-		    }
-		    .linksActive{
-		        transform: translateX(0%);
-			}
 			.card{
 				flex-direction: column;
 				transform: translateX(-50%);
@@ -432,25 +184,6 @@
  				width: 300px;
     		}		
 		}
-		@keyframes navLinkFade{
-		    from{
-		        opacity: 0;
-		        transform: translateX(50px);
-		    }
-		    to{
-		        opacity: 1;
-		        transform: translateX(0px);
-		    }
-		}
-		.toggle .line1{
-		    transform: rotate(-45deg) translate(-5px,6px);
-		}
-		.toggle .line2{
-		    opacity: 0;
-		}
-		.toggle .line3{
-		    transform: rotate(45deg) translate(-5px,-6px);
-		}
 	</style>
 </head>
 <body>
@@ -462,7 +195,8 @@
 		<nav>
 			<div class="search">
 				<form class="searchBox" action="/pretraga" method="GET">
-					<input class="input" type="text" placeholder="Pretraži..." name="q">
+					<input onkeyup="searchResults()" class="input" type="text" placeholder="Pretraži..." name="q">
+					<table class="search-results"></table>
 					<button class="searchBtn" type="button"></button>
 				</form>
 			</div><% if(token == true){ %> 
@@ -542,60 +276,5 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		const searchBtn = document.querySelector('.searchBtn'),
-		input = document.querySelector('.input'),
-		mobile = document.querySelector('.mobile'),
-		links = document.querySelector('.links'),
-		navLinks = document.querySelectorAll('.links li');
-
-		window.onscroll = function() {stickyNav()};
-
-		const nav = document.querySelector('nav'),
-		sticky = nav.offsetTop;
-
-		function stickyNav() {
-		  if (window.pageYOffset >= sticky) {
-		    nav.classList.add('sticky')
-		  } else {
-		    nav.classList.remove('sticky');
-		  }
-		}
-
-		window.addEventListener('mouseup', (event)=>{
-			if(event.target == document.querySelector('.close')){
-				input.value = '';
-				input.focus();
-				return;
-			}
-		    if(event.target !== input && event.target !== document.querySelector('.close')){
-		        input.blur();
-                if(!!document.querySelector('.close')){
-                    document.querySelector('.close').click();
-				}		    
-			}
-		});
-		const navSlide = ()=>{
-		    mobile.addEventListener('click', ()=>{
-		        links.classList.toggle('linksActive');
-		        navLinks.forEach((link, index)=>{
-		            if(link.style.animation){
-		                link.style.animation = '';
-		            }else{
-		                link.style.animation = `navLinkFade 0.5s ease forwards ${index/5 + 0.5}s`;
-		            }
-		        });
-		        mobile.classList.toggle('toggle');
-		    });
-		}
-		searchBtn.addEventListener('click', ()=>{
-		    input.classList.toggle('inputClicked');
-		    searchBtn.classList.toggle('close');
-		});
-		input.addEventListener('focus', ()=>{
-		    searchBtn.click()
-		});
-		navSlide();
-	</script>
 </body>
 </html>

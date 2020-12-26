@@ -4,80 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O meni | Mesec Od Papira</title>
-    <script type="text/javascript" src="js/fontawesome.js"></script><% if(token == true){ %> 
-    <style type="text/css">
-        .gear{
-            position: absolute;
-            top: 10px;
-            left: 60%;
-            width: 69%;
-            height: 100px;
-        }
-        .gear img{
-            cursor: pointer;
-            position: relative;
-            width: 35px;
-            height: 35px;
-        }
-        .settings{
-            display: none;
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, 50%);
-            z-index: 10;
-            width: 200px;
-            height: 50px;
-            text-align: center;
-            color: #161616;
-        }
-        .settings button{
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, 50%);
-            width: 175px;
-            height: 30px;
-            background: #ffffff;
-            border: #dcdcdc;
-            border-radius: 10px;
-            font-size: 20px;
-            color: #161616;
-            transition: 0.25s;
-        }
-        .settings button:hover{
-            background: #dcdcdc;
-            transition: 0.25s;
-        }
-        .blur{
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 5;
-            border-radius: 10px;
-            background: rgba(22, 22, 22, 0.8);
-        }
-    </style>
-    <link id="css-partial" rel="stylesheet" href=""></link><% } %>
+    <script type="text/javascript" src="js/fontawesome.js"></script>
     <link rel="shortcut icon" type="image/png" href="favicon/favicon.png">
     <style type="text/css">
+        @font-face {
+            font-family: 'poppins';
+            src: url('/fonts/poppins/poppins-regular-webfont.woff'),
+                url('/fonts/poppins/poppins-regular-webfont.woff2');
+            font-style: normal;
+            font-weight: 100;
+        }
         *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: sans-serif;
         }
         html, body{
             overflow-x: hidden;
         }
         body{
             position: relative;
-            font-family: Arial;
             background: #fafafa;
         }
         p{
@@ -100,7 +46,7 @@
             text-align: center;
             letter-spacing: 5px;
             font-family: Chalkduster, fantasy;
-            font-size: 20px;
+            font-size: 18px;
             background: rgb(22, 22, 22);
             color: white;
             animation: navLoad 0.5s ease-in;
@@ -136,6 +82,7 @@
             position: absolute;
             top: 12px;
             left: 70px;
+            font-family: poppins, sans-serif;
         }
         .input{
             cursor: pointer;
@@ -149,15 +96,14 @@
             border-radius: 50%;
             outline: none;
             background: #fafafa;
-            transition: 0.5s;
+            transition: 0.25s;
         }
         .inputClicked{
             cursor: text;
             width: 20vw;
             padding-left: 5px;
             border-radius: 0;
-            transition-delay: 0.25s;
-            transition: 0.5s;
+            transition: 0.25s;
         }
         .searchBtn{
             position: absolute;
@@ -179,7 +125,39 @@
             content: "";
             background: #161616;
             transform: rotate(45deg);
-            transition: 0.5s;
+            transition: 0.25s;
+        }
+        .search-results{
+            cursor: pointer;
+            visibility: hidden;
+            position: absolute;
+            top: 25px;
+            width: 20vw;
+            z-index: 10;
+            border: 1px solid #dcdcdc;
+            border-collapse: collapse;
+            background: #ffffff;
+            color: #505050;
+            transition: 0.25s;
+        }
+        .search-results tr{
+            height: 30px;
+            border-bottom: 1px solid #dcdcdc;
+        }
+        .search-results tr:hover{
+            background: #fafafa;
+            transition: 0.25s;
+        }
+        .search-results a{
+            display: block;
+            position: relative;
+            padding: 5px;
+            color: #161616;
+        }
+        .search-results img{
+            position: relative;
+            width: 30px;
+            height: 30px;
         }
         .close::before, .close::after{
             position: absolute;
@@ -189,7 +167,7 @@
             height: 2px;
             content: "";
             background: #161616;
-            transition: 0.5s;
+            transition: 0.25s;
         }
         .close::before{
             transform: rotate(-45deg);
@@ -253,11 +231,12 @@
 			position: relative;
             left: 50%;
 			transform: translateX(-50%);
-			padding: 20px;
+			padding: 30px;
             width: 800px;
 			justify-content: center;
 		    text-align: center;
             line-height: 20px;
+            font-family: poppins, sans-serif;
             border: 1px solid #dcdcdc;
             border-radius: 10px;
             background: #ffffff;
@@ -290,21 +269,24 @@
 		    transition: 0.5s;
 		}
 		.title{
-		    color: #161616;
+            color: #161616;
+            letter-spacing: 1px;
 		    font-family: Optima, sans-serif;
 		    font-size: 28px;
 		    margin-top: -100px;
             transition: 0.5s;
 		}
 		.subtitle{
-		    color: black;
+            color: #505050;
+            letter-spacing: 1px;
 		    font-size: 14px;
 		    text-transform: uppercase;
 		    margin: 15px 0;
 		}
 		.body{
 			margin-top: 60px;
-			margin-bottom: 60px;
+            margin-bottom: 60px;
+            line-height: 22px;
 		    font-size: 16px;
 		    color: #505050;
 		}
@@ -328,12 +310,199 @@
             color: #161616;
             transition: 0.25s;
         }
+        .alert-box{
+            position: fixed;
+            z-index: 15;
+            top: 10%;
+            left: 50%;
+            transform: translateY(-200%);
+            width: 300px;
+            height: 110px;
+            font-family: poppins, sans-serif;
+            border: 1px solid #dcdcdc;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
+            transition: 0.5s;
+        }
+        .alert-box #title{
+            position: relative;
+            width: 100%;
+            height: 40px;
+            text-align: left;
+            border-bottom: 1px solid #dcdcdc;
+            color: #505050;
+        }
+        .alert-box #title p{
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            letter-spacing: 1px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: #505050;
+        }
+        .alert-box #title i{
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+        }
+        .alert-box button{
+            cursor: pointer;
+            position: relative;
+            display: inline;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px;
+            width: 40%;
+            height: 30px;
+            letter-spacing: 1px;
+            font-size: 15px;
+            border: none;
+            border-radius: 5px;
+            background: #007bf6;
+            color: white;
+            transition: 0.25s;
+        }
+        .card .message-title{
+            position: relative;
+            margin-bottom: 50px;
+            width: 100%;
+            height: 35px;
+            text-align: center;
+            font-family: Optima, sans-serif;
+            font-size: 20px;
+            border-bottom: 1px solid #dcdcdc;
+        }
+        .card .message-title p{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            letter-spacing: 1px;
+            font-weight: bold;
+            font-size: 25px;
+            color: #505050;
+        }
+        .card .input-data{
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+        .input-data .message-name, 
+        .input-data .message-email,
+        .input-data .message-body{
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: auto;
+        }
+        .input-data input{
+            position: relative;
+            padding: 5px;
+            width: 40%;
+            height: 30px;
+            text-align: left;
+            font-size: 18px;
+            letter-spacing: 1px;
+            border: none;
+            border-bottom: 1px solid #dcdcdc;
+            color: #505050;
+            transition: all 0.5s ease;
+        }
+        .message-name input{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .message-email{
+            position: absolute;
+            top: 0;
+            margin-left: 24%;
+        }
+        .input-data button{
+            cursor: pointer;
+            position: relative;
+            width: 80%;
+            height: 30px;
+            letter-spacing: 1px;
+            font-size: 15px;
+            border: none;
+            border-radius: 5px;
+            background: #007bf6;
+            color: white;
+            transition: 0.25s;
+        }
+        .input-data textarea{
+            resize: none;
+            padding: 10px;
+            width: 100%;
+            height: 100px;
+			overflow: auto;
+		    font-size: 18px;
+            border: 1px solid #dcdcdc;
+            border-radius: 5px;
+			color: #505050;
+            transition: all 0.5s ease;
+        }
+        ::placeholder{
+            font-size: 15px;
+            color: gray;
+        }
+        .input-data input:focus{
+            outline: none;
+            border-bottom: 1px solid #505050;
+        }
+        .input-data textarea:hover{
+            background: #fafafa;
+		    transition: 0.25s;
+        }
+        .input-data textarea:focus{
+            outline: none;
+            border: 1px solid #505050;
+            background: #ffffff;
+            transition: 0.25s;
+        }
+        .input-data label{
+            cursor: text;
+            position: absolute;
+            left: 0;
+            padding: 5px;
+            font-size: 15px;
+            color: gray;
+        }
+        .message-name label{
+            top: 0;
+        }
+        .message-email label{
+            top: 0;
+            margin-left: 30%;
+        }
+        .message-body label{
+            margin-top: 60px;
+            top: 0;
+            left: 2px;
+        }
+        input[name="name"]:focus ~ label[for="name"],
+        input[name="email"]:focus ~ label[for="email"]{
+            top: -25px;
+        }
+        textarea[name="body"]:focus ~ label[for="body"]{
+            top: -25px;
+        }
         .footer{
             margin-top: 100px;
-            padding: 20px;
+            padding: 16px;
             width: 100%;
             height: 50px;
             text-align: center;
+            font-family: Optima, sans-serif;
             border-top: 1px solid #dcdcdc;
             background: #ffffff;
             color: #505050;
@@ -388,8 +557,11 @@
             .inputClicked{
                 width: 61vw;
                 z-index: 10;
-                transition-delay: 0.25s;
-                transition: 0.5s;
+                transition: 0.25s;
+            }
+            .search-results{
+                width: 61vw;
+                transition: 0.25s;
             }
             .close::before, .close::after{
                 left: 60vw;
@@ -488,7 +660,66 @@
         .toggle .line3{
             transform: rotate(45deg) translate(-5px,-6px);
         }
+    </style><% if(token == true){ %> 
+    <style type="text/css">
+        .gear{
+            position: absolute;
+            top: 10px;
+            left: 60%;
+            width: 69%;
+            height: 100px;
+        }
+        .gear img{
+            cursor: pointer;
+            position: relative;
+            width: 35px;
+            height: 35px;
+        }
+        .settings{
+            display: none;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            z-index: 10;
+            width: 200px;
+            height: 50px;
+            text-align: center;
+            color: #161616;
+        }
+        .settings button{
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            width: 175px;
+            height: 30px;
+            background: #ffffff;
+            border: #dcdcdc;
+            border-radius: 10px;
+            font-size: 20px;
+            color: #161616;
+            transition: 0.25s;
+        }
+        .settings button:hover{
+            background: #dcdcdc;
+            transition: 0.25s;
+        }
+        .blur{
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            border-radius: 10px;
+            background: rgba(22, 22, 22, 0.8);
+        }
     </style>
+    <link id="css-partial" rel="stylesheet" href=""></link><% } %>
 </head>
 <body>
     <div class="logo">
@@ -498,7 +729,8 @@
     <nav>
         <div class="search">
             <form class="searchBox" action="/pretraga" method="GET">
-                <input class="input" type="text" placeholder="Pretraži..." name="q">
+                <input onkeyup="searchResults()" class="input" type="text" placeholder="Pretraži..." name="q">
+                <table class="search-results"></table>
                 <button class="searchBtn" type="button"></button>
             </form>
         </div><% if(token == true){ %> 
@@ -516,6 +748,12 @@
         </div>
     </nav>
     <div class="wrapper">
+        <div class="alert-box">
+            <div id="title">
+                <p id="message"></p><i onclick="document.querySelector('.alert-box').style.transform = 'translate(-50%,-200%)'; document.cookie = '_sub = false';" class="fas fa-times"></i>
+            </div>
+            <button onclick="document.querySelector('.alert-box').style.transform = 'translate(-50%,-200%)';" style="background: #dcdcdc; color: #161616;">Zatvori</button>
+        </div>
         <div class="card">
             <div class="avatar">
                 <img class="picture" src="<%= data.picture %>">
@@ -527,6 +765,26 @@
                 <a href="https://www.facebook.com/profile.php?id=100019338011818" target="blank"><i class="fa fa-facebook"></i></a>
                 <a href="https://www.instagram.com/mesec_od_papiraa/" target="blank"><i class="fa fa-instagram"></i></a>
                 <a href="https://rs.linkedin.com/in/kristina-kljajić-a798761b3" target="blank"><i class="fa fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="message-title"><p>Stupite u kontakt</p></div>
+            <div class="input-data">
+                <form onsubmit="return sendMessage(event, this);" action="" method="">
+                    <div class="message-name">
+                        <input onkeyup="inputFilled(this, document.getElementById('label-name'));" type="text" name="name" required>
+                        <label onclick="document.querySelector('.message-name').getElementsByTagName('input')[0].focus();" id="label-name" for="name">Ime</label>
+                    </div>
+                    <div class="message-email">
+                        <input onkeyup="inputFilled(this, document.getElementById('label-email'));" type="text" name="email" required>
+                        <label onclick="document.querySelector('.message-email').getElementsByTagName('input')[0].focus();" id="label-email" for="email">Imejl adresa</label>
+                    </div><br>
+                    <div class="message-body"><br><br><br>
+                        <textarea onkeyup="inputFilled('textarea', document.getElementById('label-body'));" name="body"></textarea>
+                        <label onclick="document.querySelector('.message-body').getElementsByTagName('textarea')[0].focus();" id="label-body" for="body">Vaša poruka</label>
+                    </div><br>
+                    <button type="submit">Pošalji</button>
+                </form>
             </div>
         </div>
     </div>
@@ -544,32 +802,32 @@
         mobile = document.querySelector('.mobile'),
         links = document.querySelector('.links'),
         navLinks = document.querySelectorAll('.links li');
-
         window.onscroll = function() {stickyNav()};
 
-            const nav = document.querySelector('nav'),
-            sticky = nav.offsetTop;
-        
-            function stickyNav() {
-              if (window.pageYOffset >= sticky) {
-              nav.classList.add('sticky')
-          } else {
-          nav.classList.remove('sticky');
+        const nav = document.querySelector('nav'),
+        sticky = nav.offsetTop;
+
+        function stickyNav() {
+          if(window.pageYOffset >= sticky){
+            nav.classList.add('sticky')
+          }else{
+            nav.classList.remove('sticky');
           }
         }
-
         window.addEventListener('mouseup', (event)=>{
-			if(event.target == document.querySelector('.close')){
-				input.value = '';
-				input.focus();
-				return;
-			}
-		    if(event.target !== input && event.target !== document.querySelector('.close')){
-		        input.blur();
+            if(event.target == document.querySelector('.close')){
+                input.value = '';
+                input.focus();
+                document.querySelector('.search-results').innerHTML = '';
+                return;
+            }
+            if(event.target !== input && event.target !== document.querySelector('.close')){
+                input.blur();
                 if(!!document.querySelector('.close')){
                     document.querySelector('.close').click();
-				}		    
-			}
+                    document.querySelector('.search-results').style.visibility = 'hidden';
+                }		    
+            }
         });
         const navSlide = ()=>{
             mobile.addEventListener('click', ()=>{
@@ -589,15 +847,47 @@
             searchBtn.classList.toggle('close');
         });
         input.addEventListener('focus', ()=>{
-            searchBtn.click()
+            searchBtn.click();
+            document.querySelector('.search-results').style.visibility = 'visible';
         });
-        function revealInputUser(value){
-            if(value == 'name'){
-                document.querySelector('.card input').style.display = 'block';
+
+        async function searchResults(){
+            const allSpace = arr => arr.every(val => val === ' ');
+            if(allSpace(Array.from(input.value)) == false){
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({q: input.value})
+                }
+                await fetch('/pretraga', options).then(res => res.json()).then((res)=>{
+                    document.querySelector('.search-results').innerHTML = res.results;
+                });
             }else{
-                document.querySelector('.card input').value = '';
-                document.querySelector('.card input').style.display = 'none';
+                document.querySelector('.search-results').innerHTML = '';
             }
+        }
+        function inputFilled(input, label){
+			if(input.value !== ''){
+				label.style.top = '-25px';
+			}else{
+				label.style.top = '0';
+			}
+        }
+        async function sendMessage(e, form){
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const searchParams = new URLSearchParams();
+
+            for(const pair of formData){
+                searchParams.append(pair[0], pair[1]);
+            }
+            fetch('/poruka', {method: 'POST', body: searchParams}).then(res => res.json()).then((res)=>{
+                document.querySelector('.alert-box').style.transform = 'translate(-50%, 0)';
+                document.getElementById('message').innerText = res.msg;
+        });
         }
         navSlide();
     </script><% if(token == true){ %> 
@@ -669,7 +959,8 @@
                     newTitle: title, 
                     newSubtitle: subtitle, 
                     newBody: body, 
-                    newPicture: picture})
+                    newPicture: picture
+                })
             }
         
             await fetch('/admin/uredi/about', options).then(res => res.json()).then((res)=>{

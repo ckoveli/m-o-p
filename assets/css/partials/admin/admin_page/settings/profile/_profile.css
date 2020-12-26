@@ -7,6 +7,7 @@
     justify-content: center;
     text-align: center;
     line-height: 20px;
+    font-family: poppins, sans-serif;
     border: 1px solid #dcdcdc;
     border-radius: 10px;
     background: #ffffff;
@@ -21,10 +22,12 @@
     margin-top: 40px;
     width: 90%;
     text-align: center;
+    letter-spacing: 2px;
     font-family: Optima, sans-serif;
     font-size: 52px;
     font-weight: bold;
-    border: 1px solid #dcdcdc;
+    border: none;
+    border-bottom: 1px solid #dcdcdc;
     color: #161616;
     animation-fill-mode: forwards;
     transition: 0.25s;
@@ -36,19 +39,23 @@
     letter-spacing: 1px;
     line-height: 26px;
     border: 1px solid #dcdcdc;
+    border-radius: 5px;
     color: #505050;
     transition: 0.25s;
 }
-.card .title:hover,
 .card .body:hover{
-    background: #dcdcdc;
+    background: #fafafa;
     transition: 0.25s;
 }
-.card .title:focus,
-.card .body:focus{
-    background: #fafafa;
-    border: 1px solid #007bf6;
+.card .title:focus{
+    border-bottom: 1px solid #505050;
     outline: none;
+    transition: 0.25s;
+}
+.card .body:focus{
+    border: 1px solid #505050;
+    outline: none;
+    background: #ffffff;
     transition: 0.25s;
 }
 .card .tool-list{

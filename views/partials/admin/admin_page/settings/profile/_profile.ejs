@@ -1,4 +1,4 @@
-<input class="title" type="text" value="Kristina">
+<input onkeyup="updateProfile();" class="title" type="text" value="<%= title %>">
 <div class="toolbar">
     <ul class="tool-list">
         <li class="tool">
@@ -84,7 +84,4 @@
         </li>
     </ul>
 </div>
-<div class="body" contenteditable="true"><i>"Mesec, posle kog sam mnogo više ja.<br>
-    Mesec, posle kog su svi drugi kao taj.<br>
-    Želim da ti svaki bude, kao što je meni<br>
-    mesec July."</i><br></div>
+<div onkeyup="updateProfile();" class="body" contenteditable="true"><%- body %></div>

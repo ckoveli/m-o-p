@@ -3,6 +3,7 @@
     width: 100%;
     margin-bottom: 40px;
     text-align: center;
+    font-family: Optima, sans-serif;
     border-bottom: 1px solid #dcdcdc;
     color: #505050;
 }
@@ -20,6 +21,7 @@
     transform: translateX(-50%);
     width: 175px;
     text-align: center;
+    font-family: poppins, sans-serif;
 }
 .input-data .name, .input-data .pass{
     position: relative;

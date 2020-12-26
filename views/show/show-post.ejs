@@ -8,21 +8,27 @@
     <script type="text/javascript" src="js/fontawesome.js"></script>
     <link rel="shortcut icon" type="image/png" href="favicon/favicon.png">
     <style type="text/css">
+        @font-face {
+            font-family: 'poppins';
+            src: url('/fonts/poppins/poppins-regular-webfont.woff'),
+                url('/fonts/poppins/poppins-regular-webfont.woff2');
+            font-style: normal;
+            font-weight: 100;
+        }
         *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: sans-serif;
         }
         html, body{
             overflow-x: hidden;
         }
         body{
             position: relative;
-            font-family: Arial;
             background: #fafafa;
         }
         p{
+            font-family: poppins, sans-serif;
             font-size: 15px;
             color: #505050;
         }
@@ -42,7 +48,7 @@
             text-align: center;
             letter-spacing: 5px;
             font-family: Chalkduster, fantasy;
-            font-size: 20px;
+            font-size: 18px;
             background: rgb(22, 22, 22);
             color: white;
             animation: navLoad 0.5s ease-in;
@@ -78,6 +84,7 @@
             position: absolute;
             top: 12px;
             left: 70px;
+            font-family: poppins, sans-serif;
         }
         .input{
             cursor: pointer;
@@ -91,15 +98,14 @@
             border-radius: 50%;
             outline: none;
             background: #fafafa;
-            transition: 0.5s;
+            transition: 0.25s;
         }
         .inputClicked{
             cursor: text;
             width: 20vw;
             padding-left: 5px;
             border-radius: 0;
-            transition-delay: 0.25s;
-            transition: 0.5s;
+            transition: 0.25s;
         }
         .searchBtn{
             position: absolute;
@@ -121,7 +127,40 @@
             content: "";
             background: #161616;
             transform: rotate(45deg);
-            transition: 0.5s;
+            transition: 0.25s;
+        }
+        .search-results{
+            cursor: pointer;
+            visibility: hidden;
+            position: absolute;
+            top: 25px;
+            width: 20vw;
+            z-index: 10;
+            border: 1px solid #dcdcdc;
+            border-collapse: collapse;
+            background: #ffffff;
+            color: #505050;
+            transition: 0.25s;
+        }
+        .search-results tr{
+            height: 30px;
+            border-bottom: 1px solid #dcdcdc;
+        }
+        .search-results tr:hover{
+            background: #fafafa;
+            transition: 0.25s;
+        }
+        .search-results a{
+            display: block;
+            position: relative;
+            left: 0;
+            padding: 5px;
+            color: #161616;
+        }
+        .search-results img{
+            position: relative;
+            width: 30px;
+            height: 30px;
         }
         .close::before, .close::after{
             position: absolute;
@@ -131,7 +170,7 @@
             height: 2px;
             content: "";
             background: #161616;
-            transition: 0.5s;
+            transition: 0.25s;
         }
         .close::before{
             transform: rotate(-45deg);
@@ -198,6 +237,7 @@
             padding: 20px;
             width: 800px;
             line-height: 20px;
+            font-family: Arial, Helvetica, sans-serif;
             border: 1px solid #dcdcdc;
             border-radius: 10px;
             background: #ffffff;
@@ -232,6 +272,7 @@
         .title{
             padding: 20px;
             padding-left: 40px;
+            letter-spacing: 1px;
             line-height: 35px;
             color: #161616;
             font-family: Optima, sans-serif;
@@ -239,18 +280,22 @@
         }
         .subtitle{
             padding-left: 40px;
-            color: #161616;
+            color: #505050;
+            letter-spacing: 1px;
 		    font-size: 18px;
-		}
+        }
         .date{
             padding-left: 40px;
             color: #505050;
+            font-family: poppins, sans-serif;
             font-size: 14px;
             margin: 15px 0;
         }
         .body{
             padding: 40px;
             padding-top: 20px;
+            line-height: 22px;
+            font-family: poppins, sans-serif;
             font-size: 16px;
             word-wrap: break-word;
             color: #505050;
@@ -305,7 +350,8 @@
 			overflow: auto;
 		    font-size: 16px;
             border: 1px solid #dcdcdc;
-            background: #fafafa;
+            border-radius: 5px;
+            background: #ffffff;
 			color: #505050;
             transition: 0.25s;
         }
@@ -313,14 +359,14 @@
             font-size: 13px;
         }
         .card textarea:hover{
-            background: #dcdcdc;
+            background: #fafafa;
             color: #161616;
 		    transition: 0.25s;
         }
         .card textarea:focus{
-            background: #fafafa;
-            border: 1px solid #007bf6;
             outline: none;
+            border: 1px solid #505050;
+            background: #ffffff;
 			transition: 0.25s;
         }
         .type{
@@ -331,13 +377,12 @@
 			transform: translateX(-50%);
 			width: 100px;
 			height: 25px;
-			border: 1px solid #dcdcdc;
-			background: #ffffff;
+            border: 1px solid #dcdcdc;
 			overflow: hidden;
 			transition: 0.25s;
 		}
 		.type:hover{
-			background: #dcdcdc;
+			background: #fafafa;
 			transition: 0.25s;
 		}
 		.type::after{
@@ -362,18 +407,13 @@
             height: 25px;
             text-align: center;
             font-size: 13px;
-		    border: 1px solid #dcdcdc;
-		    background: #fafafa;
+            border: none;
+		    border-bottom: 1px solid #dcdcdc;
 		    transition: 0.25s;
         }
-        .card input:hover{
-            background: #dcdcdc;
-			transition: 0.25s;
-        }
         .card input:focus{
-            background: #fafafa;
-            border: 1px solid #007bf6;
             outline: none;
+            border-bottom: 1px solid #505050;
 			transition: 0.25s;
         }
         select{
@@ -400,7 +440,8 @@
 		    position: relative;
             top: -22px;
 		    width: 100px;
-		    height: 30px;
+            height: 30px;
+            letter-spacing: 1px;
             border: none;
             font-size: 14px;
 		    background: #007bf6;
@@ -410,27 +451,29 @@
         .reply-button{
             cursor: pointer;
             padding: 4px;
-            padding-left: 12px;
+            padding-left: 10px;
             width: 85px;
             height: 30px;
+            letter-spacing: 1px;
             border: 1px solid transparent;
+            font-family: Optima, sans-serif;
             font-size: 14px;
             background: #dcdcdc;
             color: #161616;
             transition: 0.25s;
         }
-        table{
+        .card table{
             position: relative;
             width: 100%;
             border-collapse: collapse;
         }
-        thead{
+        .card thead{
             border-top: 1px solid #dcdcdc;
         }
-        thead th{
+        .card thead th{
             padding: 20px;
         }
-        tbody td{
+        .card tbody td{
             padding: 20px;
         }
         .social-media{
@@ -461,6 +504,7 @@
             width: 400px;
             height: 220px;
             transform: translateX(-200%);
+            font-family: poppins, sans-serif;
             border: 1px solid #dcdcdc;
             border-radius: 10px;
             background: #ffffff;
@@ -481,6 +525,7 @@
             top: 8px;
             left: 10%;
             letter-spacing: 1px;
+            font-family: Optima, sans-serif;
             font-weight: bold;
             font-size: 18px;
             color: #505050;
@@ -497,6 +542,7 @@
             top: 0;
             left: 10%;
             margin-bottom: 15px;
+            font-size: 14px;
         }
         .input-data .email{
             position: relative;
@@ -528,7 +574,7 @@
             margin-top: 20px;
             left: 10%;
             padding: 5px;
-            font-size: 15px;
+            font-size: 13px;
             color: gray;
         }
         .email label{
@@ -540,7 +586,7 @@
         .subscribe-box button{
             cursor: pointer;
             position: relative;
-            bottom: -20px;
+            bottom: 10px;
             left: 10%;
             right: 10%;
             padding: 5px;
@@ -575,10 +621,11 @@
         }
         .footer{
             margin-top: 100px;
-            padding: 20px;
+            padding: 16px;
             width: 100%;
             height: 50px;
             text-align: center;
+            font-family: Optima, sans-serif;
             border-top: 1px solid #dcdcdc;
             background: #ffffff;
             color: #505050;
@@ -633,8 +680,11 @@
             .inputClicked{
                 width: 61vw;
                 z-index: 10;
-                transition-delay: 0.25s;
-                transition: 0.5s;
+                transition: 0.25s;
+            }
+            .search-results{
+                width: 61vw;
+                transition: 0.25s;
             }
             .close::before, .close::after{
                 left: 60vw;
@@ -698,7 +748,7 @@
             #commentDate{
                 width: 75px;
                 text-align: center;
-                font-size: 11px;
+                font-size: 10px;
             }
             #comment{
 				max-width: 175px; 
@@ -777,7 +827,8 @@
     <nav>
         <div class="search">
             <form class="searchBox" action="/pretraga" method="GET">
-                <input class="input" type="text" placeholder="Pretraži..." name="q">
+                <input onkeyup="searchResults()" class="input" type="text" placeholder="Pretraži..." name="q">
+                <table class="search-results"></table>
                 <button class="searchBtn" type="button"></button>
             </form>
         </div><% if(token == true){ %> 
@@ -817,9 +868,9 @@
                 <h4 class="comments-title">
                     <% if(data.comments.length>0){ %>
                         <% if(data.comments.length + repliesCount() !== 11 && (((data.comments.length + repliesCount()) % 10).toString()).includes("1")){ %>
-                            <%= data.comments.length + repliesCount() %> Komentar 
+                            <%= data.comments.length + repliesCount() %> komentar 
                         <% }else{ %>
-                            <%= data.comments.length + repliesCount() %> Komentara
+                            <%= data.comments.length + repliesCount() %> komentara
                         <% } %>   
                     <% }else{ %>
                         Nema komentara
@@ -848,7 +899,7 @@
                                         <form onsubmit="return submitReply(event, this, '<%= i %>', '<%= data.comments[i].replies.length %>')" class="reply-box id<%= i %>" action="/odgovor/<%= data.slug %>?_method=PUT" method="POST" style="display: none;">
                                             <textarea class="reply-box-textarea" name="reply" placeholder="Dodaj komentar" maxlength="500"></textarea><br><br>
                                             <% if(!token){ %> 
-                                            <p>Komentariši kao: </p><% } %> <input class="rep-username" id="rep-username_<%= i %>" type="text" name="username" placeholder="Ime" maxlength="20">
+                                            <p style="font-family: Optima, sans-serif;">Komentariši kao: </p><% } %> <input class="rep-username" id="rep-username_<%= i %>" type="text" name="username" placeholder="Ime" maxlength="20">
                                             <input type="hidden" name="commentId" value="<%= i %>">
                                             <input type="hidden" name="token" value="<%= token %>">
                                             <% if(!token){ %> 
@@ -908,7 +959,7 @@
                 <form class="comment-box" action="/komentar/<%= data.slug %>?_method=PUT" method="POST">
                     <textarea class="comment-box-textarea" name="comment" placeholder="Dodaj komentar" maxlength="500"></textarea><br><br>
                     <% if(!token){ %> 
-                    <p>Komentariši kao: </p><% } %> <input id="com-username" type="text" name="username" placeholder="Ime" maxlength="20">
+                    <p style="font-family: Optima, sans-serif;">Komentariši kao: </p><% } %> <input id="com-username" type="text" name="username" placeholder="Ime" maxlength="20">
                     <input type="hidden" name="token" value="<%= token %>">
                     <% if(!token){ %> 
                     <div class="type">
@@ -1001,19 +1052,19 @@
 
         window.onscroll = function() {stickyNav()};
 
-            const nav = document.querySelector('nav'),
-            sticky = nav.offsetTop;
-        
-            function stickyNav() {
-                if(window.pageYOffset >= sticky){
-                    nav.classList.add('sticky');
-                    if(document.cookie.indexOf('_sub')<0){
-                        if(document.querySelector('.subscribe-box') !== null) document.querySelector('.subscribe-box').style.transform = 'translateX(0)';
-                    }
-                }else{
-                    nav.classList.remove('sticky');
+        const nav = document.querySelector('nav'),
+        sticky = nav.offsetTop;
+    
+        function stickyNav() {
+            if(window.pageYOffset >= sticky){
+                nav.classList.add('sticky');
+                if(document.cookie.indexOf('_sub')<0){
+                    if(document.querySelector('.subscribe-box') !== null) document.querySelector('.subscribe-box').style.transform = 'translateX(0)';
                 }
+            }else{
+                nav.classList.remove('sticky');
             }
+        }
         window.addEventListener('mouseup', (event)=>{
             let replyBoxes = document.getElementsByClassName('reply-box');
  
@@ -1027,17 +1078,19 @@
                     }
                 }
             }
-			if(event.target == document.querySelector('.close')){
-				input.value = '';
-				input.focus();
-				return;
-			}
-		    if(event.target !== input && event.target !== document.querySelector('.close')){
-		        input.blur();
+            if(event.target == document.querySelector('.close')){
+                input.value = '';
+                input.focus();
+                document.querySelector('.search-results').innerHTML = '';
+                return;
+            }
+            if(event.target !== input && event.target !== document.querySelector('.close')){
+                input.blur();
                 if(!!document.querySelector('.close')){
                     document.querySelector('.close').click();
-				}		    
-			}
+                    document.querySelector('.search-results').style.visibility = 'hidden';
+                }		    
+            }
         });
         const navSlide = ()=>{
             mobile.addEventListener('click', ()=>{
@@ -1057,8 +1110,26 @@
             searchBtn.classList.toggle('close');
         });
         input.addEventListener('focus', ()=>{
-            searchBtn.click()
+            searchBtn.click();
+            document.querySelector('.search-results').style.visibility = 'visible';
         });
+        async function searchResults(){
+            const allSpace = arr => arr.every(val => val === ' ');
+            if(allSpace(Array.from(input.value)) == false){
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({q: input.value})
+                }
+                await fetch('/pretraga', options).then(res => res.json()).then((res)=>{
+                    document.querySelector('.search-results').innerHTML = res.results;
+                });
+            }else{
+                document.querySelector('.search-results').innerHTML = '';
+            }
+        }
         function revealCommentInputUser(value){
             if(value == 'name'){
                 document.getElementById('com-username').style.display = 'block';

@@ -22,6 +22,15 @@ const login = async(admin, pass, callback)=>{
         });
     }
 }
+const twoStepLogin = async(admin, callback)=>{
+    if(!admin) return callback(false);
+
+    else return callback(null, {
+            cookie: process.env.ADMIN_COOKIE_NAME,
+            token: jwt.sign({id: admin.id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '3h'}),
+            path: '/'
+    });
+}
 const twoStep = async(admin, expires, callback)=>{
     if(!admin){
         return callback({
@@ -33,7 +42,7 @@ const twoStep = async(admin, expires, callback)=>{
         return callback(null, {
             cookie: process.env.ADMIN_COOKIE_NAME,
             token: `${jwt.sign({id: admin.id}, process.env.TMP_TOKEN_SECRET, {expiresIn: expires})}${process.env.TMP_TOKEN_SECRET}${admin.name}`,
-            path: '/admin/two-step'
+            path: '/admin/dva-koraka'
         });
     }
 }
@@ -69,7 +78,8 @@ const resetPass = async(admin, newPass, callback)=>{
 
 module.exports = {
     login: login,
+    twoStepLogin: twoStepLogin,
+    changePass: changePass,    
     twoStep: twoStep,
-    changePass: changePass,
     resetPass: resetPass
 }

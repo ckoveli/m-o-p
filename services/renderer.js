@@ -72,7 +72,10 @@ const adminPage = async(path, req, callback)=>{
                 if(err) throw err;
 
                 else callback({
-                    html: await renderPartials(path+req.body.partial, {}),
+                    html: await renderPartials(path+req.body.partial, {
+                        title: admin.profile.title,
+                        body: admin.profile.body
+                    }),
                     css: 'css/partials/admin/admin_page/settings/profile/_profile.css'
                 });
             });
@@ -153,6 +156,8 @@ const contentUpdater = async(type, file, options)=>{
         case 'show':
             return await renderPartials(`update-content/${type}/${file}`, options);
             break;
+        case 'search':
+            return await renderPartials(`update-content/${type}/${file}`, options);
     }
 }
 

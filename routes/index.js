@@ -20,13 +20,13 @@ router.get('/', getToken, paginateResults(Post), (req, res)=>{
 	});
 });
 router.get('/o-meni', getToken, async(req, res,)=>{
-	const admin = await Admin.findOne({name: 'artvel'});
+	const admin = await Admin.findOne();
 	res.render('about', {
 		token: res.locals.token,
 		data: admin.about
 	});
 });
-router.get('/pretraga', getToken, paginateResults(Post), (req, res, next)=>{	
+router.route('/pretraga').get(getToken, paginateResults(Post), (req, res, next)=>{
 	if(req.query.q == null) return next();
 
 	const allSpace = arr => arr.every(val => val === ' ');
@@ -40,6 +40,17 @@ router.get('/pretraga', getToken, paginateResults(Post), (req, res, next)=>{
 		previous: res.locals.paginatedResults.previous,
 		pageCount: res.locals.pageCount
 	});
+}).post(async(req, res)=>{
+	const regex = new RegExp(escRegExp(req.body.q), 'gi');
+
+	try{
+		res.status(200).json({
+			results: await renderer.contentUpdater('search', 'results', {posts: await Post.find({title: regex}).sort({createdAt: 'desc'}).limit(9)})
+		}).end();
+	}catch(e){
+		res.status(400).json({results: 'Nema rezultata.'}).end();
+	}
+	//results.results = await model.find({title: regex}).sort({createdAt: 'desc'}).limit(limit).skip(startIndex).exec();
 });
 router.route('/22072019').get(getToken, (req, res)=>{
 	!res.locals.token ? res.render('admin/auth/login') : res.redirect('/admin');
@@ -107,14 +118,13 @@ router.put('/komentar/:slug', async(req, res, next)=>{
 				$push: {comments: comment}
 			});
 			if(req.body.token == 'false'){
-				// mailer.info('comment', {
-				// 	token: req.body.token,
-				// 	post: post.title,
-				// 	slug: req.params.slug,
-				// 	username: req.body.username,
-				// 	comment: req.body.comment,
-				// 	date: `${date.getDate()}. ${month[date.getMonth()]} ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
-				// });
+				mailer.info('comment', {
+					token: req.body.token,
+					post: post.title,
+					slug: req.params.slug,
+					username: req.body.username,
+					comment: req.body.comment
+				});
 			}
 		}catch(e){
 			res.render('errors/500', {token: res.locals.token});
@@ -188,18 +198,17 @@ router.put('/odgovor/:slug', async(req, res, next)=>{
 			post = await post.save();
 
 			if(req.body.token == 'false'){
-				// mailer.info('reply', {
-				// 	token: req.body.token,
-				// 	post: post.title,
-				// 	slug: req.params.slug,
-				// 	commentUsername: type == 'admin' ? null : post.comments[req.body.commentId].username,
-				// 	commentType: post.comments[req.body.commentId].type,
-				// 	comment: post.comments[req.body.commentId].comment,
-				// 	replyType: post.comments[req.body.commentId].type,
-				// 	username: req.body.username,
-				// 	reply: req.body.reply,
-				// 	date: `${date.getDate()}. ${month[date.getMonth()]} ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
-				// });
+				mailer.info('reply', {
+					token: req.body.token,
+					post: post.title,
+					slug: req.params.slug,
+					commentUsername: type == 'admin' ? null : post.comments[req.body.commentId].username,
+					commentType: post.comments[req.body.commentId].type,
+					comment: post.comments[req.body.commentId].comment,
+					replyType: post.comments[req.body.commentId].type,
+					username: req.body.username,
+					reply: req.body.reply
+				});
 			}
 		}catch(e){
 			console.log(e)
@@ -208,40 +217,41 @@ router.put('/odgovor/:slug', async(req, res, next)=>{
 	});
 });
 router.put('/prijava-na-obavestenja', async(req, res)=>{
-	await Admin.findOne({name: 'artvel'}, async(err, admin)=>{
+	await Admin.findOne(async(err, admin)=>{
 		if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(req.body.email)){
-			admin.followers = []
-			const exists = admin.followers.some(el => el.email === req.body.email);
-			if(!exists){
-				let id = require('crypto').randomBytes(4).toString('hex');
-				admin.followers.push({
-					id: id,
-					email: req.body.email
-				});
-				admin.followers = []
+			if(admin.followers.indexOf(req.body.email)<0){
+				admin.followers.push(req.body.email);
 				try{
 					admin = await admin.save();
-					console.log(admin.followers)
 					res.status(200).json({
 						html: '<div class="title" style="border-bottom: none;"><p>Hvala na prijavljivanju!</p></div>',
-						cookie: `_sub=${id}; expires=${new Date(2147483647 * 1000).toUTCString()},`
+						cookie: '_sub=true; expires=${new Date(2147483647 * 1000).toUTCString()}'
 					}).end();
-					// mailer.info('subscribe', {
-					// 	email: req.body.email,
-					// 	date: `Danas` 
-					// });
+					mailer.info('subscribe', {
+						email: req.body.email
+					});
 				}catch(e){
 					console.log(e);
 				}
 			}else{
-				res.status(200).json({error: {
+				res.status(200).json({
 					html: '<div class="title" style="border-bottom: none;"><p>Hvala na prijavljivanju!</p></div>',
-					cookie: `_sub=${id}; expires=${new Date(2147483647 * 1000).toUTCString()},`
-				}}).end();
+					cookie: '_sub=true; expires=${new Date(2147483647 * 1000).toUTCString()}'
+				}).end();
 			}
 		}else res.status(400).json({error: {
 			msg: 'Uneta imejl adresa je nevažeća.'
 		}}).end();
+	});
+});
+router.post('/poruka', async(req, res)=>{
+	res.status(200).json({
+		msg: 'Hvala!'
+	}).end();
+	mailer.info('message', {
+		name: req.body.name,
+		email: req.body.email,
+		body: req.body.body
 	});
 });
 router.use(getToken, (req, res)=>{

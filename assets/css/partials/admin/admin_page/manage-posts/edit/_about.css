@@ -26,26 +26,36 @@
 }
 .card .avatar:hover{
     cursor: pointer;
-    border: 2px solid #007bf6;
+    border: 1px solid #505050;
     transition: 0.25s;
 }
 .card input,
 .card .body{
     position: relative;
     text-align: center;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #dcdcdc;
+    transition: 0.25s;
+}
+.card .body{
     border: 1px solid #dcdcdc;
-    background: #fafafa;
+    border-radius: 5px;
     transition: 0.25s;
 }
-.card input:hover,
 .card .body:hover{
-    background: #dcdcdc;
+    background: #fafafa;
     transition: 0.25s;
 }
-.card input:focus,
+.card input:focus{
+    border-bottom: 1px solid #505050;
+    background: #ffffff;
+    transition: 0.25s;
+}
 .card .body:focus{
+    outline: none;
+    border: 1px solid #505050;
     background: #fafafa;
-    border: 1px solid #007bf6;
     transition: 0.25s;
 }
 .card .tool-list{
@@ -76,6 +86,7 @@
     width: 175px;
     height: 30px;
     border: none;
+    border-radius: 5px;
     font-size: 15px;
     background: #007bf6;
     color: white;
@@ -88,6 +99,7 @@
     width: 175px;
     height: 30px;
     border: 1px solid transparent;
+    border-radius: 5px;
     font-size: 15px;
     background: #dcdcdc;
     color: #161616;

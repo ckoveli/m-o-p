@@ -2,13 +2,36 @@ const Admin = require('../models/admin');
 const nodemailer = require('nodemailer');
 
 const info = async(type, data)=>{
-    const admin = await Admin.findOne({name: 'artvel'});
+    const date = new Date();
+	const month = new Array();
+	month[0] = 'Januar';
+	month[1] = 'Februar';
+	month[2] = 'Mart';
+	month[3] = 'April';
+	month[4] = 'Maj';
+	month[5] = 'Jun';
+	month[6] = 'Jul';
+	month[7] = 'Avgust';
+	month[8] = 'Septembar';
+	month[9] = 'Oktobar';
+	month[10] = 'Novembar';
+	month[11] = 'Decembar';
+    const admin = await Admin.findOne();
     if(admin.notifications.receiveNotifications == true){
         switch(type){
             case 'post':
-                if(admin.usersReceiveNotifications == true){
+                if(admin.notifications.usersReceiveNotifications == true){
                     if(admin.followers.length>0){
-                        
+                        for(let i=0; i<admin.followers.length; i++){
+                            sendEmail({
+                                sender: '"Mesec Od Papira" <info@mesecodpapira.com>',
+                                recipient: admin.followers[i],
+                                subject: 'Nova pesma je na sajtu!',
+                                html: `<p>Dragi pratioče, pošto ste se prijavili za obaveštenja, obaveštavamo vas da je pesma <a style="text-decoration: none;" href="http://mesecodpapira.com/poezija/${data.slug}">"${data.post}"</a> upravo izašla!</p>
+                                <p>Srdačan pozdrav,</p>
+                                <p><i><a style="text-decoration: none;" href="http://mesecodpapira.com/poezija/${data.slug}">Mesec Od Papira</a></i></p>`
+                            });
+                        }
                     }
                 }
                 break;
@@ -21,7 +44,7 @@ const info = async(type, data)=>{
                         html: `<p>Korisnik "${data.username == '' ? 'Anoniman' : data.username}" je dodao komentar na pesmi <a href="http://mesecodpapira.com/poezija/${data.slug}">"${data.post}"</a>.</p>
                         <h3>"${data.username == '' ? 'Anoniman' : data.username}" je komentarisao:</h3>
                         <p>"${data.comment}".</p>
-                        <h3>Datum: </h3><p style="display: inline-block">${data.date}</p>`
+                        <h3>Datum: </h3><p style="display: inline-block">${date.getDate()}. ${month[date.getMonth()]} ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}</p>`
                     }); 
                     return
                 }
@@ -39,7 +62,7 @@ const info = async(type, data)=>{
                             <p><i>"${data.comment}".</i></p>
                             <h3>Odgovor korisnika "${replyUsername}":</h3>
                             <p><i>"${data.reply}".</i></p>
-                            <h3>Datum: </h3><p style="display: inline-block">${data.date}</p>`
+                            <h3>Datum: </h3><p style="display: inline-block">${date.getDate()}. ${month[date.getMonth()]} ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}</p>`
                         });
                     }
                 }else{
@@ -55,7 +78,7 @@ const info = async(type, data)=>{
                             <p><i>"${data.comment}".</i></p>
                             <h3>Odgovor korisnika "${replyUsername}":</h3>
                             <p><i>"${data.reply}".</i></p>
-                            <h3>Datum: </h3><p style="display: inline-block">${data.date}</p>`
+                            <h3>Datum: </h3><p style="display: inline-block">${date.getDate()}. ${month[date.getMonth()]} ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}</p>`
                         });
                     }
                 }
@@ -66,10 +89,22 @@ const info = async(type, data)=>{
                         sender: '"Mesec Od Papira" <info@mesecodpapira.com>',
                         recipient: admin.mail,
                         subject: 'Imate novog pratioca',
-                        html: `<p>Korisnik sa imejlom <i>${data.email}</i> se prijavo na obaveštenja sa vašeg sajta.</p>
-                        <h3>Datum: </h3><p style="display: inline-block">${data.date}</p>`
+                        html: `<p>Korisnik sa imejlom <i>${data.email}</i> se prijavo na obaveštenja.</p>
+                        <h3>Datum: </h3><p style="display: inline-block">${date.getDate()}. ${month[date.getMonth()]} ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}</p>`
                     })
                 }
+                break;
+            case 'message':
+                await sendEmail({
+                    sender: '"Mesec Od Papira" <info@mesecodpapira.com>',
+                    recipient: admin.mail,
+                    subject: `Korisnik "${data.name}" vam je poslao poruku`,
+                    html: `<h3>Ime: </h3><p style="display: inline-block">${data.name}</p>
+                    <h3>Imejl: </h3><p style="display: inline-block">${data.email}</p>
+                    <h3>Poruka: </h3>
+                    <p>"${data.body}"</p>
+                    <h3>Datum: </h3><p style="display: inline-block;">${date.getDate()}. ${month[date.getMonth()]} ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}</p>`
+                });
                 break;
         }
     }

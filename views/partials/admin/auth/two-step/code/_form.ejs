@@ -47,7 +47,7 @@
 				},
 				body: JSON.stringify({name: '<%= name %>', mail: '<%= mail %>'})
 			}).then(res => res.json()).then((res)=>{
-				window.location.href = '/admin/two-step/';
+				window.location.href = '/admin/zaboravljena-lozinka';
 			});
 		}else{
 			let code;
