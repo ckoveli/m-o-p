@@ -140,12 +140,12 @@
                                         <% if(data.comments[i].replies !== undefined && data.comments[i].replies.length>0){ %>
                                             <% if(data.comments[i].replies.length>1){ %>
                                                 <% if(data.comments[i].replies.length !== 11 && ((data.comments[i].replies.length % 10).toString()).includes("1")){ %> 
-                                                    <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')">Prikaži <%= data.comments[i].replies.length %> odgovor <span class="show-hide-icon">&#9660;</span></h3>
+                                                    <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies == undefined ? 0 : data.comments[i].replies.length %>')">Prikaži <%= data.comments[i].replies == undefined ? 0 : data.comments[i].replies.length %> odgovor <span class="show-hide-icon">&#9660;</span></h3>
                                                 <% }else{ %> 
-                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')">Prikaži <%= data.comments[i].replies.length %> odgovora <span class="show-hide-icon">&#9660;</span></h3>
+                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies == undefined ? 0 : data.comments[i].replies.length%>')">Prikaži <%= data.comments[i].replies == undefined ? 0 : data.comments[i].replies.length %> odgovora <span class="show-hide-icon">&#9660;</span></h3>
                                                 <% } %> 
                                             <% } else{ %>
-                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')">Prikaži odgovor <span class="show-hide-icon">&#9660;</span></h3>
+                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies == undefined ? 0 : data.comments[i].replies.length %>')">Prikaži odgovor <span class="show-hide-icon">&#9660;</span></h3>
                                             <% } %>  
                                             </div>
                                             <tbody class="replies-partial id<%= i %>" style="display: none; float: right; margin: 0 auto; width: 90%;">
@@ -170,7 +170,7 @@
                                                 <% } %>
                                             </tbody>
                                             <% }else{ %>
-                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')"></h3>
+                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies == undefined ? 0 : data.comments[i].replies.length %>')"></h3>
                             
                                                 <tbody class="replies-partial id<%= i %>" style="display: none; float: right; margin: 0 auto; width: 90%;">
                                                 </tbody>

@@ -20,7 +20,7 @@ router.get('/', getToken, paginateResults(Post), (req, res)=>{
 	});
 });
 router.get('/o-meni', getToken, async(req, res,)=>{
-	const admin = await Admin.findOne();
+	const admin = await Admin.findOne({name: 'artvel'});
 	res.render('about', {
 		token: res.locals.token,
 		data: admin.about

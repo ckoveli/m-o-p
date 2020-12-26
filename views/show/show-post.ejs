@@ -896,7 +896,7 @@
                             <tbody>
                                 <tr>
                                     <td><p id="comment"><%= data.comments[i].comment %></p><br><p class="reply-button id<%= i %>" id="<%= i %>" onclick="revealCommentReply(this)">Odgovori</p>
-                                        <form onsubmit="return submitReply(event, this, '<%= i %>', '<%= data.comments[i].replies.length %>')" class="reply-box id<%= i %>" action="/odgovor/<%= data.slug %>?_method=PUT" method="POST" style="display: none;">
+                                        <form onsubmit="return submitReply(event, this, '<%= i %>', '<%= data.comments[i].replies == undefined ? 0 : data.comments[i].replies.length %>')" class="reply-box id<%= i %>" action="/odgovor/<%= data.slug %>?_method=PUT" method="POST" style="display: none;">
                                             <textarea class="reply-box-textarea" name="reply" placeholder="Dodaj komentar" maxlength="500"></textarea><br><br>
                                             <% if(!token){ %> 
                                             <p style="font-family: Optima, sans-serif;">Komentariši kao: </p><% } %> <input class="rep-username" id="rep-username_<%= i %>" type="text" name="username" placeholder="Ime" maxlength="20">
@@ -944,7 +944,7 @@
                                                 <% } %>
                                             </tbody>
                                             <% }else{ %>
-                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies.length %>')"></h3>
+                                                <h3 class="show-hide-replies id<%= i %>" onclick="showReplies('<%= i %>', '<%= data.comments[i].replies == undefined ? 0 : data.comments[i].replies.length %>')"></h3>
                             
                                                 <tbody class="replies-partial id<%= i %>" style="display: none; float: right; margin: 0 auto; width: 90%;">
                                                 </tbody>
