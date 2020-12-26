@@ -335,6 +335,19 @@
             position: relative;
             left: -70px;
         }
+        .loader{
+            position: absolute;
+            top: -135px;
+            left: 44%;
+            transform: translateX(-44%);
+            width: 100px;
+            height: 100px;
+            border: 15px solid #dcdcdc;
+            border-radius: 50%;
+            border-top: 16px solid #505050;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
         .footer{
             margin-top: 100px;
             padding: 16px;
@@ -388,6 +401,15 @@
                 margin-top: 150px;
                 opacity: 1;
             }
+        }
+        @-webkit-keyframes spin{
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin{
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
         @media screen and (max-width: 1024px){
             .search{
@@ -626,6 +648,8 @@
         async function load(partial, src, id){
             const script = new ScriptLoader(src);
             script.process();
+
+            document.querySelector('.card').innerHTML = '<div class="loader"></div>'
 
             const options = {
 		        	method: 'POST',
