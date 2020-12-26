@@ -75,72 +75,6 @@
             top: 0;
             width: 100%;
         }
-        .search{
-            position: absolute;
-            top: 12px;
-            left: 70px;
-            font-family: poppins, sans-serif;
-        }
-        .input{
-            cursor: pointer;
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            padding-left: 25px;
-            font-size: 15px;
-            letter-spacing: 1px;
-            border: 1px solid #161616;
-            border-radius: 50%;
-            outline: none;
-            background: #fafafa;
-            transition: 0.5s;
-        }
-        .inputClicked{
-            cursor: text;
-            width: 20vw;
-            padding-left: 5px;
-            border-radius: 0;
-            transition-delay: 0.25s;
-            transition: 0.5s;
-        }
-        .searchBtn{
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            right: 0;
-            width: 20px;
-            height: 10px;
-            border: none;
-            outline: none;
-            background: none;
-        }
-        .searchBtn::before{
-            position: absolute;
-            top: 24px;
-            right: -29px;
-            width: 8px;
-            height: 2px;
-            content: "";
-            background: #161616;
-            transform: rotate(45deg);
-            transition: 0.5s;
-        }
-        .close::before, .close::after{
-            position: absolute;
-            top: 12px;
-            left: 20vw;
-            width: 15px;
-            height: 2px;
-            content: "";
-            background: #161616;
-            transition: 0.5s;
-        }
-        .close::before{
-            transform: rotate(-45deg);
-        }
-        .close::after{
-            transform: rotate(45deg);
-        }
         .links{
             display: flex;
             width: 500px;
@@ -267,7 +201,7 @@
             z-index: 15;
             top: 10%;
             left: 50%;
-            transform: translateY(-200%);
+            transform: translateY(-300%);
             width: 300px;
             height: 110px;
             font-family: poppins, sans-serif;
@@ -335,18 +269,28 @@
             position: relative;
             left: -70px;
         }
-        .loader{
+        .linear-activity{
+            overflow: hidden;
+        }
+        .indeterminate{
             position: absolute;
-            top: -135px;
-            left: 44%;
-            transform: translateX(-44%);
-            width: 100px;
-            height: 100px;
-            border: 15px solid #dcdcdc;
-            border-radius: 50%;
-            border-top: 16px solid #505050;
-            -webkit-animation: spin 2s linear infinite;
-            animation: spin 2s linear infinite;
+            top: 182px;
+            width: 100%;
+            height: 1px;
+        }
+        .indeterminate:before{
+            content: '';
+            position: absolute;
+            height: 100%;
+            background: #505050;
+            animation: indeterminate_first 1.5s infinite ease-out;
+        }
+        .indeterminate:after{
+            content: '';
+            position: absolute;
+            height: 100%;
+            background: #505050;
+            animation: indeterminate_second 1.5s infinite ease-in;
         }
         .footer{
             margin-top: 100px;
@@ -402,29 +346,27 @@
                 opacity: 1;
             }
         }
-        @-webkit-keyframes spin{
-          0% { -webkit-transform: rotate(0deg); }
-          100% { -webkit-transform: rotate(360deg); }
+        @keyframes indeterminate_first{
+            0%{
+                left: -100%;
+                width: 100%;
+            }
+            100%{
+                left: 100%;
+                width: 10%;
+            }
         }
-
-        @keyframes spin{
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+        @keyframes indeterminate_second{
+            0%{
+                left: -150%;
+                width: 100%;
+            }
+            100%{
+                left: 100%;
+                width: 10%;
+            }
         }
         @media screen and (max-width: 1024px){
-            .search{
-                left: 19%;
-            }
-            .inputClicked{
-                width: 61vw;
-                z-index: 10;
-                transition-delay: 0.25s;
-                transition: 0.5s;
-            }
-            .close::before, .close::after{
-                left: 60vw;
-                z-index: 10;
-            }
             .links{
                 display: flex;
                 position: absolute;
@@ -506,12 +448,6 @@
         <h4 onclick="window.location.href = '/'">Mesec Od Papira</h4>
     </div>
 	<nav>
-		<div class="search">
-			<form class="searchBox" action="/pretraga" method="GET">
-				<input class="input" type="text" placeholder="Pretraži..." name="q">
-				<button class="searchBtn" type="button"></button>
-			</form>
-		</div>
 		<ul class="links" style="width: 700px;">
 			<li><a href="/admin/mejl">Mejl</a></li>
 			<li><a href="/">Početna</a></li>
@@ -523,14 +459,15 @@
 			<div class="line1"></div>
 			<div class="line2"></div>
 			<div class="line3"></div>
-		</div>
+        </div>
 	</nav>
     <div class="wrapper">
+        <div class="linear-activity"></div>
         <div class="alert-box">
             <div id="title">
-                <p id="message"></p><i onclick="document.querySelector('.alert-box').style.transform = 'translate(-50%,-200%)'; document.cookie = '_sub = false';" class="fas fa-times"></i>
+                <p id="message"></p><i onclick="document.querySelector('.alert-box').style.transform = 'translate(-50%,-300%)'; document.cookie = '_sub = false';" class="fas fa-times"></i>
             </div>
-            <button>Vidi objavu</button><button onclick="document.querySelector('.alert-box').style.transform = 'translate(-50%,-200%)';" style="background: #dcdcdc; color: #161616;">Zatvori</button>
+            <button>Vidi objavu</button><button onclick="document.querySelector('.alert-box').style.transform = 'translate(-50%,-300%)';" style="background: #dcdcdc; color: #161616;">Zatvori</button>
         </div>
         <div class="dashboard">
             <table>
@@ -560,9 +497,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        const searchBtn = document.querySelector('.searchBtn'),
-        input = document.querySelector('.input'),
-        mobile = document.querySelector('.mobile'),
+        const mobile = document.querySelector('.mobile'),
         links = document.querySelector('.links'),
         navLinks = document.querySelectorAll('.links li');
 
@@ -583,15 +518,6 @@
                 dash.classList.remove('stickyDash');
 		    }
 		}
-
-		window.addEventListener('mouseup', (event)=>{
-		    if(event.target != input){
-                input.blur();
-                if(!!document.querySelector('.close')){
-                    document.querySelector('.close').click();
-                }
-		    }
-		});
 		const navSlide = ()=>{
 		    mobile.addEventListener('click', ()=>{
 		        links.classList.toggle('linksActive');
@@ -605,13 +531,6 @@
 		        mobile.classList.toggle('toggle');
 		    });
 		}
-		searchBtn.addEventListener('click', ()=>{
-		    input.classList.toggle('inputClicked');
-		    searchBtn.classList.toggle('close');
-		});
-		input.addEventListener('focus', ()=>{
-		    searchBtn.click()
-        });
         class ScriptLoader{
             constructor(script){
                 this.script = script;
@@ -649,7 +568,8 @@
             const script = new ScriptLoader(src);
             script.process();
 
-            document.querySelector('.card').innerHTML = '<div class="loader"></div>'
+
+            document.querySelector('.linear-activity').innerHTML = '<div class="indeterminate"></div>';
 
             const options = {
 		        	method: 'POST',
@@ -661,6 +581,7 @@
             await fetch('/admin', options).then(res => res.json()).then((res)=>{
                 document.querySelector('.card').innerHTML = res.html;
                 document.getElementById('css-partial').href = res.css;
+                document.querySelector('.linear-activity').innerHTML = '';
             });
         }
 		navSlide();

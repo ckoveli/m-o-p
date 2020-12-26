@@ -50,7 +50,6 @@ router.route('/pretraga').get(getToken, paginateResults(Post), (req, res, next)=
 	}catch(e){
 		res.status(400).json({results: 'Nema rezultata.'}).end();
 	}
-	//results.results = await model.find({title: regex}).sort({createdAt: 'desc'}).limit(limit).skip(startIndex).exec();
 });
 router.route('/22072019').get(getToken, (req, res)=>{
 	!res.locals.token ? res.render('admin/auth/login') : res.redirect('/admin');

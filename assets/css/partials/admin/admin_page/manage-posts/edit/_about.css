@@ -26,7 +26,9 @@
 }
 .card .avatar:hover{
     cursor: pointer;
+    outline: none;
     border: 1px solid #505050;
+    background: #fafafa;
     transition: 0.25s;
 }
 .card input,

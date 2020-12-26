@@ -14,6 +14,12 @@ const renderer = require('../../services/renderer');
 
 let twoStepCode;
 
+/*
+	KADA PUSHUJES NA MASTER, IZBRISI OVA COOKIES GOVNA ZA TRAGANJE ADMINA, JER NA PRODUCTION VERZIJI IMA SAMO JEDAN ADMIN
+
+	BTW COOKIES SU U ADMIN.JS, INDEX.JS RUTAMA I RENDERER.JS
+*/
+
 router.use(express.static('assets'));
 router.use(express.json({limit: '5mb'}));
 router.use(express.urlencoded({extended: false}));
@@ -156,7 +162,7 @@ router.route('/zaboravljena-lozinka').get((req, res, next)=>{
 }).post(async(req, res)=>{
 	if(req.headers.cookie && req.headers.cookie.includes('timer')) res.clearCookie('timer', {path: '/admin'});
 
-	await Admin.findOne((err, admin)=>{
+	await Admin.findOne({name: req.body.name}, (err, admin)=>{
 		if(err || !admin){ 
 			return res.status(401).json({error: {title: 'Nepostojće ime!', id: 'name'}}).end();
 		}else{
@@ -417,7 +423,7 @@ router.delete('/odgovor/:id', getToken, async(req, res)=>{
 	});
 });
 router.post('/prijava', async(req, res)=>{
-	let admin = await Admin.findOne();
+	let admin = await Admin.findOne({name: req.body.name});
 
 	authenticate.login(admin, req.body.pass, (err, result)=>{
 		if(err) return res.status(401).json({error: {title: err.title, id: err.id}}).end();

@@ -30,7 +30,7 @@
     transition: 0.25s;
 }
 .card .type:hover{
-    background: #dcdcdc;
+    background: #fafafa;
     transition: 0.25s;
 }
 .card .type::after{
@@ -117,15 +117,16 @@
     overflow-x: hidden;
     transform: translateX(-50%);
     text-align: center;
-    border: 2px solid #dcdcdc;
+    border: 1px solid #dcdcdc;
     border-radius: 10px;
-    background: #fafafa;
+    background: #ffffff;
     transition: 0.5s;
 }
 .card .avatar:hover{
     cursor: pointer;
-    border: 2px solid #007bf6;
-    background: #dcdcdc;
+    outline: none;
+    border: 1px solid #161616;
+    background: #fafafa;
     transition: 0.25s;
 }
 .card .picture{
