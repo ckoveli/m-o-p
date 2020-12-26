@@ -1,6 +1,6 @@
 ## Mesec Od Papira 
 
-**Version 1.0.0**
+**Version 2.0.0**
 
 This repository contains the files used for generating *Mesec Od Papira* website.
 
