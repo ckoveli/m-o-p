@@ -59,7 +59,7 @@ const adminPage = async(path, req, callback)=>{
             });
             break;
         case 'manage-posts/edit/_about':
-            let admin = await Admin.findOne({name: req.headers.cookie.split(process.env.ADMIN_COOKIE_SEPARATOR)[1]})
+            let admin = await Admin.findOne()
             callback({
                 html: await renderPartials(path+req.body.partial, {
                     data: admin.about
@@ -68,7 +68,7 @@ const adminPage = async(path, req, callback)=>{
             })
             break;
         case 'settings/profile/_profile':
-            await Admin.findOne({name: req.headers.cookie.split(process.env.ADMIN_COOKIE_SEPARATOR)[1]}, async(err, admin)=>{
+            await Admin.findOne(async(err, admin)=>{
                 if(err) throw err;
 
                 else callback({
@@ -81,7 +81,7 @@ const adminPage = async(path, req, callback)=>{
             });
             break;
 		case 'settings/notifications/_notifications':
-            await Admin.findOne({name: req.headers.cookie.split(process.env.ADMIN_COOKIE_SEPARATOR)[1]}, async(err, admin)=>{
+            await Admin.findOne(async(err, admin)=>{
                 if(err) throw err;
 
                 else callback({
@@ -99,7 +99,7 @@ const adminPage = async(path, req, callback)=>{
             });
 			break;
 		case 'settings/security/_security':
-            await Admin.findOne({name: req.headers.cookie.split(process.env.ADMIN_COOKIE_SEPARATOR)[1]}, async(err, admin)=>{
+            await Admin.findOne(async(err, admin)=>{
                 if(err) throw err;
 
                 else callback({

@@ -21,7 +21,7 @@ router.use(methodOverride('_method'));
 router.use('/mejl', getToken, require('../../routes/admin/mail'));
 
 router.route('/').get(getToken, async(req, res)=>{
-	const admin = await Admin.findOne({name: req.headers.cookie.split(process.env.ADMIN_COOKIE_SEPARATOR)[1]});
+	const admin = await Admin.findOne();
 	res.render('admin/admin', {
 		partial: '_profile.ejs',
 		title: admin.profile.title,
@@ -60,7 +60,7 @@ router.post('/objavi', getToken, async(req, res)=>{
 	}
 });
 router.post('/lozinka', getToken, async(req, res)=>{
-	let admin = await Admin.findOne({name: req.headers.cookie.split(process.env.ADMIN_COOKIE_SEPARATOR)[1]});
+	let admin = await Admin.findOne();
 
 	authenticate.changePass(admin, req.body.oldpass, req.body.newpass, async(err, result)=>{
 		if(err) return res.status(401).json({error: {title: err.title, id: err.id}}).end();
@@ -85,7 +85,7 @@ router.route('/zaboravljena-lozinka').get((req, res, next)=>{
 			authorize.twoStep(req.headers.cookie.split(';')[1].split('=')[1], async(err, result)=>{
 				if(err) return next();
 		
-				else return await Admin.findOne({name: result.name}, async(err, admin)=>{
+				else return await Admin.findOne(async(err, admin)=>{
 					if(err || !admin) return next();
 					
 					if(admin.security.securityQuestion == true && (admin.security.securityQuestionQuestion !== '' && admin.security.securityQuestionAnswer !== '')){
@@ -121,7 +121,7 @@ router.route('/zaboravljena-lozinka').get((req, res, next)=>{
 			authorize.twoStep(req.headers.cookie.split('=')[1], async(err, result)=>{
 				if(err) return next();
 		
-				else return await Admin.findOne({name: result.name}, async(err, admin)=>{
+				else return await Admin.findOne(async(err, admin)=>{
 					if(err || !admin) return next();
 					
 					if(admin.security.securityQuestion == true && (admin.security.securityQuestionQuestion !== '' && admin.security.securityQuestionAnswer !== '')){
@@ -156,7 +156,7 @@ router.route('/zaboravljena-lozinka').get((req, res, next)=>{
 }).post(async(req, res)=>{
 	if(req.headers.cookie && req.headers.cookie.includes('timer')) res.clearCookie('timer', {path: '/admin'});
 
-	await Admin.findOne({name: req.body.name}, (err, admin)=>{
+	await Admin.findOne((err, admin)=>{
 		if(err || !admin){ 
 			return res.status(401).json({error: {title: 'Nepostojće ime!', id: 'name'}}).end();
 		}else{
@@ -182,7 +182,7 @@ router.route('/zaboravljena-lozinka').get((req, res, next)=>{
 });
 router.route('/resetovanje-lozinke/:code').get(async(req, res, next)=>{
 	if(req.headers.cookie){
-		await Admin.findOne({name: req.headers.cookie.split(process.env.TMP_TOKEN_SECRET)[1]}, async(err, admin)=>{
+		await Admin.findOne(async(err, admin)=>{
 			if(err) return next();
 
 			if(req.params.code == twoStepCode){
@@ -217,7 +217,7 @@ router.route('/resetovanje-lozinke/:code').get(async(req, res, next)=>{
 			authorize.twoStep(req.headers.cookie.split('=')[1], async(err, result)=>{
 				if(err) return next();
 
-				else return await Admin.findOne({name: req.headers.cookie.split(process.env.TMP_TOKEN_SECRET)[1]}, (err, admin)=>{
+				else return await Admin.findOne((err, admin)=>{
 					if(err) return next();
 
 					else authenticate.resetPass(admin, req.body.newpass, async(err, result)=>{
@@ -244,7 +244,7 @@ router.route('/resetovanje-lozinke/:code').get(async(req, res, next)=>{
 });
 router.put('/uredi/:id', getToken, async(req, res, next)=>{
 	if(req.params.id == 'about'){
-		let admin = await Admin.findOne({name: req.headers.cookie.split(process.env.ADMIN_COOKIE_SEPARATOR)[1]});
+		let admin = await Admin.findOne();
 
 		admin.about.title = req.body.newTitle,
 		admin.about.subtitle = req.body.newSubtitle,
@@ -279,7 +279,7 @@ router.put('/uredi/:id', getToken, async(req, res, next)=>{
 });
 router.put('/settings', getToken, async(req, res, next)=>{
 	if(req.body.setting == 'settings/_notifications'){
-		await Admin.findOne({name: req.headers.cookie.split(process.env.ADMIN_COOKIE_SEPARATOR)[1]}, async(err, admin)=>{
+		await Admin.findOne(async(err, admin)=>{
 			if(err) throw err;
 			
 			admin.notifications.receiveNotifications = req.body.receiveNotifications;
@@ -299,7 +299,7 @@ router.put('/settings', getToken, async(req, res, next)=>{
 		});
 	}
 	if(req.body.setting == 'settings/_security'){
-		await Admin.findOne({name: req.headers.cookie.split(process.env.ADMIN_COOKIE_SEPARATOR)[1]}, async(err, admin)=>{
+		await Admin.findOne(async(err, admin)=>{
 			if(err) throw err;
 
 			admin.security.twoStepVerification = req.body.twoStepVerification;
@@ -317,7 +317,7 @@ router.put('/settings', getToken, async(req, res, next)=>{
 		});
 	}
 	if(req.body.setting == 'settings/_profile'){
-		await Admin.findOne({name: req.headers.cookie.split(process.env.ADMIN_COOKIE_SEPARATOR)[1]}, async(err, admin)=>{
+		await Admin.findOne(async(err, admin)=>{
 			if(err) throw err;
 
 			admin.profile.title = req.body.title;
@@ -417,7 +417,7 @@ router.delete('/odgovor/:id', getToken, async(req, res)=>{
 	});
 });
 router.post('/prijava', async(req, res)=>{
-	let admin = await Admin.findOne({name: req.body.name});
+	let admin = await Admin.findOne();
 
 	authenticate.login(admin, req.body.pass, (err, result)=>{
 		if(err) return res.status(401).json({error: {title: err.title, id: err.id}}).end();
