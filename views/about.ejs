@@ -28,6 +28,7 @@
             --body-background: #fafafa;
             --nav-background: #ffffff;
             --card-background: var(--nav-background);
+            --blur-background: rgba(0, 0, 0, 0.75);
             --border-color: #dcdcdc;
             --txt-color: #161616;
             --p-color: #505050;
@@ -39,10 +40,11 @@
         body.dark{
             --body-background: #161616;
             --nav-background: #000000;
+            --blur-background: rgba(96, 96, 96, 0.75);
             --border-color: #505050;
             --txt-color: #ffffff;
             --p-color: #fafafa;
-            --shadow-color: rgba(96, 96, 96, 0.20);
+            --shadow-color: rgba(0, 0, 0, 0.20);
         }
         p{
             font-family: poppins, sans-serif;
@@ -163,8 +165,8 @@
             top: 25px;
             width: 20vw;
             z-index: 10;
-            border: 1px solid var(--border-color);
             border-collapse: collapse;
+            border: 1px solid var(--border-color);
             background: var(--card-background);
             color: var(--p-color);
             transition: all 0.25s ease-in-out;
@@ -323,7 +325,7 @@
             background: transparent !important;
         }
         .social-media{
-			position: relative;
+            position: relative;
             text-align: center;
         }
         .social-media i{
@@ -441,7 +443,7 @@
             width: 40%;
             height: 30px;
             text-align: left;
-            font-size: 18px;
+            font-size: 15px;
             letter-spacing: 1px;
             border: none;
             border-bottom: 1px solid var(--border-color);
@@ -509,7 +511,7 @@
             position: absolute;
             left: 0;
             padding: 5px;
-            font-size: 15px;
+            font-size: 13px;
             color: gray;
         }
         .message-name label{
@@ -530,6 +532,37 @@
         }
         textarea[name="body"]:focus ~ label[for="body"]{
             top: -25px;
+        }
+        .loader-row{
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+        .loader{
+            margin-top: 3px;
+            width: 22px;
+            height: 22px;
+            border: 3px solid var(--border-color);
+            border-top: 3px solid #007bf6;
+            border-radius: 50%;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+        @-webkit-keyframes spin{
+            0%{ 
+                -webkit-transform: rotate(0deg); 
+            }
+            100%{ 
+                -webkit-transform: rotate(360deg); 
+            }
+        }
+        @keyframes spin{
+            0%{ 
+                transform: rotate(0deg); 
+            }
+            100%{ 
+                transform: rotate(360deg); 
+            }
         }
         .footer{
             margin-top: 100px;
@@ -634,7 +667,7 @@
                 transform: translateX(0%);
             }
             .card{
-                width: 90%;
+                width: 100%;
                 transition: all 0.25s ease-in-out;
 			}
 			.avatar{
@@ -652,6 +685,12 @@
             .title{
                 margin-top: -85px;
                 transition: 0.5s;
+            }
+            .input-data input{
+                font-size: 13px;
+            }
+            .input-data label{
+                font-size: 11px;
             }
             #dark-mode-toggle{
                 display: none;
@@ -755,12 +794,12 @@
             height: 100%;
             z-index: 5;
             border-radius: 10px;
-            background: var(--shadow-color);
+            background: var(--blur-background);
         }
     </style>
     <link id="css-partial" rel="stylesheet" href=""></link><% } %>
 </head>
-<body>
+<body<%- mode %>>
     <div class="logo">
         <img src="logo/mop.png" onclick="window.location.href = '/'">
         <h4 onclick="window.location.href = '/'">Mesec Od Papira</h4>
@@ -779,7 +818,7 @@
                 <li><a href="/">Početna</a></li>
                 <li><a href="/poezija">Poezija</a></li>
                 <li><a href="/o-meni">O meni</a></li>
-                <li onclick="document.body.classList.toggle('dark');" style="position: absolute; right: 70px"><i class="fas fa-adjust" id="dark-mode-toggle"></i></li>
+                <li onclick="switchMode();" style="position: absolute; right: 70px"><i class="fas fa-adjust" id="dark-mode-toggle"></i></li>
             </ul>
 <%}%><div class="mobile">
             <div class="line1"></div>
@@ -842,6 +881,17 @@
         mobile = document.querySelector('.mobile'),
         links = document.querySelector('.links'),
         navLinks = document.querySelectorAll('.links li');
+
+        function switchMode(){
+            if(document.body.classList.contains('dark')){
+                document.body.classList.remove('dark');
+                document.cookie = '_mode=null; path=/';
+            }else{
+                document.body.classList.toggle('dark');
+                document.cookie = '_mode=dark; path=/';
+            }
+        }
+
         window.onscroll = function() {stickyNav()};
 
         const nav = document.querySelector('nav'),
@@ -894,6 +944,7 @@
         async function searchResults(){
             const allSpace = arr => arr.every(val => val === ' ');
             if(allSpace(Array.from(input.value)) == false){
+                document.querySelector('.search-results').innerHTML = '<tr><td class="loader-row" colspan="3"><div class="loader"></div></td></tr>';
                 const options = {
                     method: 'POST',
                     headers: {

@@ -24,9 +24,26 @@
             overflow-x: hidden;
         }
         body{
+            --body-background: #fafafa;
+            --nav-background: #ffffff;
+            --card-background: var(--nav-background);
+            --misc-background: #f5f5f5;
+            --border-color: #dcdcdc;
+            --txt-color: #161616;
+            --p-color: #505050;
+            --shadow-color: rgba(0, 0, 0, 0.20);
             position: relative;
-            font-family: Arial;
-            background: #fafafa;
+            background: var(--body-background);
+            transition: all 0.5s ease-in-out;
+        }
+        body.dark{
+            --body-background: #161616;
+            --nav-background: #000000;
+            --misc-background: #101010;
+            --border-color: #505050;
+            --txt-color: #ffffff;
+            --p-color: #fafafa;
+            --shadow-color: rgba(0, 0, 0, 0.20);
         }
         a{
             cursor: pointer;
@@ -34,8 +51,8 @@
             color: inherit;
         }
         a:hover{
-            color: #161616;
-            transition: 0.25s;
+            color: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
         .logo{
             display: block;
@@ -65,8 +82,8 @@
             justify-content: space-around;
             align-items: center;
             font-family: Optima, sans-serif;
-            border-bottom: 1px solid #dcdcdc;
-		    background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+		    background: var(--card-background);
             animation: navLoad 0.5s ease-in;
         }
         .sticky{
@@ -74,6 +91,13 @@
             z-index: 10;
             top: 0;
             width: 100%;
+        }
+        #dark-mode-toggle{
+            cursor: pointer;
+            position: relative;
+            top: 6px;
+            font-size: 25px;
+            transition: all 0.25s ease;
         }
         .links{
             display: flex;
@@ -88,7 +112,7 @@
             line-height: 48px;
             font-size: 13px;
             font-weight: bold;
-            color: #161616;
+            color: var(--txt-color);
         }
         .links a{
             display: block;
@@ -98,10 +122,10 @@
             font-size: 13px;
             font-weight: bold;
             border-bottom: 1px solid transparent;
-            color: #161616;
+            color: var(--txt-color);
         }
         .links a:hover{
-            border-bottom: 1px solid #161616;
+            border-bottom: 1px solid var(--txt-color);;
         }
         .mobile{
             display: none;
@@ -113,8 +137,8 @@
             margin: 5px;
             width: 25px;
             height: 2px;
-            background: #161616;
-            transition: all 0.5s ease;
+            background: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
         .input::placeholder{
             opacity: 0;
@@ -147,7 +171,7 @@
             top: 50px;
         }
         #misc{
-            background: #f5f5f5;
+            background: var(--misc-background);
         }
         #misc td{
             letter-spacing: 1px;
@@ -158,19 +182,20 @@
             position: relative;
             width: 100%;
             border-collapse: collapse;
-            background: #ffffff;
+            background: var(--card-background);
+            transition: all 0.5s ease-in-out;
         }
         .dashboard tr{
             width: 100%;
-            border-bottom: 1px solid #dcdcdc;
-            border-right: 1px solid #dcdcdc;
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
         }
         .dashboard td{
             padding: 10px;
             width: 100%;
             text-align: left;
             font-size: 12px;
-            color: #505050;
+            color: var(--p-color);
         }
         .dashboard th{
             padding: 20px;
@@ -178,12 +203,12 @@
             text-align: left;
             letter-spacing: 1px;
             font-size: 13px;
-            color: #161616;
+            color: var(--txt-color);
         }
         .dashboard tr:hover{
             cursor: pointer;
-            background: #dcdcdc;
-            transition: 0.25s;
+            background: var(--border-color);
+            transition: all 0.25s ease-in-out;
         }
         .dashboard i{
             margin-right: 20px;
@@ -205,19 +230,19 @@
             width: 300px;
             height: 110px;
             font-family: poppins, sans-serif;
-            border: 1px solid #dcdcdc;
+            border: 1px solid var(--border-color);
             border-radius: 10px;
-            background: #ffffff;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
-            transition: 0.5s;
+            background: var(--card-background);
+            box-shadow: 0 5px 10px var(--shadow-color), 0 1px 3px var(--shadow-color);
+            transition: all 0.5s ease-in-out;
         }
         .alert-box #title{
             position: relative;
             width: 100%;
             height: 40px;
             text-align: left;
-            border-bottom: 1px solid #dcdcdc;
-            color: #505050;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--p-color);
         }
         .alert-box #title p{
             position: absolute;
@@ -228,7 +253,7 @@
             text-align: center;
             font-weight: bold;
             font-size: 20px;
-            color: #505050;
+            color: var(--p-color);
         }
         .alert-box #title i{
             cursor: pointer;
@@ -253,8 +278,8 @@
             border: none;
             border-radius: 5px;
             background: #007bf6;
-            color: white;
-            transition: 0.25s;
+            color: #ffffff;
+            transition: all 0.25s ease-in-out;
         } 
         #edit-name{
             cursor: pointer;
@@ -262,8 +287,8 @@
             position: absolute;
             text-align: center;
             text-transform: uppercase;
-            border: 1px solid #dcdcdc;
-            background: #dcdcdc;
+            border: 1px solid var(--border-color);
+            background: var(--border-color);
         }
         #edit-name i{
             position: relative;
@@ -282,14 +307,14 @@
             content: '';
             position: absolute;
             height: 100%;
-            background: #505050;
+            background: var(--p-color);
             animation: indeterminate_first 1.5s infinite ease-out;
         }
         .indeterminate:after{
             content: '';
             position: absolute;
             height: 100%;
-            background: #505050;
+            background: var(--p-color);
             animation: indeterminate_second 1.5s infinite ease-in;
         }
         .footer{
@@ -299,9 +324,10 @@
             height: 50px;
             text-align: center;
             font-family: Optima, sans-serif;
-            border-top: 1px solid #dcdcdc;
-            background: #ffffff;
-            color: #505050;
+            border-top: 1px solid var(--border-color);
+            background: var(--card-background);
+            color: var(--p-color);
+            transition: all 0.5s ease-in-out;
         }
         .footer-left{
 			display: flex;
@@ -376,8 +402,8 @@
                 right: 0px;
                 left: 50%;
                 height: 500px;
-                border: 1px solid #dcdcdc;
-                background: #ffffff;
+                border: 1px solid var(--border-color);
+                background: var(--card-background);
                 transform: translateX(100%);
                 transition: transform 0.5s ease-in;
             }
@@ -442,7 +468,7 @@
         }
     </style>
 </head>
-<body>
+<body<%- mode %>>
     <div class="logo">
         <img src="logo/mop.png" onclick="window.location.href = '/'">
         <h4 onclick="window.location.href = '/'">Mesec Od Papira</h4>
@@ -453,7 +479,8 @@
 			<li><a href="/">Početna</a></li>
 			<li><a href="/poezija">Poezija</a></li>
 			<li><a href="/o-meni">O meni</a></li>
-			<li><a href="/admin">Admin</a></li>
+            <li><a href="/admin">Admin</a></li>
+            <li onclick="switchMode();" style="position: absolute; right: 70px"><i class="fas fa-adjust" id="dark-mode-toggle"></i></li>
 		</ul>
 		<div class="mobile">
 			<div class="line1"></div>
@@ -467,7 +494,7 @@
             <div id="title">
                 <p id="message"></p><i onclick="document.querySelector('.alert-box').style.transform = 'translate(-50%,-300%)'; document.cookie = '_sub = false';" class="fas fa-times"></i>
             </div>
-            <button>Vidi objavu</button><button onclick="document.querySelector('.alert-box').style.transform = 'translate(-50%,-300%)';" style="background: #dcdcdc; color: #161616;">Zatvori</button>
+            <button>Vidi objavu</button><button onclick="document.querySelector('.alert-box').style.transform = 'translate(-50%,-300%)';" style="background: var(--border-color); color: var(--txt-color);">Zatvori</button>
         </div>
         <div class="dashboard">
             <table>
@@ -500,6 +527,16 @@
         const mobile = document.querySelector('.mobile'),
         links = document.querySelector('.links'),
         navLinks = document.querySelectorAll('.links li');
+
+        function switchMode(){
+            if(document.body.classList.contains('dark')){
+                document.body.classList.remove('dark');
+                document.cookie = '_mode=null; path=/';
+            }else{
+                document.body.classList.toggle('dark');
+                document.cookie = '_mode=dark; path=/';
+            }
+        }
 
         window.onscroll = function() {stickyNav()};
 
@@ -547,10 +584,10 @@
             }
         }
         function selected(id){
-            document.getElementById(id).style.background = '#dcdcdc';
+            document.getElementById(id).style.background = getComputedStyle(document.body).getPropertyValue('--border-color');
             for(let i=0; i<=5; i++){
                 if(i !== id){
-                    document.getElementById(i).style.background = '#ffffff';
+                    document.getElementById(i).style.background = getComputedStyle(document.body).getPropertyValue('--card-background');
                 }
             }
             return;
@@ -567,7 +604,6 @@
         async function load(partial, src, id){
             const script = new ScriptLoader(src);
             script.process();
-
 
             document.querySelector('.linear-activity').innerHTML = '<div class="indeterminate"></div>';
 

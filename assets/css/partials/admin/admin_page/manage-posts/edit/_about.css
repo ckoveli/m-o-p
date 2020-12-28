@@ -1,7 +1,7 @@
 .card .title{
     position: relative;
     top: -95px;
-    color: #161616;
+    color: var(--txt-color);
     font-family: Optima, sans-serif;
     font-size: 28px;
     font-weight: 600;
@@ -9,7 +9,7 @@
 .card .subtitle{
     position: relative;
     top: -101px;
-    color: black;
+    color: var(--txt-color);
     font-size: 14px;
     text-transform: uppercase;
     margin: 15px 0;
@@ -22,14 +22,14 @@
     height: 250px;
     overflow: auto;
     font-size: 16px;
-    color: #505050;
+    color: var(--p-color);
 }
 .card .avatar:hover{
     cursor: pointer;
     outline: none;
-    border: 1px solid #505050;
-    background: #fafafa;
-    transition: 0.25s;
+    border: 1px solid var(--p-color);
+    background: var(--body-background);
+    transition: all 0.25s ease-in-out;
 }
 .card input,
 .card .body{
@@ -37,28 +37,32 @@
     text-align: center;
     outline: none;
     border: none;
-    border-bottom: 1px solid #dcdcdc;
-    transition: 0.25s;
+    border-bottom: 1px solid var(--border-color);
+    background: transparent;
+    transition: all 0.25s ease-in-out;
 }
 .card .body{
-    border: 1px solid #dcdcdc;
+    border: 1px solid var(--border-color);
     border-radius: 5px;
-    transition: 0.25s;
+    transition: all 0.25s ease-in-out;
+}
+.card .body > *[style]{
+    background: transparent !important;
 }
 .card .body:hover{
-    background: #fafafa;
-    transition: 0.25s;
+    background: var(--body-background);
+    transition: all 0.25s ease-in-out;
 }
 .card input:focus{
-    border-bottom: 1px solid #505050;
-    background: #ffffff;
-    transition: 0.25s;
+    border-bottom: 1px solid var(--p-color);
+    background: var(--card-background);
+    transition: all 0.25s ease-in-out;
 }
 .card .body:focus{
     outline: none;
-    border: 1px solid #505050;
-    background: #fafafa;
-    transition: 0.25s;
+    border: 1px solid var(--p-color);
+    background: var(--body-background);
+    transition: all 0.25s ease-in-out;
 }
 .card .tool-list{
     display: flex;
@@ -74,13 +78,14 @@
     border: none;
     padding: .5rem;
     font-size: 20px;
-    background: #ffffff;
-    color: #161616;
+    background: var(--card-background);
+    color: var(--txt-color);
+    transition: all 0.5s ease-in-out;
 }
 .card .tool--btn:hover{
     cursor: pointer;
-    background: #dcdcdc;
-    transition: 0.25s;
+    background: var(--border-color);
+    transition: all 0.25s ease-in-out;
 }
 .card .submit{
     cursor: pointer;
@@ -91,8 +96,8 @@
     border-radius: 5px;
     font-size: 15px;
     background: #007bf6;
-    color: white;
-    transition: 0.25s;
+    color: #ffffff;
+    transition: all 0.25s ease-in-out;
 }
 .card .cancel{
     cursor: pointer;
@@ -103,7 +108,7 @@
     border: 1px solid transparent;
     border-radius: 5px;
     font-size: 15px;
-    background: #dcdcdc;
-    color: #161616;
-    transition: 0.25s;
+    background: var(--border-color);
+    color: var(--txt-color);
+    transition: all 0.25s ease-in-out;
 }

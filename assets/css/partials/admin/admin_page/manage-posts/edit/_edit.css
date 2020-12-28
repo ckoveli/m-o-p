@@ -7,15 +7,15 @@
         text-align: center;
         line-height: 20px;
         font-family: poppins, sans-serif;
-        border: 1px solid #dcdcdc;
+        border: 1px solid var(--border-color);
         border-radius: 10px;
-        background: #ffffff;
-        color: #161616;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
+        background: var(--card-background);
+        color: var(--txt-color);
+        box-shadow: 0 5px 10px var(--shadow-color), 0 1px 3px var(--shadow-color);
         animation: articleLoad 0.5s ease-in 0.5s;
         animation-fill-mode: forwards;
         opacity: 0;
-        transition: 0.5s;
+        transition: all 0.5s ease-in-out;
     }
     .post-partial{
         text-align: center;
@@ -25,7 +25,7 @@
         margin-left: -340px;
     }
     .card .title{
-        color: #161616;
+        color: var(--txt-color);
         font-family: Optima, sans-serif;
         font-size: 28px;
         font-weight: 600;
@@ -37,7 +37,7 @@
         margin-bottom: -15px; 
     }
     .card .subtitle{
-        color: black;
+        color: var(--txt-color);
         font-size: 14px;
         margin: 15px 0;
     }
@@ -52,7 +52,7 @@
         height: 250px;
         overflow: auto;
         font-size: 16px;
-        color: #505050;
+        color: var(--p-color);
     }
     .card label[for=avatar]{
         display: block; 
@@ -67,10 +67,10 @@
         overflow-x: hidden;
         transform: translateX(-50%);
         text-align: center;
-        border: 1px solid #dcdcdc;
+        border: 1px solid var(--border-color);
         border-radius: 10px;
-        background: #ffffff;
-        transition: 0.5s;
+        background: var(--card-background);
+        transition: all 0.25s ease-in-out;
     }
     .card .avatar p{
         position: absolute; 
@@ -81,9 +81,9 @@
     .card .avatar:hover{
         cursor: pointer;
         outline: none;
-        border: 1px solid #505050;
-        background: #fafafa;
-        transition: 0.25s;
+        border: 1px solid var(--p-color);
+        background: var(--body-background);
+        transition: all 0.25s ease-in-out;
     }
     .card .picture{
         position: relative;
@@ -91,7 +91,7 @@
         height: 200px;
         background-size: cover;
         background-repeat: no-repeat;
-        transition: 0.5s;
+        transition: all 0.25s ease-in-out;
     }
     .card #comment{
         max-width: 500px;
@@ -107,28 +107,32 @@
         text-align: center;
         outline: none;
         border: none;
-        border-bottom: 1px solid #dcdcdc;
-        transition: 0.25s;
+        border-bottom: 1px solid var(--border-color);
+        background: transparent;
+        transition: all 0.25s ease-in-out;
     }
     .card .body{
-        border: 1px solid #dcdcdc;
+        border: 1px solid var(--border-color);
         border-radius: 5px;
-        transition: 0.25s;
+        transition: all 0.25s ease-in-out;
+    }
+    .card .body > *[style]{
+        background: transparent !important;
     }
     .card .body:hover{
-        background: #fafafa;
-        transition: 0.25s;
+        background: var(--body-background);
+        transition: all 0.25s ease-in-out;
     }
     .card input:focus{
-        border-bottom: 1px solid #505050;
-        background: #ffffff;
-        transition: 0.25s;
+        border-bottom: 1px solid var(--p-color);
+        background: var(--card-background);
+        transition: all 0.25s ease-in-out;
     }
     .card .body:focus{
-        background: #fafafa;
+        background: var(--body-background);
         outline: none;
-        border: 1px solid #505050;
-        transition: 0.25s;
+        border: 1px solid var(--p-color);
+        transition: all 0.25s ease-in-out;
     }
     .card .tool-list{
         display: flex;
@@ -142,13 +146,14 @@
         border: none;
         padding: .5rem;
         font-size: 20px;
-        background: #ffffff;
-        color: #161616;
+        background: var(--card-background);
+        color: var(--txt-color);
+        transition: all 0.5s ease-in-out;
     }
     .card .tool--btn:hover{
         cursor: pointer;
-        background: #dcdcdc;
-        transition: 0.25s;
+        background: var(--border-color);
+        transition: all 0.25s ease-in-out;
     }
     .card .submit{
         cursor: pointer;
@@ -159,7 +164,7 @@
         border-radius: 5px;
         font-size: 15px;
         background: #007bf6;
-        color: white;
+        color: #ffffff;
         transition: 0.25s;
     }
     .card .cancel{
@@ -171,9 +176,9 @@
         border: 1px solid transparent;
         border-radius: 5px;
         font-size: 15px;
-        background: #dcdcdc;
-        color: #161616;
-        transition: 0.25s;
+        background: var(--border-color);
+        color: var(--txt-color);
+        transition: all 0.25s ease-in-out;
     }
     .card .comments-div{
         position: relative;
@@ -195,13 +200,13 @@
         width: 25px;
         height: 25px;
         -webkit-appearance: none;
-        background: #ffffff;
-        border: 1px solid #dcdcdc;
+        background: var(--card-background);
+        border: 1px solid var(--border-color);
     }
     .card input[type='checkbox']:hover{
         cursor: pointer;
-        background: #dcdcdc;
-        transition: 0.25s;
+        background: var(--border-color);
+        transition: all 0.25s ease-in-out;
     }
     .card input[type='checkbox']:checked::after{
         position: absolute;
@@ -212,14 +217,14 @@
         content: "\2713";
         font-size: 20px;
         background: #007bf6;
-        color: #ffffff;
-        transition: 0.25s;
+        color: var(--card-background);
+        transition: all 0.25s ease-in-out;
     }
     .card .comments-title{
         padding: 20px;
         text-align: center;
         font-size: 20px;
-        color: #505050;
+        color: var(--p-color);
     }
     .card #comment{
         max-width: 500px;
@@ -235,7 +240,7 @@
         border-collapse: collapse;
     }
     .card thead{
-        border-top: 1px solid #dcdcdc;
+        border-top: 1px solid var(--border-color);
     }
     .card thead th{
         padding: 20px;
@@ -247,13 +252,13 @@
         position: relative;
         top: 15px;
         font-size: 15px;
-        color: #505050;
-        transition: 0.25s;
+        color: var(--p-color);
+        transition: all 0.25s ease-in-out;
     }
     .card .show-hide-replies:hover{
         cursor: pointer;
-        color: #161616;
-        transition: 0.25s;
+        color: var(--txt-color);
+        transition: all 0.25s ease-in-out;
     }
     .card .show-hide-icon{
         margin-left: 10px;
@@ -267,8 +272,8 @@
         border: none;
         font-size: 12px;
         background: #ff2000;
-        color: white;
-        transition: 0.25s;
+        color: #ffffff;
+        transition: all 0.25s ease-in-out;
     }
     @media screen and (max-width: 1024px){
         .card{

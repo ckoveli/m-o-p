@@ -7,19 +7,42 @@
 	<script type="text/javascript" src="../js/fontawesome.js"></script>
 	<link rel="shortcut icon" type="image/png" href="../favicon/favicon.png">
     <style type="text/css">
+        @font-face {
+            font-family: 'poppins';
+            src: url('/fonts/poppins/poppins-regular-webfont.woff'),
+                url('/fonts/poppins/poppins-regular-webfont.woff2');
+            font-style: normal;
+            font-weight: 100;
+        }
 		*{
-    		margin: 0;
-    		padding: 0;
-    		box-sizing: border-box;
-    		font-family: sans-serif;
-		}
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         html, body{
             overflow-x: hidden;
         }
         body{
+            --body-background: #fafafa;
+            --nav-background: #ffffff;
+            --card-background: var(--nav-background);
+            --misc-background: #f5f5f5;
+            --border-color: #dcdcdc;
+            --txt-color: #161616;
+            --p-color: #505050;
+            --shadow-color: rgba(0, 0, 0, 0.20);
             position: relative;
-            font-family: Arial;
-            background: #fafafa;
+            background: var(--body-background);
+            transition: all 0.5s ease-in-out;
+        }
+        body.dark{
+            --body-background: #161616;
+            --nav-background: #000000;
+            --misc-background: #101010;
+            --border-color: #505050;
+            --txt-color: #ffffff;
+            --p-color: #fafafa;
+            --shadow-color: rgba(0, 0, 0, 0.20);
         }
         .container{
 			display: block;
@@ -35,8 +58,8 @@
             color: inherit;
         }
         a:hover{
-            color: #161616;
-            transition: 0.25s;
+            color: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
 		.logo{
 		    display: block;
@@ -44,7 +67,7 @@
 		    text-align: center;
 		    letter-spacing: 5px;
 		    font-family: Chalkduster, fantasy;
-		    font-size: 20px;
+		    font-size: 18px;
 		    background: rgb(22, 22, 22);
 		    color: white;
 		    animation: navLoad 0.5s ease-in;
@@ -66,9 +89,10 @@
 		    justify-content: space-around;
 		    align-items: center;
 		    font-family: Optima, sans-serif;
-		    border-bottom: 1px solid #dcdcdc;
-		    background: #ffffff;
-		    animation: navLoad 0.5s ease-in;
+		    border-bottom: 1px solid var(--border-color);
+		    background: var(--card-background);
+            animation: navLoad 0.5s ease-in;
+            transition: all 0.5s ease-in-out;
 		}
 		.sticky{
 			position: fixed;
@@ -76,33 +100,42 @@
 			top: 0;
 			width: 100%;
 		}
-		.search{
-		    position: absolute;
-			top: 12px;
-		    left: 70px;
-		}
-		.input{
-		    cursor: pointer;
-		    position: absolute;
-		    width: 25px;
-		    height: 25px;
-		    padding-left: 25px;
-		    font-size: 15px;
-		    letter-spacing: 1px;
-		    border: 1px solid #161616;
-		    border-radius: 50%;
-		    outline: none;
-		    background: #fafafa;
-		    transition: 0.5s;
-		}
-		.inputClicked{
-		    cursor: text;
-		    width: 20vw;
-		    padding-left: 5px;
-		    border-radius: 0;
-		    transition-delay: 0.25s;
-		    transition: 0.5s;
-		}
+        #dark-mode-toggle{
+            cursor: pointer;
+            position: relative;
+            top: 6px;
+            font-size: 25px;
+            transition: all 0.25s ease;
+        }
+        .search{
+            position: absolute;
+            top: 12px;
+            left: 70px;
+            font-family: poppins, sans-serif;
+        }
+        .input{
+            cursor: pointer;
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            padding-left: 25px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            border: 1px solid var(--txt-color);
+            border-radius: 50%;
+            outline: none;
+            background: var(--body-background);
+            color: var(--txt-color);
+            transition: all 0.25s ease-in-out;
+        }
+        .inputClicked{
+            cursor: text;
+            width: 20vw;
+            padding-left: 5px;
+            border: 1px solid var(--border-color);
+            border-radius: 0;
+            transition: all 0.25s ease-in-out;
+        }
         .searchBtn{
             position: absolute;
             cursor: pointer;
@@ -121,9 +154,9 @@
             width: 8px;
             height: 2px;
             content: "";
-            background: #161616;
+            background: var(--txt-color);
             transform: rotate(45deg);
-            transition: 0.5s;
+            transition: all 0.25s ease-in-out;
         }
         .close::before, .close::after{
             position: absolute;
@@ -132,14 +165,62 @@
             width: 15px;
             height: 2px;
             content: "";
-            background: #161616;
-            transition: 0.5s;
+            background: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
         .close::before{
             transform: rotate(-45deg);
         }
         .close::after{
             transform: rotate(45deg);
+        }
+        .search-results{
+            cursor: pointer;
+            visibility: hidden;
+            position: absolute;
+            top: 25px;
+            width: 20vw;
+            z-index: 10;
+            border: 1px solid var(--border-color);
+            border-collapse: collapse;
+            background: var(--card-background);
+            color: var(--p-color);
+            transition: all 0.25s ease-in-out;
+        }
+        .search-results tr{
+            height: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .search-results tr:hover{
+            background: var(--body-background);
+            transition: all 0.25s ease-in-out;
+        }
+        .search-results a{
+            display: block;
+            position: relative;
+            left: 0;
+            padding: 5px;
+            color: var(--p-color);
+        }
+        .search-results img{
+            position: relative;
+            width: 30px;
+            height: 30px;
+        }
+        .loader-row{
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+        .loader{
+            margin-top: 3px;
+            width: 22px;
+            height: 22px;
+            border: 3px solid var(--border-color);
+            border-top: 3px solid #007bf6;
+            border-radius: 50%;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
         }
 		.links{
 		    display: flex;
@@ -154,7 +235,7 @@
 		    line-height: 48px;
 		    font-size: 13px;
 		    font-weight: bold;
-		    color: #161616;
+		    color: var(--txt-color);
 		}
 		.links a{
 		    display: block;
@@ -164,10 +245,10 @@
 		    font-size: 13px;
 		    font-weight: bold;
 		    border-bottom: 1px solid transparent;
-		    color: #161616;
+		    color: var(--txt-color);
 		}
 		.links a:hover{
-		    border-bottom: 1px solid #161616;
+		    border-bottom: 1px solid var(--txt-color);
 		}
 		.mobile{
 		    display: none;
@@ -179,7 +260,7 @@
 		    margin: 5px;
 		    width: 25px;
 		    height: 2px;
-		    background: #161616;
+		    background: var(--txt-color);
 		    transition: all 0.5s ease;
 		}
 		.input::placeholder{
@@ -202,14 +283,14 @@
     		justify-content: center;
     		text-align: center;
     		line-height: 20px;
-    		border: 1px solid #dcdcdc;
+    		border: 1px solid var(--border-color);
     		border-radius: 10px;
-    		background: #ffffff;
-    		color: #161616;
+    		background: var(--card-background);
+    		color: var(--txt-color);
     		animation: articleLoad 0.5s ease-in 0.5s;
     		animation-fill-mode: forwards;
     		opacity: 0;
-    		transition: 0.5s;
+    		transition: all 0.5s ease-in-out;
         }
         .card h1{
             margin-top: 60px;
@@ -217,7 +298,7 @@
             text-align: center;
             font-family: Optima, sans-serif;
             font-size: 52px;
-            color: #161616;
+            color: var(--txt-color);
             animation: headerLoad 0.5s ease-in 0.5s;
             animation-fill-mode: forwards;
             transform: translateY(-20px);
@@ -227,7 +308,7 @@
             margin-top: 60px;
             margin-bottom: 30px;
             font-size: 16px;
-            color: #505050;
+            color: var(--p-color);
         }
         .card button{
             cursor: pointer;
@@ -237,19 +318,21 @@
             border: none;
             font-size: 14px;
 		    background: #007bf6;
-		    color: white;
-		    transition: 0.25s;
+		    color: #ffffff;
+    		transition: all 0.25s ease-in-out;
         }
 		.footer{
             position: absolute;
             bottom: 0;
-            padding-top: 20px;
+            padding-top: 16px;
             width: 100%;
             height: 50px;
             text-align: center;
-            border-top: 1px solid #dcdcdc;
-            background: #ffffff;
-            color: #505050;
+            font-family: Optima, sans-serif;
+            border-top: 1px solid var(--border-color);
+            background: var(--card-background);
+            color: var(--p-color);
+            transition: all 0.5s ease-in-out;
         }
         .footer-left{
             position: absolute;
@@ -264,7 +347,23 @@
 			width: 20px;
 			height: 100%;
 			font-size: 20px;
-		}
+        }
+        @-webkit-keyframes spin{
+            0%{ 
+                -webkit-transform: rotate(0deg); 
+            }
+            100%{ 
+                -webkit-transform: rotate(360deg); 
+            }
+        }
+        @keyframes spin{
+            0%{ 
+                transform: rotate(0deg); 
+            }
+            100%{ 
+                transform: rotate(360deg); 
+            }
+        }
         @keyframes navLoad{
             0%{
                 transform: translateY(-200%);
@@ -316,8 +415,8 @@
                 right: 0px;
                 left: 50%;
                 height: 500px;
-                border: 1px solid #dcdcdc;
-                background: #ffffff;
+                border: 1px solid var(--border-color);
+                background: var(--card-background);
                 transform: translateX(100%);
                 transition: transform 0.5s ease-in;
             }
@@ -382,7 +481,7 @@
         }
     </style>
 </head>
-<body>
+<body<%- mode %>>
     <div class="container">
 	    <div class="logo">
 	    <img src="../logo/mop.png" onclick="window.location.href = '/'">
@@ -391,9 +490,10 @@
         <nav>
             <div class="search">
                 <form class="searchBox" action="/pretraga" method="GET">
-                    <input class="input" type="text" placeholder="Pretraži..." name="q">
-                    <button class="searchBtn" type="button"></button>
-                </form>
+					<input onkeyup="searchResults()" class="input" type="text" placeholder="Pretraži..." name="q">
+					<table class="search-results"></table>
+					<button class="searchBtn" type="button"></button>
+				</form>
             </div>
             <ul class="links" style="width: 700px;">
                 <li><a href="/admin/mejl">Mejl</a></li>
@@ -401,6 +501,7 @@
                 <li><a href="/poezija">Poezija</a></li>
                 <li><a href="/o-meni">O meni</a></li>
                 <li><a href="/admin">Admin</a></li>
+                <li onclick="switchMode();" style="position: absolute; right: 70px"><i class="fas fa-adjust" id="dark-mode-toggle"></i></li>
             </ul>
             <div class="mobile">
                 <div class="line1"></div>
@@ -428,8 +529,17 @@
         mobile = document.querySelector('.mobile'),
         links = document.querySelector('.links'),
         navLinks = document.querySelectorAll('.links li');
-
         window.onscroll = function() {stickyNav()};
+
+        function switchMode(){
+            if(document.body.classList.contains('dark')){
+                document.body.classList.remove('dark');
+                document.cookie = '_mode=null; path=/';
+            }else{
+                document.body.classList.toggle('dark');
+                document.cookie = '_mode=dark; path=/';
+            }
+        }
 
         const nav = document.querySelector('nav'),
         sticky = nav.offsetTop;
@@ -442,40 +552,62 @@
           }
         }
 
-		window.addEventListener('mouseup', (event)=>{
-			if(event.target == document.querySelector('.close')){
-				input.value = '';
-				input.focus();
-				return;
-			}
-		    if(event.target !== input && event.target !== document.querySelector('.close')){
-		        input.blur();
+        window.addEventListener('mouseup', (event)=>{
+            if(event.target == document.querySelector('.close')){
+                input.value = '';
+                input.focus();
+                document.querySelector('.search-results').innerHTML = '';
+                return;
+            }
+            if(event.target !== input && event.target !== document.querySelector('.close')){
+                input.blur();
                 if(!!document.querySelector('.close')){
                     document.querySelector('.close').click();
-				}		    
-			}
-		});
-		const navSlide = ()=>{
-		    mobile.addEventListener('click', ()=>{
-		        links.classList.toggle('linksActive');
-		        navLinks.forEach((link, index)=>{
-		            if(link.style.animation){
-		                link.style.animation = '';
-		            }else{
-		                link.style.animation = `navLinkFade 0.5s ease forwards ${index/5 + 0.5}s`;
-		            }
-		        });
-		        mobile.classList.toggle('toggle');
-		    });
-		}
-		searchBtn.addEventListener('click', ()=>{
-		    input.classList.toggle('inputClicked');
-		    searchBtn.classList.toggle('close');
-		});
-		input.addEventListener('focus', ()=>{
-		    searchBtn.click()
-		});
-		navSlide();
+                    document.querySelector('.search-results').style.visibility = 'hidden';
+                }		    
+            }
+        });
+        const navSlide = ()=>{
+            mobile.addEventListener('click', ()=>{
+                links.classList.toggle('linksActive');
+                navLinks.forEach((link, index)=>{
+                    if(link.style.animation){
+                        link.style.animation = '';
+                    }else{
+                        link.style.animation = `navLinkFade 0.5s ease forwards ${index/5 + 0.5}s`;
+                    }
+                });
+                mobile.classList.toggle('toggle');
+            });
+        }
+        searchBtn.addEventListener('click', ()=>{
+            input.classList.toggle('inputClicked');
+            searchBtn.classList.toggle('close');
+        });
+        input.addEventListener('focus', ()=>{
+            searchBtn.click();
+            document.querySelector('.search-results').style.visibility = 'visible';
+        });
+        async function searchResults(){
+            const allSpace = arr => arr.every(val => val === ' ');
+            if(allSpace(Array.from(input.value)) == false){
+                document.querySelector('.search-results').innerHTML = '<tr><td class="loader-row" colspan="3"><div class="loader"></div></td></tr>';
+
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({q: input.value})
+                }
+                await fetch('/pretraga', options).then(res => res.json()).then((res)=>{
+                    document.querySelector('.search-results').innerHTML = res.results;
+                });
+            }else{
+                document.querySelector('.search-results').innerHTML = '';
+            }
+        }
+        navSlide();
     </script>
 </body>
 </html>

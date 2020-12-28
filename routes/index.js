@@ -16,14 +16,16 @@ router.get('/', getToken, paginateResults(Post), (req, res)=>{
 		posts: res.locals.paginatedResults.results,
 		next: res.locals.paginatedResults.next,
 		previous: res.locals.paginatedResults.previous,
-		pageCount: res.locals.pageCount
+		pageCount: res.locals.pageCount,
+		mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
 	});
 });
 router.get('/o-meni', getToken, async(req, res,)=>{
 	const admin = await Admin.findOne();
 	res.render('about', {
 		token: res.locals.token,
-		data: admin.about
+		data: admin.about,
+		mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
 	});
 });
 router.route('/pretraga').get(getToken, paginateResults(Post), (req, res, next)=>{
@@ -38,22 +40,22 @@ router.route('/pretraga').get(getToken, paginateResults(Post), (req, res, next)=
 		posts: res.locals.paginatedResults.results,
 		next: res.locals.paginatedResults.next,
 		previous: res.locals.paginatedResults.previous,
-		pageCount: res.locals.pageCount
+		pageCount: res.locals.pageCount,
+		mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
 	});
 }).post(async(req, res)=>{
 	const regex = new RegExp(escRegExp(req.body.q), 'gi');
 
 	try{
 		res.status(200).json({
-			results: await renderer.contentUpdater('search', 'results', {posts: await Post.find({title: regex}).sort({createdAt: 'desc'}).limit(9)})
+			results: await renderer.contentUpdater('search', 'results', {posts: await Post.find({title: regex}).sort({createdAt: 'desc'}).limit(6)})
 		}).end();
 	}catch(e){
 		res.status(400).json({results: 'Nema rezultata.'}).end();
 	}
-	//results.results = await model.find({title: regex}).sort({createdAt: 'desc'}).limit(limit).skip(startIndex).exec();
 });
 router.route('/22072019').get(getToken, (req, res)=>{
-	!res.locals.token ? res.render('admin/auth/login') : res.redirect('/admin');
+	!res.locals.token ? res.render('admin/auth/login', {mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''}) : res.redirect('/admin');
 }).post(async(req, res)=>{
 	await renderer.loginPage(req.body.partial, (result)=>{
 		res.status(200).json({
@@ -127,7 +129,10 @@ router.put('/komentar/:slug', async(req, res, next)=>{
 				});
 			}
 		}catch(e){
-			res.render('errors/500', {token: res.locals.token});
+			res.render('errors/500', {
+				token: res.locals.token,
+				mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
+			});
 		}
 	});
 });
@@ -212,7 +217,10 @@ router.put('/odgovor/:slug', async(req, res, next)=>{
 			}
 		}catch(e){
 			console.log(e)
-			res.render('errors/500', {token: res.locals.token});
+			res.render('errors/500', {
+				token: res.locals.token,
+				mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
+			});
 		}
 	});
 });
@@ -255,7 +263,10 @@ router.post('/poruka', async(req, res)=>{
 	});
 });
 router.use(getToken, (req, res)=>{
-	res.status(404).render('errors/404', {token: res.locals.token});	
+	res.status(404).render('errors/404', {
+		token: res.locals.token,
+		mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
+	});	
 });
 
 function paginateResults(model){
@@ -290,7 +301,10 @@ function paginateResults(model){
 			res.locals.pageCount = Math.ceil(((await model.countDocuments().exec())/limit));
 			next();
 		}catch(e){
-			res.render('errors/500', {token: res.locals.token});
+			res.render('errors/500', {
+				token: res.locals.token,
+				mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
+			});
 		}
 	}
 }

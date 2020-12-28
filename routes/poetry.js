@@ -11,7 +11,8 @@ router.get('/', getToken, paginateResults(Post), (req, res)=>{
 		posts: res.locals.paginatedResults.results,
 		next: res.locals.paginatedResults.next,
 		previous: res.locals.paginatedResults.previous,
-		pageCount: res.locals.pageCount
+		pageCount: res.locals.pageCount,
+		mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
 	});
 });
 router.get('/:slug', getToken, async(req, res, next)=>{
@@ -30,12 +31,16 @@ router.get('/:slug', getToken, async(req, res, next)=>{
 					cnt += post.comments[i].replies !== undefined ? post.comments[i].replies.length>0 ? post.comments[i].replies.length : 0 : 0;
 				} 
 				return cnt;
-			}
+			},
+			mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
 		});
 	});
 });
 router.use(getToken, (req, res)=>{
-	res.status(404).render('errors/404', {token: res.locals.token});
+	res.status(404).render('errors/404', {
+		token: res.locals.token,
+		mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
+	});
 });
 
 function paginateResults(model){
@@ -65,7 +70,10 @@ function paginateResults(model){
 			res.locals.pageCount = Math.ceil(((await model.countDocuments().exec())/limit));
 			next();
 		}catch(e){
-			res.render('errors/500', {token: res.locals.token});
+			res.render('errors/500', {
+				token: res.locals.token,
+				mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
+			});
 		}
 	}
 }

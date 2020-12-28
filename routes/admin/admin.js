@@ -31,7 +31,8 @@ router.route('/').get(getToken, async(req, res)=>{
 	res.render('admin/admin', {
 		partial: '_profile.ejs',
 		title: admin.profile.title,
-		body: admin.profile.body
+		body: admin.profile.body,
+		mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
 	});
 }).post(getToken, async(req, res)=>{
 
@@ -105,7 +106,8 @@ router.route('/zaboravljena-lozinka').get((req, res, next)=>{
 								name: admin.name,
 								mail: admin.mail,
 								securityQuestionQuestion: admin.security.securityQuestionQuestion
-							})
+							}),
+							mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
 						});
 					}else{
 						return res.render('admin/auth/two-step', {
@@ -118,7 +120,8 @@ router.route('/zaboravljena-lozinka').get((req, res, next)=>{
 								name: admin.name,
 								mail: admin.mail,
 								time: req.headers.cookie.split(';')[0].split('=')[1] == '0' ? 59 : req.headers.cookie.split(';')[0].split('=')[1]
-							})
+							}),
+							mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
 						});
 					}
 				});
@@ -139,7 +142,8 @@ router.route('/zaboravljena-lozinka').get((req, res, next)=>{
 							form: await renderer.twoStep('question', '_form', {
 								target: '/admin/resetovanje-lozinke/',
 								securityQuestionQuestion: admin.security.securityQuestionQuestion
-							})
+							}),
+							mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
 						});
 					}else{
 						return res.render('admin/auth/two-step', {
@@ -152,7 +156,8 @@ router.route('/zaboravljena-lozinka').get((req, res, next)=>{
 								name: admin.name,
 								mail: admin.mail,
 								time: 59
-							})
+							}),
+							mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
 						});
 					}
 				});
@@ -199,7 +204,7 @@ router.route('/resetovanje-lozinke/:code').get(async(req, res, next)=>{
 						if(err) return next();
 
 						res.cookie(result.cookie, result.token);
-						res.render('admin/auth/password');
+						res.render('admin/auth/password', {mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''});
 					});
 				});
 			}
@@ -211,7 +216,7 @@ router.route('/resetovanje-lozinke/:code').get(async(req, res, next)=>{
 						if(err) return next();
 
 						res.cookie(result.cookie, result.token);
-						res.render('admin/auth/password');
+						res.render('admin/auth/password', {mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''});
 					});
 				});
 			}else return next();
@@ -439,12 +444,18 @@ router.post('/odjava', getToken, (req, res)=>{
 	res.redirect(res.locals.path);
 });
 router.use(getToken, (req, res)=>{
-	res.status(404).render('errors/404', {token: res.locals.token});
+	res.status(404).render('errors/404', {
+		token: res.locals.token,
+		mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
+	});
 });
 
 function getToken(req, res, next){
 	authorize.verifyAdminStrict(req.headers.cookie, (err, result)=>{
-		if(err) return res.status(err.code).render(err.path, {token: err.token});
+		if(err) return res.status(err.code).render(err.path, {
+			token: err.token,
+			mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
+		});
 
 		res.locals.token = err ? err.token : result.token;
 		res.locals.cookie = result.cookie;

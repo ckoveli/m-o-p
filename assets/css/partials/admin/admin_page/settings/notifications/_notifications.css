@@ -8,23 +8,23 @@
     text-align: center;
     line-height: 20px;
     font-family: poppins, sans-serif;
-    border: 1px solid #dcdcdc;
+    border: 1px solid var(--border-color);
     border-radius: 10px;
-    background: #ffffff;
-    color: #161616;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
+    background: var(--card-background);
+    color: var(--txt-color);
+    box-shadow: 0 5px 10px var(--shadow-color), 0 1px 3px var(--shadow-color);
     animation: articleLoad 0.5s ease-in 0.5s;
     animation-fill-mode: forwards;
     opacity: 0;
-    transition: 0.5s;
+    transition: all 0.5s ease-in-out;
 }
 .card h1{
     letter-spacing: 2px;
     line-height: 48px;
     font-family: Optima, sans-serif;
     font-size: 20px;
-    border-bottom: 1px solid #dcdcdc;
-    color: #505050;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--p-color);
 }
 .card p{
     margin-top: 30px;
@@ -35,7 +35,7 @@
     font-weight: bold;
     letter-spacing: 1px;
     line-height: 26px;
-    color: #505050;
+    color: var(--p-color);
 }
 .card i{
     position: absolute;
@@ -50,7 +50,7 @@
     line-height: 25px;
 }
 .accept-notifications{
-    border-bottom: 1px solid #dcdcdc;
+    border-bottom: 1px solid var(--border-color);
 }
 .accept-notifications i{
     font-size: 22px;
@@ -64,13 +64,14 @@
     font-size: 15px;
     font-family: poppins, sans-serif;
     border: none;
-    border-bottom: 1px solid #dcdcdc;
-    color: #505050;
+    border-bottom: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--p-color);
 }
 .accept-notifications input:focus{
     outline: none;
-    border-bottom: 1px solid #505050;
-    transition: 0.25s;
+    border-bottom: 1px solid var(--p-color);
+    transition: all 0.25s ease-in-out;
 }
 @media screen and (max-width: 1024px){
     .card{

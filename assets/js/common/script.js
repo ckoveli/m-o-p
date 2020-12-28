@@ -5,6 +5,16 @@ links = document.querySelector('.links'),
 navLinks = document.querySelectorAll('.links li');
 window.onscroll = function() {stickyNav()};
 
+function switchMode(){
+    if(document.body.classList.contains('dark')){
+        document.body.classList.remove('dark');
+        document.cookie = '_mode=null; path=/';
+    }else{
+        document.body.classList.toggle('dark');
+        document.cookie = '_mode=dark; path=/';
+    }
+}
+
 const nav = document.querySelector('nav'),
 sticky = nav.offsetTop;
 
@@ -55,6 +65,8 @@ input.addEventListener('focus', ()=>{
 async function searchResults(){
     const allSpace = arr => arr.every(val => val === ' ');
     if(allSpace(Array.from(input.value)) == false){
+        document.querySelector('.search-results').innerHTML = '<tr><td class="loader-row" colspan="3"><div class="loader"></div></td></tr>';
+        
         const options = {
             method: 'POST',
             headers: {
