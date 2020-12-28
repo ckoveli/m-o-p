@@ -217,6 +217,7 @@
 				<a href="/"><button style="font-size: 15px;">Prikaži sve objave</button></a>
 			</div>
 			<div class="wrapper">
+				<div class="scroll-toggle" onclick="document.body.scrollIntoView({behavior: 'smooth', block: 'start'});"><i class="fas fa-chevron-up"></i></div>
 				<% for(let i=0; i<posts.length; i++){ %>
 					<% 	function repliesCount(){ %>
 						<% let cnt = 0; %>
