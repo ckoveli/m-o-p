@@ -59,7 +59,7 @@ const adminPage = async(path, req, callback)=>{
             });
             break;
         case 'manage-posts/edit/_about':
-            let admin = await Admin.findOne();
+            let admin = await Admin.findOne()
             callback({
                 html: await renderPartials(path+req.body.partial, {
                     data: admin.about

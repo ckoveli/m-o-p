@@ -24,14 +24,14 @@
     		text-align: center;
 			line-height: 20px;
 			font-family: poppins, sans-serif;
-    		border: 1px solid #dcdcdc;
+    		border: 1px solid var(--border-color);
     		border-radius: 10px;
-    		background: #ffffff;
-    		color: #161616;
+    		background: var(--card-background);
+    		color: var(--txt-color);
     		animation: articleLoad 0.5s ease-in 0.5s;
     		animation-fill-mode: forwards;
     		opacity: 0;
-    		transition: 0.5s;
+    		transition: all 0.5s ease-in-out;
         }
         .card h1{
             margin-top: 60px;
@@ -40,7 +40,7 @@
 			letter-spacing: 5px;
             font-family: Optima, sans-serif;
             font-size: 52px;
-            color: #161616;
+            color: var(--txt-color);
             animation: headerLoad 0.5s ease-in 0.5s;
             animation-fill-mode: forwards;
             transform: translateY(-20px);
@@ -50,18 +50,19 @@
             margin-top: 60px;
             margin-bottom: 30px;
             font-size: 16px;
-            color: #505050;
+            color: var(--p-color);
         }
         .card button{
             cursor: pointer;
 		    position: relative;
 		    width: 175px;
 		    height: 30px;
-            border: none;
+			border: none;
+			border-radius: 5px;
             font-size: 15px;
 		    background: #007bf6;
 		    color: white;
-		    transition: 0.25s;
+		    transition: all 0.25s ease-in-out;
         }
 		.footer{
             position: absolute;
@@ -71,9 +72,10 @@
             height: 50px;
 			text-align: center;
 			font-family: Optima, sans-serif;
-            border-top: 1px solid #dcdcdc;
-            background: #ffffff;
-            color: #505050;
+            border-top: 1px solid var(--border-color);
+            background: var(--card-background);
+			color: var(--p-color);
+			transition: all 0.25s ease-in-out;
         }
         .footer-left{
 			display: flex;
@@ -137,6 +139,7 @@
 					<li><a href="/">Početna</a></li>
 					<li><a href="/poezija">Poezija</a></li>
 					<li><a href="/o-meni">O meni</a></li>
+					<li onclick="document.body.classList.toggle('dark');" style="position: absolute; right: 70px"><i class="fas fa-adjust" id="dark-mode-toggle"></i></li>
 				</ul>
 <%}%><div class="mobile">
 				<div class="line1"></div>

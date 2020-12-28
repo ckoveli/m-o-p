@@ -14,9 +14,23 @@ html, body{
     overflow-x: hidden;
 }
 body{
+    --body-background: #fafafa;
+    --nav-background: #ffffff;
+    --card-background: var(--nav-background);
+    --border-color: #dcdcdc;
+    --txt-color: #161616;
+    --p-color: #505050;
     position: relative;
-    font-family: Arial;
-    background: #fafafa;
+    background: var(--body-background);
+    transition: all 0.5s ease-in-out;
+}
+body.dark{
+    --body-background: #161616;
+    --nav-background: #000000;
+    --border-color: #505050;
+    --txt-color: #ffffff;
+    --p-color: #fafafa;
+    --shadow-color: rgba(96, 96, 96, 0.20);
 }
 .container{
     display: block;
@@ -26,15 +40,14 @@ body{
     overflow: hidden;
 }
 a{
-    display: inherit;
     cursor: pointer;
     text-decoration: none;
     font-size: inherit;
     color: inherit;
 }
 a:hover{
-    color: #161616;
-    transition: 0.25s;
+    color: var(--txt-color);
+    transition: all 0.25s ease-in-out;
 }
 .logo{
     display: block;
@@ -64,15 +77,23 @@ nav{
     justify-content: space-around;
     align-items: center;
     font-family: Optima, sans-serif;
-    border-bottom: 1px solid #dcdcdc;
-    background: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--nav-background);
     animation: navLoad 0.5s ease-in;
+    transition: all 0.5s ease-in-out;
 }
 .sticky{
     position: fixed;
     z-index: 10;
     top: 0;
     width: 100%;
+}
+#dark-mode-toggle{
+    cursor: pointer;
+    position: relative;
+    top: 6px;
+    font-size: 25px;
+    transition: all 0.25s ease;
 }
 .search{
     position: absolute;
@@ -88,18 +109,20 @@ nav{
     padding-left: 25px;
     font-size: 15px;
     letter-spacing: 1px;
-    border: 1px solid #161616;
+    border: 1px solid var(--txt-color);
     border-radius: 50%;
     outline: none;
-    background: #fafafa;
-    transition: 0.25s;
+    background: var(--body-background);
+    color: var(--txt-color);
+    transition: all 0.25s ease-in-out;
 }
 .inputClicked{
     cursor: text;
     width: 20vw;
     padding-left: 5px;
+    border: 1px solid var(--border-color);
     border-radius: 0;
-    transition: 0.25s;
+    transition: all 0.25s ease-in-out;
 }
 .searchBtn{
     position: absolute;
@@ -119,9 +142,9 @@ nav{
     width: 8px;
     height: 2px;
     content: "";
-    background: #161616;
+    background: var(--txt-color);
     transform: rotate(45deg);
-    transition: 0.25s;
+    transition: all 0.25s ease-in-out;
 }
 .close::before, .close::after{
     position: absolute;
@@ -130,8 +153,8 @@ nav{
     width: 15px;
     height: 2px;
     content: "";
-    background: #161616;
-    transition: 0.25s;
+    background: var(--txt-color);
+    transition: all 0.25s ease-in-out;
 }
 .close::before{
     transform: rotate(-45deg);
@@ -152,7 +175,7 @@ nav{
     line-height: 48px;
     font-size: 13px;
     font-weight: bold;
-    color: #161616;
+    color: var(--txt-color);
 }
 .links a{
     display: block;
@@ -162,10 +185,10 @@ nav{
     font-size: 13px;
     font-weight: bold;
     border-bottom: 1px solid transparent;
-    color: #161616;
+    color: var(--txt-color);
 }
 .links a:hover{
-    border-bottom: 1px solid #161616;
+    border-bottom: 1px solid var(--txt-color);
 }
 .mobile{
     display: none;
@@ -177,8 +200,8 @@ nav{
     margin: 5px;
     width: 25px;
     height: 2px;
-    background: #161616;
-    transition: all 0.5s ease;
+    background: var(--txt-color);
+    transition: all 0.25s ease-in-out;
 }
 .input::placeholder{
     opacity: 0;
@@ -197,15 +220,15 @@ nav{
     justify-content: center;
     text-align: center;
     line-height: 20px;
-    border: 1px solid #dcdcdc;
+    border: 1px solid var(--border-color);
     border-radius: 10px;
-    background: #ffffff;
+    background: var(--card-background);
     color: #161616;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
+    box-shadow: 0 5px 10px var(--shadow-color), 0 1px 3px var(--shadow-color);
     animation: articleLoad 0.5s ease-in 0.5s;
     animation-fill-mode: forwards;
     opacity: 0;
-    transition: 0.25s;
+    transition: all 0.25s ease;
 }
 .search-card p{
     position: relative;
@@ -214,7 +237,7 @@ nav{
     width: 100%;
     transform: translateX(-50%);
     font-size: 18px;
-    color: #505050;
+    color: var(--p-color);
 }
 .search-card button{
     cursor: pointer;
@@ -234,25 +257,26 @@ nav{
     top: 25px;
     width: 20vw;
     z-index: 10;
-    border: 1px solid #dcdcdc;
+    border: 1px solid var(--border-color);
     border-collapse: collapse;
-    background: #ffffff;
-    color: #505050;
-    transition: 0.25s;
+    background: var(--card-background);
+    color: var(--p-color);
+    transition: all 0.25s ease-in-out;
 }
 .search-results tr{
     height: 30px;
-    border-bottom: 1px solid #dcdcdc;
+    border-bottom: 1px solid var(--border-color);
 }
 .search-results tr:hover{
-    background: #fafafa;
-    transition: 0.25s;
+    background: var(--body-background);
+    transition: all 0.25s ease-in-out;
 }
 .search-results a{
     display: block;
     position: relative;
+    left: 0;
     padding: 5px;
-    color: #161616;
+    color: var(--p-color);
 }
 .search-results img{
     position: relative;
@@ -269,20 +293,20 @@ nav{
     height: 50px;
     align-items: center;
     justify-content: center;
-    border: 1px solid #dcdcdc;
+    border: 1px solid var(--border-color);
     border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
+    background: var(--card-background);
+    box-shadow: 0 5px 10px var(--shadow-color), 0 1px 3px var(--shadow-color);
 }
 .scroll-toggle i{
     position: relative;
     font-size: 25px;
-    color: #505050;
-    transition: all 0.25s ease;
+    color: var(--p-color);
+    transition: all 0.25s ease-in-out;
 }
 .scroll-toggle:hover{
     transform: translateY(-3px);
-    transition: all 0.25s ease;
+    transition: all 0.25s ease-in-out;
 }
 @keyframes navLoad{
     0%{
@@ -318,16 +342,16 @@ nav{
     }
     .search-card{
         width: 70%;
-        transition: 0.25s;
+        transition: all 0.25s ease-in-out;
     }
     .inputClicked{
         width: 61vw;
         z-index: 10;
-        transition: 0.25s;
+        transition: all 0.25s ease-in-out;
     }
     .search-results{
         width: 61vw;
-        transition: 0.25s;
+        transition: all 0.25s ease-in-out;
     }
     .close::before, .close::after{
         left: 60vw;
@@ -364,6 +388,9 @@ nav{
         transform: translateX(0%);
     }
     .scroll-toggle{
+        display: none;
+    }
+    #dark-mode-toggle{
         display: none;
     }
 }

@@ -25,13 +25,29 @@
             overflow-x: hidden;
         }
         body{
+            --body-background: #fafafa;
+            --nav-background: #ffffff;
+            --card-background: var(--nav-background);
+            --border-color: #dcdcdc;
+            --txt-color: #161616;
+            --p-color: #505050;
+            --shadow-color: rgba(0, 0, 0, 0.20);
             position: relative;
-            background: #fafafa;
+            background: var(--body-background);
+            transition: all 0.5s ease-in-out;
+        }
+        body.dark{
+            --body-background: #161616;
+            --nav-background: #000000;
+            --border-color: #505050;
+            --txt-color: #ffffff;
+            --p-color: #fafafa;
+            --shadow-color: rgba(96, 96, 96, 0.20);
         }
         p{
             font-family: poppins, sans-serif;
             font-size: 15px;
-            color: #505050;
+            color: var(--p-color);
         }
 		a{
             cursor: pointer;
@@ -40,8 +56,8 @@
             color: inherit;
         }
         a:hover{
-            color: #161616;
-            transition: 0.25s;
+            color: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
         .logo{
             display: block;
@@ -71,15 +87,23 @@
             justify-content: space-around;
             align-items: center;
             font-family: Optima, sans-serif;
-            border-bottom: 1px solid #dcdcdc;
-		    background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--nav-background);
             animation: navLoad 0.5s ease-in;
+            transition: all 0.5s ease-in-out;
         }
         .sticky{
             position: fixed;
             z-index: 10;
             top: 0;
             width: 100%;
+        }
+        #dark-mode-toggle{
+            cursor: pointer;
+            position: relative;
+            top: 6px;
+            font-size: 25px;
+            transition: all 0.25s ease;
         }
         .search{
             position: absolute;
@@ -95,18 +119,20 @@
             padding-left: 25px;
             font-size: 15px;
             letter-spacing: 1px;
-            border: 1px solid #161616;
+            border: 1px solid var(--txt-color);
             border-radius: 50%;
             outline: none;
-            background: #fafafa;
-            transition: 0.25s;
+            background: var(--body-background);
+            color: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
         .inputClicked{
             cursor: text;
             width: 20vw;
             padding-left: 5px;
+            border: 1px solid var(--border-color);
             border-radius: 0;
-            transition: 0.25s;
+            transition: all 0.25s ease-in-out;
         }
         .searchBtn{
             position: absolute;
@@ -126,9 +152,9 @@
             width: 8px;
             height: 2px;
             content: "";
-            background: #161616;
+            background: var(--txt-color);
             transform: rotate(45deg);
-            transition: 0.25s;
+            transition: all 0.25s ease-in-out;
         }
         .search-results{
             cursor: pointer;
@@ -137,26 +163,26 @@
             top: 25px;
             width: 20vw;
             z-index: 10;
-            border: 1px solid #dcdcdc;
+            border: 1px solid var(--border-color);
             border-collapse: collapse;
-            background: #ffffff;
-            color: #505050;
-            transition: 0.25s;
+            background: var(--card-background);
+            color: var(--p-color);
+            transition: all 0.25s ease-in-out;
         }
         .search-results tr{
             height: 30px;
-            border-bottom: 1px solid #dcdcdc;
+            border-bottom: 1px solid var(--border-color);
         }
         .search-results tr:hover{
-            background: #fafafa;
-            transition: 0.25s;
+            background: var(--body-background);
+            transition: all 0.25s ease-in-out;
         }
         .search-results a{
             display: block;
             position: relative;
             left: 0;
             padding: 5px;
-            color: #161616;
+            color: var(--p-color);
         }
         .search-results img{
             position: relative;
@@ -170,8 +196,8 @@
             width: 15px;
             height: 2px;
             content: "";
-            background: #161616;
-            transition: 0.25s;
+            background: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
         .close::before{
             transform: rotate(-45deg);
@@ -192,7 +218,7 @@
             line-height: 48px;
             font-size: 13px;
             font-weight: bold;
-            color: #161616;
+            color: var(--txt-color);
         }
         .links a{
             display: block;
@@ -202,10 +228,10 @@
             font-size: 13px;
             font-weight: bold;
             border-bottom: 1px solid transparent;
-            color: #161616;
+            color: var(--txt-color);
         }
         .links a:hover{
-            border-bottom: 1px solid #161616;
+            border-bottom: 1px solid var(--txt-color);
         }
         .mobile{
             display: none;
@@ -217,8 +243,8 @@
             margin: 5px;
             width: 25px;
             height: 2px;
-            background: #161616;
-            transition: all 0.5s ease;
+            background: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
         .input::placeholder{
             opacity: 0;
@@ -239,15 +265,15 @@
             width: 800px;
             line-height: 20px;
             font-family: Arial, Helvetica, sans-serif;
-            border: 1px solid #dcdcdc;
+            border: 1px solid var(--border-color);
             border-radius: 10px;
-            background: #ffffff;
-            color: #161616;
-			box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
+            background: var(--card-background);
+            color: var(--txt-color);
+			box-shadow: 0 5px 10px var(--shadow-color), 0 1px 3px var(--shadow-color);
             animation: articleLoad 0.5s ease-in 0.5s;
             animation-fill-mode: forwards;
             opacity: 0;
-            transition: 0.5s;
+            transition: all 0.5s ease-in-out;
         }
         .avatar{
 		    position: absolute;
@@ -260,7 +286,7 @@
 		    text-align: center;
 			border-top-right-radius: 10px;
 			border-top-left-radius: 10px;
-		    transition: 0.5s;
+            transition: all 0.25s ease-in-out;
 		}
         .picture{
             width: inherit;
@@ -268,26 +294,26 @@
 			border-top-right-radius: 10px;
 			border-top-left-radius: 10px;
 		    background-repeat: no-repeat;
-		    transition: 0.5s;
+            transition: all 0.25s ease-in-out;
 		}
         .title{
             padding: 20px;
             padding-left: 40px;
             letter-spacing: 1px;
             line-height: 35px;
-            color: #161616;
+            color: var(--txt-color);
             font-family: Optima, sans-serif;
             font-size: 28px;
         }
         .subtitle{
             padding-left: 40px;
-            color: #505050;
+            color: var(--p-color);
             letter-spacing: 1px;
 		    font-size: 18px;
         }
         .date{
             padding-left: 40px;
-            color: #505050;
+            color: var(--p-color);
             font-family: poppins, sans-serif;
             font-size: 14px;
             margin: 15px 0;
@@ -299,13 +325,13 @@
             font-family: poppins, sans-serif;
             font-size: 16px;
             word-wrap: break-word;
-            color: #505050;
+            color: var(--p-color);
         }
         .card .comments-title{
             padding: 20px;
             text-align: center;
             font-size: 20px;
-            color: #505050;
+            color: var(--p-color);
         }
         #comment{
             max-width: 500px;
@@ -319,25 +345,25 @@
             display: none; 
             padding-top: 20px; 
             text-align: center;
-            color: #505050;
-            transition: 0.25s;
+            color: var(--p-color);
+            transition: all 0.25s ease-in-out;
         }
         #add-comment:hover{
             cursor: pointer; 
-            color: #161616;
-            transition: 0.25s;
+            color: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
         .show-hide-replies{
             position: relative;
             top: 15px;
             font-size: 15px;
-            color: #505050;
-            transition: 0.25s;
+            color: var(--p-color);
+            transition: all 0.25s ease-in-out;
         }
         .show-hide-replies:hover{
             cursor: pointer;
-            color: #161616;
-            transition: 0.25s;
+            color: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
         .show-hide-icon{
             margin-left: 10px;
@@ -349,25 +375,25 @@
             width: 100%;
             height: 100px;
 			overflow: auto;
-		    font-size: 16px;
-            border: 1px solid #dcdcdc;
+            font-size: 16px;
+            border: 1px solid var(--border-color);
             border-radius: 5px;
-            background: #ffffff;
-			color: #505050;
-            transition: 0.25s;
+            background: var(--card-background);
+            color: var(--p-color);
+            transition: all 0.25s ease-in-out;
         }
         ::placeholder{
             font-size: 13px;
         }
         .card textarea:hover{
-            background: #fafafa;
-            color: #161616;
-		    transition: 0.25s;
+            background: var(--body-background);
+            color: var(--text-color);
+            transition: all 0.25s ease-in-out;
         }
         .card textarea:focus{
             outline: none;
-            border: 1px solid #505050;
-            background: #ffffff;
+            border: 1px solid var(--p-color);
+            background: var(--body-background);
 			transition: 0.25s;
         }
         .type{
@@ -377,14 +403,14 @@
 			margin-bottom: 25px;
 			transform: translateX(-50%);
 			width: 100px;
-			height: 25px;
-            border: 1px solid #dcdcdc;
-			overflow: hidden;
-			transition: 0.25s;
+            height: 25px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all 0.25s ease-in-out;
 		}
 		.type:hover{
-			background: #fafafa;
-			transition: 0.25s;
+            background: var(--body-background);
+            transition: all 0.25s ease-in-out;
 		}
 		.type::after{
 			cursor: pointer;
@@ -395,9 +421,9 @@
 			width: 15px;
 			padding: 2px;
 			content: '\25BC';
-			font-size: 10px;
-			color: #161616;
-			transition: 0.25s all ease;
+            font-size: 10px;
+            color: var(--txt-color);
+            transition: all 0.25s ease-in-out;
 		}
         .card input{
             display: none;
@@ -409,13 +435,15 @@
             text-align: center;
             font-size: 13px;
             border: none;
-		    border-bottom: 1px solid #dcdcdc;
-		    transition: 0.25s;
+            border-bottom: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
         .card input:focus{
             outline: none;
-            border-bottom: 1px solid #505050;
-			transition: 0.25s;
+            border-bottom: 1px solid var(--p-color);
+            transition: all 0.25s ease-in-out;
         }
         select{
 			cursor: pointer;
@@ -431,7 +459,8 @@
 			border: 0!important;
 			box-shadow: none;
 			background: none;
-			background-image: none;
+            background-image: none;
+            color: var(--txt-color);
 		}
 		select::-ms-expand{
 			display: none;
@@ -447,7 +476,7 @@
             font-size: 14px;
 		    background: #007bf6;
 		    color: white;
-		    transition: 0.25s;
+            transition: all 0.25s ease-in-out;
         }
         .reply-button{
             cursor: pointer;
@@ -459,9 +488,9 @@
             border: 1px solid transparent;
             font-family: Optima, sans-serif;
             font-size: 14px;
-            background: #dcdcdc;
-            color: #161616;
-            transition: 0.25s;
+            background: var(--border-color);
+            color: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
         .card table{
             position: relative;
@@ -469,7 +498,7 @@
             border-collapse: collapse;
         }
         .card thead{
-            border-top: 1px solid #dcdcdc;
+            border-top: 1px solid var(--border-color);
         }
         .card thead th{
             padding: 20px;
@@ -487,15 +516,15 @@
             width: 40px;
             text-align: center;
             font-size: 20px;
-            border: 1px solid #dcdcdc;
+            border: 1px solid var(--border-color);
             border-radius: 10px;
-            color: #505050;
-            transition: 0.25s;
+            color: var(--p-color);
+            transition: all 0.25s ease-in-out;
         }
         .social-media i:hover{
-            border: 1px solid #161616;
-            color: #161616;
-            transition: 0.25s;
+            border: 1px solid var(--txt-color);
+            color: var(--txt-color);
+            transition: all 0.25s ease-in-out;
         }
         .subscribe-box{
             position: fixed;
@@ -506,11 +535,11 @@
             height: 220px;
             transform: translateX(-200%);
             font-family: poppins, sans-serif;
-            border: 1px solid #dcdcdc;
+            border: 1px solid var(--border-color);
             border-radius: 10px;
-            background: #ffffff;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
-            transition: 0.5s;
+            background: var(--card-background);
+            box-shadow: 0 5px 10px var(--shadow-color), 0 1px 3px var(--shadow-color);
+            transition: all 0.5s ease-in-out;
         }
         .subscribe-box .title{
             position: relative;
@@ -518,8 +547,8 @@
             width: 100%;
             height: 50px;
             text-align: left;
-            border-bottom: 1px solid #dcdcdc;
-            color: #505050;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--p-color);
         }
         .subscribe-box .title p{
             position: absolute;
@@ -529,7 +558,7 @@
             font-family: Optima, sans-serif;
             font-weight: bold;
             font-size: 18px;
-            color: #505050;
+            color: var(--p-color);
         }
         .subscribe-box .title i{
             cursor: pointer;
@@ -561,13 +590,14 @@
             font-size: 15px;
             letter-spacing: 1px;
             border: none;
-            border-bottom: 1px solid #dcdcdc;
-            color: #505050;
-            transition: all 0.5s ease;
+            border-bottom: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--p-color);
+            transition: all 0.25s ease-in-out;
         }
         .input-data input:focus{
             outline: none;
-            border-bottom: 1px solid #505050;
+            color: var(--p-color);
         }
         .input-data label{
             cursor: text;
@@ -598,18 +628,19 @@
             border: none;
             border-radius: 5px;
             background: #007bf6;
-            color: white;
-            transition: 0.25s;
+            color: #ffffff;
+            transition: all 0.25s ease-in-out;
         }
         .subscribe-box #error-email{
             display: none;
             position: absolute;
-            bottom: 52px;
+            bottom: 50px;
             left: 10%;
             right: 10%;
             width: 80%;
             font-size: 13px;
             color: red;
+            transition: all 0.25s ease-in-out;
         }
         .subscribe-box #error-email-label{
             position: absolute;
@@ -630,20 +661,20 @@
             height: 50px;
             align-items: center;
             justify-content: center;
-            border: 1px solid #dcdcdc;
+            border: 1px solid var(--border-color);
             border-radius: 50%;
-            background: #ffffff;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.20);
+            background: var(--card-background);
+            box-shadow: 0 5px 10px var(--shadow-color), 0 1px 3px var(--shadow-color);
         }
         .scroll-toggle i{
             position: relative;
             font-size: 25px;
-            color: #505050;
-            transition: all 0.25s ease;
+            color: var(--p-color);
+            transition: all 0.25s ease-in-out;
         }
         .scroll-toggle:hover{
             transform: translateY(-3px);
-            transition: all 0.25s ease;
+            transition: all 0.25s ease-in-out;
         }
         .footer{
             margin-top: 100px;
@@ -652,9 +683,9 @@
             height: 50px;
             text-align: center;
             font-family: Optima, sans-serif;
-            border-top: 1px solid #dcdcdc;
-            background: #ffffff;
-            color: #505050;
+            border: 1px solid var(--border-color);
+            background: var(--card-background);
+            color: var(--p-color);
         }
         .footer-left{
 			display: flex;
@@ -706,11 +737,11 @@
             .inputClicked{
                 width: 61vw;
                 z-index: 10;
-                transition: 0.25s;
+                transition: all 0.25s ease-in-out;
             }
             .search-results{
                 width: 61vw;
-                transition: 0.25s;
+                transition: all 0.25s ease-in-out;
             }
             .close::before, .close::after{
                 left: 60vw;
@@ -725,10 +756,10 @@
                 right: 0px;
                 left: 50%;
                 height: 500px;
-                border: 1px solid #dcdcdc;
-                background: #ffffff;
+                border: 1px solid var(--border-color);
+                background: var(--card-background);
                 transform: translateX(100%);
-                transition: transform 0.5s ease-in;
+                transition: all 0.25s ease-in-out;
             }
             .links li{
                 opacity: 0;
@@ -748,7 +779,7 @@
             }
             .card{
                 width: 90%;
-                transition: 0.5s;
+                transition: all 0.25s ease-in-out;
             }
             .title{
                 padding-left: 10px;
@@ -801,6 +832,9 @@
                 display: none;
             }
             .scroll-toggle{
+                display: none;
+            }
+            #dark-mode-toggle{
                 display: none;
             }
             .footer{
@@ -867,6 +901,7 @@
                 <li><a href="/">Početna</a></li>
                 <li><a href="/poezija">Poezija</a></li>
                 <li><a href="/o-meni">O meni</a></li>
+                <li onclick="document.body.classList.toggle('dark');" style="position: absolute; right: 70px"><i class="fas fa-adjust" id="dark-mode-toggle"></i></li>
             </ul>
 <%}%><div class="mobile">
             <div class="line1"></div>
