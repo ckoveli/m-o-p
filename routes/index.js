@@ -48,7 +48,7 @@ router.route('/pretraga').get(getToken, paginateResults(Post), (req, res, next)=
 
 	try{
 		res.status(200).json({
-			results: await renderer.contentUpdater('search', 'results', {posts: await Post.find({title: regex}).sort({createdAt: 'desc'}).limit(6)})
+			results: await renderer.contentUpdater('search', 'results', {posts: await Post.find({title: regex}).sort({createdAt: 'desc'}).limit(6), page: req.body.q})
 		}).end();
 	}catch(e){
 		res.status(400).json({results: 'Nema rezultata.'}).end();

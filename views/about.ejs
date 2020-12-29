@@ -321,8 +321,10 @@
 		    font-size: 16px;
             color: var(--p-color);
         }
-        .body > *[style]{
+        .body > *[style],
+        .body > span{
             background: transparent !important;
+            background-color: transparent !important;
         }
         .social-media{
             position: relative;
@@ -521,16 +523,8 @@
             top: 0;
             margin-left: 30%;
         }
-        .message-body label{
-            margin-top: 60px;
-            top: 0;
-            left: 2px;
-        }
         input[name="name"]:focus ~ label[for="name"],
         input[name="email"]:focus ~ label[for="email"]{
-            top: -25px;
-        }
-        textarea[name="body"]:focus ~ label[for="body"]{
             top: -25px;
         }
         .loader-row{
@@ -668,13 +662,14 @@
             }
             .card{
                 width: 100%;
+                border-radius: 0;
                 transition: all 0.25s ease-in-out;
 			}
 			.avatar{
 		        top: -110px;
 		        left: 50%;
 		        width: 175px;
-		        height: 175px;
+                height: 175px;
                 transition: all 0.25s ease-in-out;
 		    }
 		    .picture{
@@ -687,10 +682,19 @@
                 transition: 0.5s;
             }
             .input-data input{
+                width: 45%;
                 font-size: 13px;
             }
             .input-data label{
                 font-size: 11px;
+            }
+            .input-data .message-name, 
+            .input-data .message-email,
+            .input-data .message-body{
+                width: 100%;
+            }
+            .input-data button{
+                width: 100%;
             }
             #dark-mode-toggle{
                 display: none;
@@ -859,8 +863,7 @@
                         <label onclick="document.querySelector('.message-email').getElementsByTagName('input')[0].focus();" id="label-email" for="email">Imejl adresa</label>
                     </div><br>
                     <div class="message-body"><br><br><br>
-                        <textarea onkeyup="inputFilled('textarea', document.getElementById('label-body'));" name="body"></textarea>
-                        <label onclick="document.querySelector('.message-body').getElementsByTagName('textarea')[0].focus();" id="label-body" for="body">Vaša poruka</label>
+                        <textarea name="body" placeholder="Vaša poruka"></textarea>
                     </div><br>
                     <button type="submit">Pošalji</button>
                 </form>

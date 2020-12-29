@@ -100,8 +100,10 @@
     background: transparent;
     color: var(--p-color);
 }
-.card .body > *[style]{
+.body > *[style],
+.body > span{
     background: transparent !important;
+    background-color: transparent !important;
 }
 .card label[for=avatar]{
     display: block; 
@@ -247,8 +249,9 @@
 }
 @media screen and (max-width: 1024px){
     .card{
-        width: 90%;
-        transition: 0.5s;
+        width: 100%;
+        border-radius: 0;
+        transition: all 0.25s ease-in-out;
     }
     .card h3{
         margin-top: -75px;
@@ -256,7 +259,7 @@
     .card .avatar{
         width: 150px;
         height: 150px;
-        transition: 0.5s;
+        transition: all 0.25s ease-in-out;
     }
     .card .avatar p{
         top: 30%;
@@ -265,7 +268,7 @@
     .card .picture{
         width: 150px;
         height: 150px;
-        transition: 0.5s;
+        transition: all 0.25s ease-in-out;
     }
     .card [for=title]{
         margin-left: -230px;

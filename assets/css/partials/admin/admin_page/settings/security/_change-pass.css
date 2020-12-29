@@ -122,6 +122,8 @@ input[name="newpassagain"]:focus ~ label[for="newpassagain"]{
 }
 @media screen and (max-width: 1024px){
     .card{
-        width: 90%;
+        width: 100%;
+        border-radius: 0;
+        transition: all 0.25s ease-in-out;
     }
 }

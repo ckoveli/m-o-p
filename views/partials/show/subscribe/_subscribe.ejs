@@ -6,11 +6,10 @@
         <p>Primajte obaveštenja o najnovijim objavama.</p>
         <form onsubmit="signUpNotifications(event, this)" action="" method="">
             <div class="email">
-                <input onkeyup="inputFilled(this, document.getElementById('label-email'));" type="text" name="email" required>
+                <input onkeyup="inputFilled(this, document.getElementById('label-email'));" type="text" name="email" required><br><br><br>
                 <label onclick="document.querySelector('.email').getElementsByTagName('input')[0].focus();" id="label-email" for="email">Imejl adresa</label>
             </div>
             <i id="error-email" class="fas fa-exclamation-circle"><label id="error-email-label"></label></i>
-            <br><br><br>
             <button type="submit">Prijavi se</button>
         </form>
     </div>

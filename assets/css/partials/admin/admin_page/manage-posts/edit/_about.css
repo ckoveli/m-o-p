@@ -46,8 +46,10 @@
     border-radius: 5px;
     transition: all 0.25s ease-in-out;
 }
-.card .body > *[style]{
+.body > *[style],
+.body > span{
     background: transparent !important;
+    background-color: transparent !important;
 }
 .card .body:hover{
     background: var(--body-background);
