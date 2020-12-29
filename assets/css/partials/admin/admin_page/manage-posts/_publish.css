@@ -100,7 +100,10 @@
     background: transparent;
     color: var(--p-color);
 }
-.body > *[style],
+.body > *[style]{
+    background: transparent !important;
+    background-color: transparent !important;
+}
 .body > span{
     background: transparent !important;
     background-color: transparent !important;

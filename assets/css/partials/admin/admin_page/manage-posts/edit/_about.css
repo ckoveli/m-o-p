@@ -46,7 +46,10 @@
     border-radius: 5px;
     transition: all 0.25s ease-in-out;
 }
-.body > *[style],
+.body > *[style]{
+    background: transparent !important;
+    background-color: transparent !important;
+}
 .body > span{
     background: transparent !important;
     background-color: transparent !important;
