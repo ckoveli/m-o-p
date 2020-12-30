@@ -73,6 +73,9 @@
 @media screen and (max-width: 1024px){
     .card{
         width: 100%;
+        border: none;
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
         border-radius: 0;
         transition: all 0.25s ease-in-out;
     }
@@ -81,8 +84,11 @@
         width: 50px;
         height: 50px;
     }
+    .card{
+        padding: 0;
+    }
     .card table td{
-        padding-right: 0;
+        padding: 5px;
     }
     .card tbody button{
         width: 70px;

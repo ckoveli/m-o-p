@@ -49,7 +49,7 @@
         .card p{
             margin-top: 60px;
             margin-bottom: 30px;
-            font-size: 16px;
+			font-size: 16px;
             color: var(--p-color);
         }
         .card button{
@@ -75,13 +75,12 @@
             border-top: 1px solid var(--border-color);
             background: var(--card-background);
 			color: var(--p-color);
-			transition: all 0.25s ease-in-out;
+    		transition: all 0.5s ease-in-out;
         }
         .footer-left{
 			display: flex;
             position: absolute;
 			left: 15%;
-			transition: all 0.25s ease-in-out;
         }
         .footer-right{
 			display: flex;
@@ -94,6 +93,10 @@
 			font-size: 20px;
 		}
         @media screen and (max-width: 1024px){
+			.card{
+				width: 70%;
+				transition: all 0.5s ease-in-out;
+			}
             .footer{
                 font-size: 12px;
                 height: 75px;

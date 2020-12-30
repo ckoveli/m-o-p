@@ -27,7 +27,8 @@
     		border: 1px solid var(--border-color);
     		border-radius: 10px;
     		background: var(--card-background);
-    		color: var(--txt-color);
+			color: var(--txt-color);
+			box-shadow: 0 5px 10px var(--shadow-color), 0 1px 3px var(--shadow-color);
     		animation: articleLoad 0.5s ease-in 0.5s;
     		animation-fill-mode: forwards;
     		opacity: 0;
@@ -75,7 +76,7 @@
             border-top: 1px solid var(--border-color);
             background: var(--card-background);
 			color: var(--p-color);
-			transition: all 0.25s ease-in-out;
+    		transition: all 0.5s ease-in-out;
         }
         .footer-left{
 			display: flex;
@@ -93,6 +94,10 @@
 			font-size: 20px;
 		}
         @media screen and (max-width: 1024px){
+			.card{
+				width: 70%;
+				transition: all 0.5s ease-in-out;
+			}
             .footer{
                 font-size: 12px;
                 height: 75px;

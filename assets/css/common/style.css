@@ -223,7 +223,7 @@ nav{
     border: 1px solid var(--border-color);
     border-radius: 10px;
     background: var(--card-background);
-    color: #161616;
+    color: var(--txt-color);
     box-shadow: 0 5px 10px var(--shadow-color), 0 1px 3px var(--shadow-color);
     animation: articleLoad 0.5s ease-in 0.5s;
     animation-fill-mode: forwards;
@@ -291,6 +291,7 @@ nav{
     right: 50px;
     width: 50px;
     height: 50px;
+    z-index: 10;
     align-items: center;
     justify-content: center;
     border: 1px solid var(--border-color);

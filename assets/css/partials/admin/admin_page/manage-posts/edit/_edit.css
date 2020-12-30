@@ -119,10 +119,12 @@
 .body > *[style]{
     background: transparent !important;
     background-color: transparent !important;
+    color: inherit !important;
 }
 span{
     background: transparent !important;
     background-color: transparent !important;
+    color: inherit !important;
 }
 .card .body:hover{
     background: var(--body-background);
@@ -283,6 +285,9 @@ span{
 @media screen and (max-width: 1024px){
     .card{
         width: 100%;
+        border: none;
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
         border-radius: 0;
         transition: all 0.25s ease-in-out;
     }
@@ -337,11 +342,11 @@ span{
         height: 35px;
     }
     .card .submit{
-        width: 100px;
-        height: 50px;
+        width: 135px;
+        height: 35px;
     }
     .card .cancel{
-        width: 100px;
-        height: 50px;
+        width: 135px;
+        height: 35px;
     }
 }

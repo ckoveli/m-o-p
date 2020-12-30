@@ -321,10 +321,15 @@
 		    font-size: 16px;
             color: var(--p-color);
         }
-        .body > *[style],
-        .body > span{
+        .body > *[style]{
             background: transparent !important;
             background-color: transparent !important;
+            color: inherit !important;
+        }
+        span{
+            background: transparent !important;
+            background-color: transparent !important;
+            color: inherit !important;
         }
         .social-media{
             position: relative;
@@ -458,10 +463,10 @@
             top: 0;
             left: 0;
         }
-        .message-email{
+        .message-email input{
             position: absolute;
             top: 0;
-            margin-left: 24%;
+            right: 0;
         }
         .input-data button{
             cursor: pointer;
@@ -521,7 +526,7 @@
         }
         .message-email label{
             top: 0;
-            margin-left: 30%;
+            left: 60%;
         }
         input[name="name"]:focus ~ label[for="name"],
         input[name="email"]:focus ~ label[for="email"]{
@@ -662,6 +667,9 @@
             }
             .card{
                 width: 100%;
+                border: none;
+                border-top: 1px solid var(--border-color);
+                border-bottom: 1px solid var(--border-color);
                 border-radius: 0;
                 transition: all 0.25s ease-in-out;
 			}
@@ -681,17 +689,24 @@
                 margin-top: -85px;
                 transition: 0.5s;
             }
+            .input-data .message-name, 
+            .input-data .message-email,
+            .input-data .message-body{
+                width: 100%;
+            }
             .input-data input{
                 width: 45%;
+                font-size: 13px;
+            }
+            .input-data textarea,
+            .input-data textarea::placeholder{
                 font-size: 13px;
             }
             .input-data label{
                 font-size: 11px;
             }
-            .input-data .message-name, 
-            .input-data .message-email,
-            .input-data .message-body{
-                width: 100%;
+            .message-email label{
+                left: 55%;
             }
             .input-data button{
                 width: 100%;
@@ -1011,6 +1026,7 @@
             }
         
             await fetch('/admin', options).then(res => res.json()).then((res)=>{
+                document.getElementsByClassName('card')[1].style.display = 'none';
                 document.querySelector('.card').innerHTML = res.html;
                 document.getElementById('css-partial').href = res.css;
             })
@@ -1058,6 +1074,7 @@
             }
         
             await fetch('/admin/uredi/about', options).then(res => res.json()).then((res)=>{
+                document.getElementsByClassName('card')[1].style.display = 'block';
                 document.querySelector('.card').innerHTML = res.html;
                 document.getElementById('css-partial').href = '';
             });

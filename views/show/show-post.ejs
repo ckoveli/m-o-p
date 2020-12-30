@@ -330,10 +330,12 @@
         .body > *[style]{
             background: transparent !important;
             background-color: transparent !important;
+            color: inherit !important;
         }
         span{
             background: transparent !important;
             background-color: transparent !important;
+            color: inherit !important;
         }
         .card .comments-title{
             padding: 20px;
@@ -344,10 +346,12 @@
         #comment{
             max-width: 500px;
             word-wrap: break-word;
+            font-size: 15px;
         }
         #reply{
             width: 300px;
             word-wrap: break-word;
+            font-size: 14px;
         }
         #add-comment{
             display: none; 
@@ -414,6 +418,7 @@
             height: 25px;
             overflow: hidden;
             border: 1px solid var(--border-color);
+            border-radius: 5px;
             transition: all 0.25s ease-in-out;
 		}
 		.type:hover{
@@ -481,6 +486,7 @@
             height: 30px;
             letter-spacing: 1px;
             border: none;
+            border-radius: 5px;
             font-size: 14px;
 		    background: #007bf6;
 		    color: white;
@@ -494,6 +500,7 @@
             height: 30px;
             letter-spacing: 1px;
             border: 1px solid transparent;
+            border-radius: 5px;
             font-family: Optima, sans-serif;
             font-size: 14px;
             background: var(--border-color);
@@ -501,9 +508,9 @@
             transition: all 0.25s ease-in-out;
         }
         .rep-username{
-            padding: 15px;
-            margin-left: -130px;
-            width: 125px;
+            padding: 13px;
+            margin-left: -145px;
+            width: 100px;
         }
         .card table{
             position: relative;
@@ -727,7 +734,7 @@
             height: 50px;
             text-align: center;
             font-family: Optima, sans-serif;
-            border: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-color);
             background: var(--card-background);
             color: var(--p-color);
             transition: all 0.5s ease-in-out;
@@ -774,6 +781,9 @@
                 margin-top: 150px;
                 opacity: 1;
             }
+        }
+        @media screen and (max-width: 512px){
+            
         }
         @media screen and (max-width: 1024px){
             .search{
@@ -825,6 +835,9 @@
             .card{
                 padding: 5px;
                 width: 100%;
+                border: none;
+                border-top: 1px solid var(--border-color);
+                border-top: 1px solid var(--border-color);
                 border-radius: 0;
                 transition: all 0.25s ease-in-out;
             }
@@ -852,6 +865,9 @@
                 min-height: 500px;
                 border-radius: 0;
             }
+            p{
+                font-size: 13px;
+            }
             thead th{
                 padding-right: 0;
             }
@@ -859,26 +875,49 @@
                 margin-left: -23px !important;
             }
             #commentDate{
-                width: 75px;
-                text-align: right;
-                font-size: 10px;
+                width: 75px !important;
+                text-align: right !important;
+                font-size: 10px !important;
             }
             #comment{
-				max-width: 300px; 
+                width: auto;
+                word-break: break-all;
+                font-size: 13px;
 			}
             .type{
-                width: 100px;
-                font-size: 14px;
+                left: 160px;
+                height: 25px;
+                font-size: 13px;
+            }
+            .show-hide-replies{
+                font-size: 13px;
+            }
+            .card button{
+		        width: 90px;
+                height: 25px;
+                font-size: 12px;
+            }
+            .replies-partial th{
+                font-size: 13px;
+            }
+            .reply-button{
+                padding: 2px;
+                padding-left: 8px;
+                width: 75px;
+                height: 25px;
+                font-size: 12px;
             }
             #reply{
-                max-width: 200px;
+                width: auto;
+                word-break: break-all;
                 font-size: 12px;
             }
             #com-username{
-                margin: 28px;
-                margin-left: -130px;
-                width: 155px;
+                margin: 24px;
+                margin-left: -160px;
+                width: 100px;
                 height: 30px;
+                font-size: 13px;
             }
             .subscribe-box{
                 display: none;
@@ -1054,7 +1093,7 @@
                                                                 <%= data.comments[i].replies[j].username %>
                                                             <% } %>  
                                                         <% } %>  
-                                                        </th><td align="right" style="width: 150px;"><p id="commentDate"><%= data.comments[i].replies[j].date %></p></td>
+                                                        </th><td align="right" style="width: 150px;"><p id="commentDate" style="font-size: 13px;"><%= data.comments[i].replies[j].date %></p></td>
                                                     </tr>
                                                     <tr>
                                                         <td align="left"><p id="reply"><%= data.comments[i].replies[j].reply %></p></td>

@@ -40,6 +40,16 @@
     line-height: 26px;
     color: var(--p-color);
 }
+.body > *[style]{
+    background: transparent !important;
+    background-color: transparent !important;
+    color: transparent !important;
+}
+span{
+    background: transparent !important;
+    background-color: transparent !important;
+    color: transparent !important;
+}
 @media screen and (max-width: 1024px){
     .card{
         width: 100%;

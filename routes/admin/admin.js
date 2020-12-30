@@ -35,7 +35,6 @@ router.route('/').get(getToken, async(req, res)=>{
 		mode: req.headers.cookie && req.headers.cookie.includes('dark') ? ' class="dark"' : ''
 	});
 }).post(getToken, async(req, res)=>{
-
 	await renderer.adminPage('admin/admin_page/', req, (result)=>{
 		res.status(200).json({
 			html: result.html,
