@@ -16,9 +16,9 @@
         <tbody>
             <% data.forEach((data)=>{ %> 
                 <tr>
-                    <td><img onclick="window.location.href='/poezija/<%= data.slug %>'" class="picture" src="<%= data.picture %>"></td>
-                    <td onclick="window.location.href='/poezija/<%= data.slug %>'" style="cursor: pointer; color: var(--txt-color);"><%- data.title %></td>
-                    <td onclick="window.location.href='/poezija/<%= data.slug %>'" style="border-right: 1px solid var(--border-color); color: var(--p-color);">
+                    <td><img onclick="window.location.href='/poezija/<%= data.slug %>'" class="picture" src="images/mini/<%= data.picture %>"></td>
+                    <td onclick="window.location.href='/poezija/<%= data.slug %>'" id="title-td"><%= data.title %></td>
+                    <td onclick="window.location.href='/poezija/<%= data.slug %>'" id="num-of-com-td">
                         <% function repliesCount(comments){ %> 
                             <% let cnt = 0; %>
 
@@ -38,7 +38,7 @@
                         <% } %>
                     </td>
                     <td align="left"><button onclick="load('manage-posts/edit/_edit', 'js/partials/admin/admin_page/manage-posts/edit/_edit.js', '<%= data.id %>');" id="edit-btn">Uredi</button></td>
-                    <td align="right"><button onclick="deletePost('<%= data.id %>');" id="delete-btn">Izbriši</button></td>
+                    <td align="right"><button onclick="deletePost('<%= data.id %>;<%= data.picture %>');" id="delete-btn">Izbriši</button></td>
                 </tr>
             <% }); %> 
         </tbody>

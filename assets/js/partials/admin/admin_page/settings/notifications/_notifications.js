@@ -4,15 +4,14 @@ function updateSlider(id, on, off){
             document.getElementById(id+off).style.display = '';
             document.getElementById(id+on).style.display = 'none';
             document.getElementById('notificationsMail').value = document.getElementById('notificationsMailDefault').value;
-            document.getElementById('notificationsMail').style.background = '#dcdcdc';
-            document.getElementById('notificationsMail').style.color = '#505050';
+            document.getElementById('notificationsMail').style.color = getComputedStyle(document.body).getPropertyValue('--border-color');
             document.getElementById('notificationsMail').disabled = true;
             document.getElementById('notificationsMailCheck').style.display = 'none';
             document.getElementById(id).checked = false;
             updateNotifications();
 
             for(let i=0; i<5; i++){
-                document.querySelector('.accept-notifications').getElementsByTagName('p')[i].style.color = '#dcdcdc';
+                document.querySelector('.accept-notifications').getElementsByTagName('p')[i].style.color = getComputedStyle(document.body).getPropertyValue('--border-color');
             }
             for(let i=0; i<8; i++){
                 document.querySelector('.accept-notifications').getElementsByTagName('p')[i].style.pointerEvents = 'none';
@@ -20,14 +19,13 @@ function updateSlider(id, on, off){
         }else{
             document.getElementById(id+off).style.display = 'none';
             document.getElementById(id+on).style.display = '';
-            document.getElementById('notificationsMail').style.background = 'transparent';
-            document.getElementById('notificationsMail').style.color = '#505050';
+            document.getElementById('notificationsMail').style.color = getComputedStyle(document.body).getPropertyValue('--p-color');
             document.getElementById('notificationsMail').disabled = false;
             document.getElementById(id).checked = true;
             updateNotifications();
 
             for(let i=0; i<5; i++){
-                document.querySelector('.accept-notifications').getElementsByTagName('p')[i].style.color = '#505050';
+                document.querySelector('.accept-notifications').getElementsByTagName('p')[i].style.color = getComputedStyle(document.body).getPropertyValue('--p-color');
             }
             for(let i=0; i<8; i++){
                 document.querySelector('.accept-notifications').getElementsByTagName('p')[i].style.pointerEvents = 'auto';

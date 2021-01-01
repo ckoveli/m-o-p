@@ -170,6 +170,7 @@
             transition: all 0.25s ease-in-out;
         }
         .search-results tr{
+            position: relative;
             height: 30px;
             border-bottom: 1px solid var(--border-color);
         }
@@ -185,9 +186,13 @@
             color: var(--p-color);
         }
         .search-results img{
-            position: relative;
-            width: 30px;
-            height: 30px;
+            position: absolute;
+            top: -14px;
+            left: 0;
+            width: 50px;
+            height: 38px;
+            border: none;
+            outline: none;
         }
         .close::before, .close::after{
             position: absolute;
@@ -328,11 +333,13 @@
             color: var(--p-color);
         }
         .body > *[style]{
+            font-family: poppins, sans-serif !important;
             background: transparent !important;
             background-color: transparent !important;
             color: inherit !important;
         }
         span{
+            font-family: poppins, sans-serif !important;
             background: transparent !important;
             background-color: transparent !important;
             color: inherit !important;
@@ -782,9 +789,6 @@
                 opacity: 1;
             }
         }
-        @media screen and (max-width: 512px){
-            
-        }
         @media screen and (max-width: 1024px){
             .search{
                 left: 19%;
@@ -1007,7 +1011,7 @@
         <div class="scroll-toggle" onclick="document.body.scrollIntoView({behavior: 'smooth', block: 'start'});"><i class="fas fa-chevron-up"></i></div>
         <div class="card">
             <div class="avatar">
-                <img class="picture" src="<%= data.picture %>">
+                <img class="picture" src="images/full/<%= data.picture %>">
             </div><% if(!!data.picture){ %><h3 class="title" style="margin-top: 490px;"><%= data.title %></h3><% }else{ %> 
             <h3 class="title"><%= data.title %></h3><% } %>  
             <p class="subtitle"><%= data.subtitle %></p>

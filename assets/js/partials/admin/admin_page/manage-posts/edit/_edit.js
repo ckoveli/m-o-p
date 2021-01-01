@@ -43,7 +43,7 @@ async function save(id){
             newPreview: `${preview.slice(0, 100)}...`,  
             newSubtitle: subtitle, 
             newBody: body, 
-            newPicture: newPicture || picture,
+            newPicture: newPicture || null,
             newCommentsEnabled: commentsEnabled
         })
     }

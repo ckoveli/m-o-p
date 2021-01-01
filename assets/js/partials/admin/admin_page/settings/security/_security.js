@@ -13,8 +13,14 @@ function updateSlider(id, on, off){
             document.getElementById(id).checked = false;
             updateSecurity();
             
+            document.getElementById('securityQuestionQuestion').style.color = getComputedStyle(document.body).getPropertyValue('--border-color');
+            document.getElementById('label-question').style.color = getComputedStyle(document.body).getPropertyValue('--border-color');
+
+            document.getElementById('securityQuestionAnswer').style.color = getComputedStyle(document.body).getPropertyValue('--border-color');
+            document.getElementById('label-answer').style.color = getComputedStyle(document.body).getPropertyValue('--border-color');
+
             for(let i=0; i<2; i++){
-                document.querySelector('.accept-2step').getElementsByTagName('p')[i].style.color = '#dcdcdc';
+                document.querySelector('.accept-2step').getElementsByTagName('p')[i].style.color = getComputedStyle(document.body).getPropertyValue('--border-color');
             }
             for(let i=0; i<2; i++){
                 document.querySelector('.accept-2step').getElementsByTagName('p')[i].style.pointerEvents = 'none';
@@ -25,8 +31,14 @@ function updateSlider(id, on, off){
             document.getElementById(id).checked = true;
             updateSecurity();
 
+            document.getElementById('securityQuestionQuestion').style.color = getComputedStyle(document.body).getPropertyValue('--p-color');
+            document.getElementById('label-question').style.color = getComputedStyle(document.body).getPropertyValue('--p-color');
+
+            document.getElementById('securityQuestionAnswer').style.color = getComputedStyle(document.body).getPropertyValue('--p-color');
+            document.getElementById('label-answer').style.color = getComputedStyle(document.body).getPropertyValue('--p-color');
+
             for(let i=0; i<2; i++){
-                document.querySelector('.accept-2step').getElementsByTagName('p')[i].style.color = '#505050';
+                document.querySelector('.accept-2step').getElementsByTagName('p')[i].style.color = getComputedStyle(document.body).getPropertyValue('--p-color');
             }
             for(let i=0; i<2; i++){
                 document.querySelector('.accept-2step').getElementsByTagName('p')[i].style.pointerEvents = 'auto';

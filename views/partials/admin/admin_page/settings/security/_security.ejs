@@ -18,12 +18,12 @@
                 <i onclick="updateSecurity(); this.style.display = 'none';" id="securityQuestionAnswerCheck" class="fas fa-check-square" style="display: none;"></i>
                 <div class="input-data">
                     <div class="question">
-                        <input id="securityQuestionQuestion" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="question" value="<%= securityQuestionQuestion %>">
-                        <label onclick="document.querySelector('.question').getElementsByTagName('input')[0].focus();" id="label-question" for="question">Pitanje</label>
+                        <input id="securityQuestionQuestion" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="question" value="<%= securityQuestionQuestion %>" style="color: var(--border-color);">
+                        <label onclick="document.querySelector('.question').getElementsByTagName('input')[0].focus();" id="label-question" for="question" style="color: var(--border-color);">Pitanje</label>
                     </div>
                     <div class="answer">
-                        <input id="securityQuestionAnswer" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="answer" value="<%= securityQuestionAnswer %>">
-                        <label onclick="document.querySelector('.answer').getElementsByTagName('input')[0].focus();" id="label-answer" for="answer">Odgovor</label>
+                        <input id="securityQuestionAnswer" onkeyup="document.getElementById('securityQuestionAnswerCheck').style.display = '';" type="text" name="answer" value="<%= securityQuestionAnswer %>" style="color: var(--border-color);">
+                        <label onclick="document.querySelector('.answer').getElementsByTagName('input')[0].focus();" id="label-answer" for="answer" style="color: var(--border-color);">Odgovor</label>
                     </div>
                 </div><br>
             <% }else if(securityCode == true){ %>

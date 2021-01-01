@@ -11,14 +11,9 @@ const { remove } = require('./../../models/post');
 const { render } = require('ejs');
 const mailer = require('../../services/mailer');
 const renderer = require('../../services/renderer');
+const imager = require('../../services/imager');
 
 let twoStepCode;
-
-/*
-	KADA PUSHUJES NA MASTER, IZBRISI OVA COOKIES GOVNA ZA TRAGANJE ADMINA, JER NA PRODUCTION VERZIJI IMA SAMO JEDAN ADMIN
-
-	BTW COOKIES SU U ADMIN.JS, INDEX.JS RUTAMA I RENDERER.JS
-*/
 
 router.use(express.static('assets'));
 router.use(express.json({limit: '5mb'}));
@@ -50,7 +45,7 @@ router.post('/objavi', getToken, async(req, res)=>{
 		subtitle: req.body.subtitle,
 		preview: req.body.preview,
 		body: req.body.body,
-		picture: req.body.picture,
+		picture: await imager.writeImage(req.body.picture, slugify(req.body.title, {lower: true, strict: true})),
 		commentsEnabled: req.body.commentsEnabled,
 		slug: slugify(req.body.title, {lower: true, strict: true})
 	});
@@ -277,8 +272,9 @@ router.put('/uredi/:id', getToken, async(req, res, next)=>{
 		post.subtitle = req.body.newSubtitle;
 		post.body = req.body.newBody;
 		post.preview = req.body.newPreview;
-		post.picture = req.body.newPicture;
+		post.picture = await imager.changeImage(req.body.newPicture, post.slug, slugify(req.body.newTitle, {lower: true, strict: true}));
 		post.commentsEnabled = req.body.newCommentsEnabled;
+		post.slug = slugify(req.body.newTitle, {lower: true, strict: true});
 		try{
 			post = await post.save();
 			res.json({slug: post.slug});
@@ -343,7 +339,8 @@ router.put('/settings', getToken, async(req, res, next)=>{
 	}
 });
 router.delete('/objave/:id', getToken, async(req, res)=>{
-	await Post.findByIdAndDelete(req.params.id);
+	await Post.findByIdAndDelete(req.params.id.split(';')[0]);
+	await imager.deleteImage(req.params.id.split(';')[1]);
 
 	const posts = await Post.find().sort({createdAt: 'desc'});
 

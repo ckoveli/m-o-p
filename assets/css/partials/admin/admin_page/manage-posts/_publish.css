@@ -101,11 +101,13 @@
     color: var(--p-color);
 }
 .body > *[style]{
+    font-family: poppins, sans-serif !important;
     background: transparent !important;
     background-color: transparent !important;
     color: inherit !important;
 }
 span{
+    font-family: poppins, sans-serif !important;
     background: transparent !important;
     background-color: transparent !important;
     color: inherit !important;

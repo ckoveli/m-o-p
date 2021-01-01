@@ -7,7 +7,7 @@
         </p>
         <div class="accept-notifications">
             <p style="color: var(--border-color);">
-                Na imejl: <input disabled onkeyup="document.getElementById('notificationsMailCheck').style.display = '';" id="notificationsMail" type="text" value="<%= mail %>" style="background: var(--border-color);">
+                Na imejl: <input disabled onkeyup="document.getElementById('notificationsMailCheck').style.display = '';" id="notificationsMail" type="text" value="<%= mail %>" style="color: var(--border-color);">
                 <i onclick="updateNotifications(); this.style.display = 'none';" id="notificationsMailCheck" class="fas fa-check-square" style="display: none;"></i>
                 <input type="hidden" value="<%= mail %>" id="notificationsMailDefault">
             </p><br>

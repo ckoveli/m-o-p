@@ -1,4 +1,4 @@
 <% for(let i=0; i<posts.length; i++){ %>
-    <tr><td><a href="/poezija/<%= posts[i].slug %>"><img src="<%- posts[i].picture %>"></a></td><td><a href="/poezija/<%= posts[i].slug %>"><%= posts[i].title %></a></td></tr>
+    <tr><td><a href="/poezija/<%= posts[i].slug %>"><img src="images/mini/<%- posts[i].picture %>"></a></td><td><a href="/poezija/<%= posts[i].slug %>" style="position: relative; left: 35px;"><%= posts[i].title %></a></td></tr>
 <% } %>
     <tr><td colspan="2" style="text-align: center;"><a href="/pretraga?q=<%- page %>">Prikaži sve rezultate</a></td></tr>
