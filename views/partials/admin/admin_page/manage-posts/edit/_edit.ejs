@@ -3,7 +3,7 @@
 		<label for="avatar">Naslovna slika</label>
 		<div class="avatar" onclick="uploadTitleImage();">
 			<p>Izaberi sliku</p>
-			<img class="picture" src="<%= data.picture %>">
+			<img class="picture" src="images/full/<%= data.picture %>">
 			<input id="inputTitleImage" type="file" accept="image/*" onchange="viewTitleImage(event);" style="display: none;">
 		</div>
 		<label for="title">Naslov</label>
