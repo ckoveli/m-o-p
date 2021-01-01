@@ -26,7 +26,7 @@ const changeImage = async(img, curname, newname)=>{
                 });
                 return `${curname}.jpg`;
             }else{
-                await deleteImage(curname+'.jpg');
+                //await deleteImage(curname+'.jpg');
                 Jimp.read(buf, (err, res)=>{
                     res.resize(800, 500).quality(80).write(`assets/images/full/${newname}.jpg`)
                     res.resize(150, 100).quality(40).write(`assets/images/mini/${newname}.jpg`)
