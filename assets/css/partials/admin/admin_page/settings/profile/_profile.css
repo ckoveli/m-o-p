@@ -42,7 +42,7 @@
     border: 1px solid var(--border-color);
     border-radius: 5px;
     background: transparent;
-    color: var(--p-color);
+    color: var(--p-color) !important;
     transition: all 0.25s ease-in-out;
 }
 .card .body > *[style]{

@@ -165,14 +165,17 @@
             top: 25px;
             width: 20vw;
             z-index: 10;
-            border-collapse: collapse;
             border: 1px solid var(--border-color);
+            border-collapse: collapse;
             background: var(--card-background);
             color: var(--p-color);
             transition: all 0.25s ease-in-out;
         }
         .search-results tr{
+            position: relative;
             height: 30px;
+            width: inherit;
+            word-wrap: break-word;
             border-bottom: 1px solid var(--border-color);
         }
         .search-results tr:hover{
@@ -184,13 +187,15 @@
             position: relative;
             left: 0;
             padding: 5px;
+            max-width: 80%;
+            word-wrap: break-word;
             color: var(--p-color);
         }
         .search-results img{
             position: absolute;
             top: -14px;
             left: 0;
-            width: 50px;
+            width: 38px;
             height: 38px;
             border: none;
             outline: none;
@@ -634,6 +639,14 @@
             .search-results{
                 width: 61vw;
                 transition: all 0.25s ease-in-out;
+            }
+            .search-results tr{
+                font-size: 13px;
+                transition: all 0.25s ease-in-out;
+            }
+            .search-results img{
+                top: -12px;
+                height: 34px;
             }
             .close::before, .close::after{
                 left: 60vw;
